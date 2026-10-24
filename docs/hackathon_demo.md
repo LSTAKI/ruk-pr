@@ -88,7 +88,7 @@ npm run dev
 | :--- | :--- | :--- | :--- |
 | **1. Application Shell & Health** | 0:00 - 0:30 | Open `http://localhost:3000` | Point out the **LOCAL-FIRST** badge, **Engine Online** indicator, and **Simulated FMCG v1.0** dataset tag. Emphasize zero external cloud dependencies. |
 | **2. Inventory Accounting** | 0:30 - 1:00 | Click **Inventory Explorer** tab | Highlight the 4-tier accounting distinction: On-Hand vs. Reserved vs. Available vs. **Usable Stock**. Filter by `QUARANTINED` to prove that quarantined batches show **0 Usable units** and are excluded from allocation. |
-| **3. Demand Forecasting** | 1:00 - 1:30 | Click **Demand Forecast** tab | Select Corridor `PRD-MILK` &rarr; `DST-001`. Select **EWMA** (&alpha; = 0.30) with a **7-day horizon**. Click **Generate Forecast**. Point out the Recharts curve showing historical demand actuals followed by forward projections. Click **Run Backtest Evaluation** to demonstrate holdout validation (MAE &amp; WAPE). |
+| **3. Demand Forecasting** | 1:00 - 1:30 | Click **Demand Forecast** tab | Select Corridor `SKU-0001 - Whole Milk 1 Gallon` &rarr; `DST-01 - Sacramento Capitol Foods`. Select **EWMA** (&alpha; = 0.30) with a **7-day horizon**. Click **Generate Forecast**. Point out the Recharts curve showing historical demand actuals followed by forward projections. Click **Run Backtest Evaluation** to demonstrate holdout validation (MAE &amp; WAPE). |
 | **4. Replenishment Risks** | 1:30 - 2:00 | Click **Replenishment** tab | Show the critical risk pairs and highlight the **Operational Model Notice (GAP-1 & GAP-2)** disclosing store-level inventory assumptions. Click **Details** on any row to open the mathematical driver explanation modal. |
 | **5. OR-Tools Optimization** | 2:00 - 2:45 | Click **Optimizer Planner** tab | Select **Balanced** profile (7-day horizon). Click **Run Local Optimizer**. Point out the **OPTIMAL** status card, runtime (<0.5s), **Verifier: Feasible** badge, and shipment recommendation table. Expand a row to show the driver-based rationale explaining why alternatives were rejected. |
 | **6. Scenario Trade-offs** | 2:45 - 3:30 | Click **Scenario Compare** tab | Click **Run Scenario Comparison**. Show the comparative matrix across **Cost-First**, **Balanced**, and **Service-First**. Point out the empirical trade-off: Cost-First saves freight ($50,150.99), while Service-First maximizes customer fulfillment (91.74%). Point out that Expiry Waste is honestly labeled **Not Modeled**. |
@@ -104,7 +104,7 @@ $$\text{Corridor Demand}_{d,p} = \lceil \text{LeadTimeDemand}_{d,p} + \text{Safe
 Under the active operational data gaps (**GAP-1** store on-hand $= 0$ and **GAP-2** in-transit $= 0$), this simplifies to:
 $$\text{Corridor Demand}_{d,p} = \lceil \text{LeadTimeDemand}_{d,p} + \text{SafetyStock}_{d,p} \rceil$$
 * **Total Lead-Time Demand**: $\sum \text{LTD} = 28,745.44 \text{ units}$ (daily mean &times; route lead time in days).
-* **Total Safety Stock**: $\sum \text{SS} = 10,744.93 \text{ units}$ ($z \times \sigma \times \sqrt{L}$, where $z = 1.65$).
+* **Total Safety Stock**: $\sum \text{SS} = 10,744.93 \text{ units}$ ($z \times \sigma \times \sqrt{L}$, where $z = 1.65$ reflects a theoretical 95% cycle-service level assumption under normal demand, not a guarantee of 95% network volume fulfillment).
 * **Continuous Sum (LTD + SS)**: $39,490.36 \text{ units}$.
 * **Discrete Integer Sum ($\sum \lceil \text{LTD} + \text{SS} \rceil$)**: **39,878 integer units** (integer ceiling adds $+387.64 \text{ u}$ over 800 corridors, $+0.48 \text{ u/corridor}$).
 
@@ -127,12 +127,13 @@ The following metrics were measured on the deterministic seed `42` dataset (`v1.
 | **Solver Runtime** | 0.39s | 0.20s | 0.43s | < 0.05s |
 | **12-Invariant Verifier** | `FEASIBLE` (12/12) | `FEASIBLE` (12/12) | `FEASIBLE` (12/12) | `FEASIBLE` (12/12) |
 
-### 3. Explicit Mathematical Formulas
+### 3. Explicit Mathematical Formulas & Cost Separation
 * **Fulfillment Rate**: $\text{Rate} = \frac{\text{Fulfilled Units}}{\text{Total Demand Considered}} \times 100\%$
 * **Average Freight Cost per Fulfilled Unit**: $\text{Avg Cost} = \frac{\text{Total Freight Cost}}{\text{Fulfilled Units}}$
 * **Freight Cost Reduction vs. Baseline**: $\Delta \text{Cost} = \text{Baseline Freight Cost} - \text{Optimized Freight Cost}$
 * **Percentage Reduction**: $\text{Savings \%} = \frac{\Delta \text{Cost}}{\text{Baseline Freight Cost}} \times 100\%$
 * **Demand Conservation**: $\text{Fulfilled Units} + \text{Unmet Units} \equiv \text{Total Demand Considered}$
+* **Objective Function vs. Pure Freight**: The reported freight cost is strictly $\sum x_{wdp} \cdot c_{wd}$. Mathematical objective penalties (unmet-demand penalties $2 \cdot P_p \cdot u$ or $5 \cdot P_p \cdot u$, and lead-time freshness penalties $0.20 \cdot T_{wd} \cdot x$) are internal solver optimization weights and are never added to the reported freight dollar total.
 
 ---
 

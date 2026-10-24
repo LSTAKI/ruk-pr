@@ -52,7 +52,7 @@
 > **Spoken**:  
 > "Next, how do we anticipate demand? StockWise AI continuously models order histories across all 800 product-destination corridors in our network.
 > 
-> Let's select Corridor `PRD-MILK` shipping to `DST-001` (Sacramento Capitol Foods). We'll choose **EWMA** with an alpha smoothing factor of 0.30 over a **7-day horizon**, and click **Generate Forecast**. *(Click Generate Forecast button)*.
+> Let's select Corridor `SKU-0001 - Whole Milk 1 Gallon` shipping to `DST-01 - Sacramento Capitol Foods (Sacramento)`. We'll choose **EWMA** with an alpha smoothing factor of 0.30 over a **7-day horizon**, and click **Generate Forecast**. *(Click Generate Forecast button)*.
 > 
 > Instantly, the engine visualizes the 120-day historical demand actuals followed by the forward-looking forecast curve. We don't just generate numbers—we audit them. If I click **Run Backtest Evaluation**, the system runs an automated chronological holdout backtest, reporting a Mean Absolute Error (MAE) and Weighted Absolute Percentage Error (WAPE). This gives planners empirical confidence in their demand baseline."
 
@@ -67,7 +67,7 @@
 > 
 > Here in the Replenishment Planner, the engine converts daily forecast means into exact replenishment thresholds using two factors:
 > 1. **Lead-Time Demand**: The demand expected to occur during the transit window from the fastest eligible warehouse.
-> 2. **Dynamic Safety Stock**: Calculated using $z \times \sigma \times \sqrt{L}$ at a 95% non-stockout target.
+> 2. **Dynamic Safety Stock**: Calculated using $z \times \sigma \times \sqrt{L}$ under a standard theoretical 95% cycle-service level assumption ($z = 1.65$).
 > 
 > Notice our transparent operational disclosure banner: in this demo, destination store inventory and in-transit shipments are modeled as zero (documented as GAP-1 and GAP-2), meaning the gross replenishment equals the full threshold.
 > 

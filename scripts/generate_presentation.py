@@ -9,42 +9,38 @@ from pptx.enum.shapes import MSO_SHAPE
 
 def build_presentation():
     prs = Presentation()
-    # Set 16:9 widescreen dimensions
+    # 16:9 widescreen dimensions (13.333 x 7.5 inches)
     prs.slide_width = Inches(13.333)
     prs.slide_height = Inches(7.5)
     blank_layout = prs.slide_layouts[6]
 
     # Theme Palette (Enterprise Supply Chain Palette)
-    NAVY = RGBColor(15, 23, 42)        # Slate 900
-    SLATE_DARK = RGBColor(30, 41, 59)   # Slate 800
+    NAVY = RGBColor(15, 23, 42)          # Slate 900
+    SLATE_DARK = RGBColor(30, 41, 59)     # Slate 800
     SLATE_LIGHT = RGBColor(241, 245, 249) # Slate 100
     WHITE = RGBColor(255, 255, 255)
-    TEAL = RGBColor(13, 148, 136)       # Teal 600
-    BLUE = RGBColor(14, 116, 144)       # Sky/Cyan 700
-    ACCENT_BLUE = RGBColor(2, 132, 199) # Sky 600
-    ACCENT_GREEN = RGBColor(22, 163, 74) # Green 600
-    TEXT_MUTED = RGBColor(100, 116, 139) # Slate 500
-    TEXT_MAIN = RGBColor(15, 23, 42)
-    BORDER_COLOR = RGBColor(203, 213, 225) # Slate 300
+    ACCENT_BLUE = RGBColor(2, 132, 199)   # Sky 600
+    ACCENT_GREEN = RGBColor(22, 163, 74)  # Green 600
+    TEXT_MUTED = RGBColor(100, 116, 139)  # Slate 500
+    BORDER_COLOR = RGBColor(203, 213, 225)# Slate 300
+    RED_ACCENT = RGBColor(185, 28, 28)    # Red 700
 
     def add_header(slide, title_text, category_text="STOCKWISE AI | TRIWIZATHON PS-2"):
-        # Category tag
         cat_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.4), Inches(11.5), Inches(0.35))
         tf_cat = cat_box.text_frame
         tf_cat.word_wrap = True
         p_cat = tf_cat.paragraphs[0]
         p_cat.text = category_text.upper()
-        p_cat.font.size = Pt(10)
+        p_cat.font.size = Pt(11)
         p_cat.font.bold = True
         p_cat.font.color.rgb = ACCENT_BLUE
 
-        # Slide Title
-        title_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.7), Inches(11.5), Inches(0.6))
+        title_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.72), Inches(11.5), Inches(0.65))
         tf_title = title_box.text_frame
         tf_title.word_wrap = True
         p_title = tf_title.paragraphs[0]
         p_title.text = title_text
-        p_title.font.size = Pt(22)
+        p_title.font.size = Pt(23)
         p_title.font.bold = True
         p_title.font.color.rgb = NAVY
 
@@ -63,26 +59,25 @@ def build_presentation():
     # SLIDE 1: Title Slide
     # =========================================================================
     slide1 = prs.slides.add_slide(blank_layout)
-    # Background
     bg1 = slide1.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, prs.slide_width, prs.slide_height)
     bg1.fill.solid()
     bg1.fill.fore_color.rgb = NAVY
     bg1.line.fill.background()
 
-    # Title box
-    tbox1 = slide1.shapes.add_textbox(Inches(1.2), Inches(1.8), Inches(10.5), Inches(3.5))
+    tbox1 = slide1.shapes.add_textbox(Inches(1.2), Inches(1.8), Inches(10.5), Inches(3.6))
     tf1 = tbox1.text_frame
     tf1.word_wrap = True
 
     p_badge = tf1.paragraphs[0]
     p_badge.text = "TRIWIZATHON PROBLEM STATEMENT 2"
-    p_badge.font.size = Pt(12)
+    p_badge.font.size = Pt(13)
     p_badge.font.bold = True
     p_badge.font.color.rgb = ACCENT_BLUE
+    p_badge.space_after = Pt(8)
 
     p_main = tf1.add_paragraph()
     p_main.text = "StockWise AI"
-    p_main.font.size = Pt(44)
+    p_main.font.size = Pt(46)
     p_main.font.bold = True
     p_main.font.color.rgb = WHITE
     p_main.space_after = Pt(14)
@@ -98,12 +93,10 @@ def build_presentation():
     p_tag.font.size = Pt(14)
     p_tag.font.color.rgb = RGBColor(148, 163, 184)
 
-    # Footer metadata box
     fbox1 = slide1.shapes.add_textbox(Inches(1.2), Inches(5.8), Inches(10.5), Inches(0.8))
-    tff = fbox1.text_frame
-    p_foot = tff.paragraphs[0]
+    p_foot = fbox1.text_frame.paragraphs[0]
     p_foot.text = "Architecture: Next.js 15 | FastAPI | Google OR-Tools | SQLite3 | 12-Invariant Mathematical Verifier"
-    p_foot.font.size = Pt(11)
+    p_foot.font.size = Pt(11.5)
     p_foot.font.color.rgb = RGBColor(148, 163, 184)
 
     # =========================================================================
@@ -135,7 +128,7 @@ def build_presentation():
         tf.word_wrap = True
         p1 = tf.paragraphs[0]
         p1.text = f"0{idx+1}. {title}"
-        p1.font.size = Pt(15)
+        p1.font.size = Pt(16)
         p1.font.bold = True
         p1.font.color.rgb = NAVY
         p1.space_after = Pt(8)
@@ -153,7 +146,7 @@ def build_presentation():
 
     steps = [
         ("1. Demand Forecasting", "EWMA, Naive & Seasonal-Naive over 800 corridors with backtesting validation (MAE & WAPE)."),
-        ("2. Replenishment Calculation", "Lead-time demand + dynamic safety stock (z=1.65) to compute exact carton replenishment thresholds."),
+        ("2. Replenishment Calculation", "Lead-time demand + dynamic safety stock to compute exact carton replenishment thresholds."),
         ("3. Constraint-Aware MIP", "Google OR-Tools solver evaluating physical stock, throughput limits, and delivery cutoffs."),
         ("4. Independent Verification", "12-invariant external verifier guarantees feasibility before any plan is presented."),
         ("5. Explainable Execution", "Driver-based natural language attribution and RFC 4180 CSV export for supply chain planners.")
@@ -161,22 +154,22 @@ def build_presentation():
 
     for idx, (title, desc) in enumerate(steps):
         left = Inches(0.8 + idx * 2.35)
-        top = Inches(1.8)
-        add_card(slide3, left, top, Inches(2.2), Inches(4.8), WHITE, BORDER_COLOR)
+        top = Inches(1.7)
+        add_card(slide3, left, top, Inches(2.2), Inches(5.0), WHITE, BORDER_COLOR)
 
-        tbox = slide3.shapes.add_textbox(left + Inches(0.15), top + Inches(0.2), Inches(1.9), Inches(4.3))
+        tbox = slide3.shapes.add_textbox(left + Inches(0.15), top + Inches(0.25), Inches(1.9), Inches(4.5))
         tf = tbox.text_frame
         tf.word_wrap = True
         p1 = tf.paragraphs[0]
         p1.text = title
-        p1.font.size = Pt(13)
+        p1.font.size = Pt(13.5)
         p1.font.bold = True
         p1.font.color.rgb = ACCENT_BLUE
-        p1.space_after = Pt(10)
+        p1.space_after = Pt(12)
 
         p2 = tf.add_paragraph()
         p2.text = desc
-        p2.font.size = Pt(11)
+        p2.font.size = Pt(11.5)
         p2.font.color.rgb = SLATE_DARK
 
     # =========================================================================
@@ -185,7 +178,6 @@ def build_presentation():
     slide4 = prs.slides.add_slide(blank_layout)
     add_header(slide4, "Local-First Enterprise System Architecture")
 
-    # Left Column: Layer Diagram
     layers = [
         ("Presentation Layer (Next.js 15 App Router)", "React 19, TypeScript strict mode, TanStack React Query v5, Recharts, Tailwind CSS tokens. 7 interactive operational control towers."),
         ("API Services Layer (FastAPI Asynchronous Backend)", "Pydantic v2 schemas, OpenAPI/Swagger contracts, RFC 4180 / OWASP CSV sanitization, planning run management."),
@@ -202,15 +194,14 @@ def build_presentation():
         tf.word_wrap = True
         p1 = tf.paragraphs[0]
         p1.text = layer_title
-        p1.font.size = Pt(12)
+        p1.font.size = Pt(12.5)
         p1.font.bold = True
         p1.font.color.rgb = NAVY
         p2 = tf.add_paragraph()
         p2.text = layer_desc
-        p2.font.size = Pt(10)
+        p2.font.size = Pt(10.5)
         p2.font.color.rgb = SLATE_DARK
 
-    # Right Column: Architectural Highlights
     add_card(slide4, Inches(8.6), Inches(1.5), Inches(3.9), Inches(5.35), WHITE, BORDER_COLOR)
     rtbox = slide4.shapes.add_textbox(Inches(8.8), Inches(1.7), Inches(3.5), Inches(4.9))
     rtf = rtbox.text_frame
@@ -231,12 +222,12 @@ def build_presentation():
     for p_title, p_desc in pillars:
         pt = rtf.add_paragraph()
         pt.text = f"• {p_title}:"
-        pt.font.size = Pt(11)
+        pt.font.size = Pt(11.5)
         pt.font.bold = True
         pt.font.color.rgb = ACCENT_BLUE
         pd = rtf.add_paragraph()
         pd.text = f"  {p_desc}"
-        pd.font.size = Pt(10)
+        pd.font.size = Pt(10.5)
         pd.font.color.rgb = SLATE_DARK
         pd.space_after = Pt(8)
 
@@ -246,7 +237,6 @@ def build_presentation():
     slide5 = prs.slides.add_slide(blank_layout)
     add_header(slide5, "Demand Forecasting & Inventory Accounting Intelligence")
 
-    # Left: Forecasting & Replenishment
     add_card(slide5, Inches(0.8), Inches(1.5), Inches(5.6), Inches(5.35), WHITE, BORDER_COLOR)
     ltbox = slide5.shapes.add_textbox(Inches(1.0), Inches(1.7), Inches(5.2), Inches(4.9))
     ltf = ltbox.text_frame
@@ -261,17 +251,16 @@ def build_presentation():
     f_points = [
         ("Consumer Demand Forecasting", "EWMA (alpha=0.30) models daily mean demand across 800 corridors from 120-day empirical history. Validated via backtesting holdouts (MAE & WAPE)."),
         ("Lead-Time Demand (LTD)", "LTD = Daily Mean Demand x Route Lead Time in days across fastest eligible lane. Network sum: 28,745.44 units."),
-        ("Dynamic Safety Stock (SS)", "SS = z x sigma x sqrt(L) with 95% service level factor (z=1.65). Buffers demand & lead-time variance. Network sum: 10,744.93 units."),
+        ("Dynamic Safety Stock (SS)", "SS = z x sigma x sqrt(L) under standard cycle-service level assumption (z=1.65, 95% cycle target; not guaranteed volume fill rate). Network sum: 10,744.93 units."),
         ("Replenishment Requirement", "Total Demand = ceil(LTD + SS) = 39,878 units. Represents integer cartons needed to prevent stockouts over transit lead times.")
     ]
     for pt, pd in f_points:
         p = ltf.add_paragraph()
         p.text = f"• {pt}: {pd}"
-        p.font.size = Pt(10.5)
+        p.font.size = Pt(11)
         p.font.color.rgb = SLATE_DARK
-        p.space_after = Pt(8)
+        p.space_after = Pt(9)
 
-    # Right: 4-Tier Inventory Accounting
     add_card(slide5, Inches(6.8), Inches(1.5), Inches(5.7), Inches(5.35), SLATE_LIGHT, BORDER_COLOR)
     rtbox5 = slide5.shapes.add_textbox(Inches(7.0), Inches(1.7), Inches(5.3), Inches(4.9))
     rtf5 = rtbox5.text_frame
@@ -292,14 +281,14 @@ def build_presentation():
     for tt, td in tiers:
         p = rtf5.add_paragraph()
         p.text = f"{tt}:"
-        p.font.size = Pt(11)
+        p.font.size = Pt(11.5)
         p.font.bold = True
         p.font.color.rgb = ACCENT_BLUE
         pd = rtf5.add_paragraph()
         pd.text = f"{td}"
-        pd.font.size = Pt(10.5)
+        pd.font.size = Pt(11)
         pd.font.color.rgb = SLATE_DARK
-        pd.space_after = Pt(6)
+        pd.space_after = Pt(7)
 
     # =========================================================================
     # SLIDE 6: Optimization Engine
@@ -310,24 +299,24 @@ def build_presentation():
     profiles = [
         ("Cost-First Profile",
          "Minimizes pure transportation freight subject to a minimum fulfillment floor.",
-         "min sum(c_wd * x) + sum(2 * P * u)\ns.t. sum(x) >= 80% Total Demand",
-         "Optimizes logistics efficiency while preventing arbitrary network starvation."),
+         "min sum(c_wd * x) + sum(2*P * u)\ns.t. sum(x) >= ceil(0.80 * Demand)",
+         "2*P unmet penalty. Bypassed if unconstrained opt-in. Trims high-cost lanes while exceeding 80% floor (delivers 90.18%)."),
         ("Service-First Profile",
-         "True Lexicographic 2-Stage Solve: Maximizes fulfillment first, then minimizes cost.",
+         "True Lexicographic 2-Stage Priority Solve: Maximizes fulfillment first, then minimizes cost.",
          "Stage 1: min sum(u) -> yields u*\nStage 2: min sum(c_wd * x) s.t. sum(u) <= u*",
-         "Guarantees maximum customer service (91.74%) with globally optimal routing."),
+         "Guarantees maximum customer service (91.74%) with globally optimal routing ($52,812.09)."),
         ("Balanced Profile",
          "Multi-objective formulation balancing freight, transit speed, and lost-sales penalties.",
-         "min sum[(c_wd + lambda_LT * T_wd) * x] + sum(5 * P * u)\nUnits: All terms in $/unit",
+         "min sum[(c_wd + 0.20*T_wd)*x] + sum(5*P * u)\nUnits: All terms in $/unit",
          "Balances freight cost against product freshness (freshness penalty: $0.20/day/unit).")
     ]
 
     for idx, (p_title, p_sub, p_math, p_desc) in enumerate(profiles):
         left = Inches(0.8 + idx * 3.9)
         top = Inches(1.5)
-        add_card(slide6, left, top, Inches(3.7), Inches(5.35), WHITE, BORDER_COLOR)
+        add_card(slide6, left, top, Inches(3.7), Inches(4.3), WHITE, BORDER_COLOR)
 
-        tbox = slide6.shapes.add_textbox(left + Inches(0.2), top + Inches(0.2), Inches(3.3), Inches(4.9))
+        tbox = slide6.shapes.add_textbox(left + Inches(0.2), top + Inches(0.2), Inches(3.3), Inches(3.9))
         tf = tbox.text_frame
         tf.word_wrap = True
 
@@ -336,32 +325,40 @@ def build_presentation():
         p1.font.size = Pt(15)
         p1.font.bold = True
         p1.font.color.rgb = NAVY
-        p1.space_after = Pt(4)
+        p1.space_after = Pt(3)
 
         p2 = tf.add_paragraph()
         p2.text = p_sub
-        p2.font.size = Pt(10)
+        p2.font.size = Pt(10.5)
         p2.font.color.rgb = TEXT_MUTED
-        p2.space_after = Pt(10)
+        p2.space_after = Pt(8)
 
-        # Math block
         p3 = tf.add_paragraph()
         p3.text = p_math
-        p3.font.size = Pt(9.5)
+        p3.font.size = Pt(10.5)
         p3.font.bold = True
         p3.font.color.rgb = ACCENT_BLUE
-        p3.space_after = Pt(10)
+        p3.space_after = Pt(8)
 
         p4 = tf.add_paragraph()
         p4.text = p_desc
-        p4.font.size = Pt(10)
+        p4.font.size = Pt(10.5)
         p4.font.color.rgb = SLATE_DARK
-        p4.space_after = Pt(12)
 
-        p5 = tf.add_paragraph()
-        p5.text = "Hard Constraints Enforced:\n• Warehouse usable supply bounds\n• Destination receiving caps (3,000 u/day)\n• Warehouse dispatch caps (15,000 u/day)\n• Active route & lead-time cutoffs\n• Batch arrival shelf-life feasibility\n• Non-negative integers (x in Z+)"
-        p5.font.size = Pt(9)
-        p5.font.color.rgb = SLATE_DARK
+    # Bottom Constraint Callout Box
+    add_card(slide6, Inches(0.8), Inches(6.0), Inches(11.7), Inches(1.15), SLATE_LIGHT, BORDER_COLOR)
+    cbox6 = slide6.shapes.add_textbox(Inches(1.0), Inches(6.05), Inches(11.3), Inches(1.05))
+    ctf6 = cbox6.text_frame
+    ctf6.word_wrap = True
+    cp1_6 = ctf6.paragraphs[0]
+    cp1_6.text = "Mathematical Objective vs. Reported Freight Metric & Hard Constraints"
+    cp1_6.font.size = Pt(11.5)
+    cp1_6.font.bold = True
+    cp1_6.font.color.rgb = NAVY
+    cp2_6 = ctf6.add_paragraph()
+    cp2_6.text = "• Objective value includes internal mathematical penalties (2*P*u, 0.20*T*x); reported total_transport_cost is strictly actual freight: sum(x * c_wd).\n• Enforced Hard Constraints: Warehouse usable supply bounds | Route eligibility & delivery cutoffs | Warehouse dispatch caps (15k u/day) | Destination receiving caps (3k u/day) | Non-negative integers (x in Z+)."
+    cp2_6.font.size = Pt(10)
+    cp2_6.font.color.rgb = SLATE_DARK
 
     # =========================================================================
     # SLIDE 7: Measured Results & Baseline Comparison
@@ -369,10 +366,9 @@ def build_presentation():
     slide7 = prs.slides.add_slide(blank_layout)
     add_header(slide7, "Empirical Benchmark Validation: Optimization vs. Greedy Baseline")
 
-    # Table of Results
     rows = 7
     cols = 5
-    table_shape = slide7.shapes.add_table(rows, cols, Inches(0.8), Inches(1.5), Inches(11.7), Inches(3.0))
+    table_shape = slide7.shapes.add_table(rows, cols, Inches(0.8), Inches(1.5), Inches(11.7), Inches(3.1))
     table = table_shape.table
 
     table_data = [
@@ -390,7 +386,7 @@ def build_presentation():
             cell = table.cell(r_idx, c_idx)
             cell.text = cell_value
             p = cell.text_frame.paragraphs[0]
-            p.font.size = Pt(10)
+            p.font.size = Pt(11)
             if r_idx == 0:
                 p.font.bold = True
                 p.font.color.rgb = WHITE
@@ -402,32 +398,33 @@ def build_presentation():
                     cell.fill.solid()
                     cell.fill.fore_color.rgb = SLATE_LIGHT
 
-    # Callout Analysis Box below
-    add_card(slide7, Inches(0.8), Inches(4.8), Inches(11.7), Inches(2.1), WHITE, BORDER_COLOR)
-    cbox = slide7.shapes.add_textbox(Inches(1.0), Inches(4.9), Inches(11.3), Inches(1.9))
+    add_card(slide7, Inches(0.8), Inches(4.85), Inches(11.7), Inches(2.3), WHITE, BORDER_COLOR)
+    cbox = slide7.shapes.add_textbox(Inches(1.0), Inches(4.95), Inches(11.3), Inches(2.1))
     ctf = cbox.text_frame
     ctf.word_wrap = True
 
     cp1 = ctf.paragraphs[0]
     cp1.text = "Mathematical Analysis of Benchmark Findings (Deterministic Seed: 42)"
-    cp1.font.size = Pt(13)
+    cp1.font.size = Pt(13.5)
     cp1.font.bold = True
     cp1.font.color.rgb = ACCENT_BLUE
     cp1.space_after = Pt(4)
 
     cp2 = ctf.add_paragraph()
     cp2.text = "1. Fulfillment Parity (91.74%): Service-First, Balanced, and Baseline all reach exactly 36,583 fulfilled units—the network's physical supply ceiling (3,295 units unmet due to network-wide SKU-0004 butter shortage)."
-    cp2.font.size = Pt(10)
+    cp2.font.size = Pt(11)
     cp2.font.color.rgb = SLATE_DARK
+    cp2.space_after = Pt(3)
 
     cp3 = ctf.add_paragraph()
     cp3.text = "2. Pure Routing Efficiency (-2.35%): Service-First fulfills the identical 36,583 units as the greedy heuristic for $52,812.09 vs. $54,085.66, saving $1,273.57 in pure freight through global multi-commodity allocation."
-    cp3.font.size = Pt(10)
+    cp3.font.size = Pt(11)
     cp3.font.color.rgb = SLATE_DARK
+    cp3.space_after = Pt(3)
 
     cp4 = ctf.add_paragraph()
     cp4.text = "3. Cost-First Margin Protection (-7.27%): Cost-First saves $3,934.67 in freight by trimming 620 units (-1.56%) of margin-diluting long-haul deliveries while strictly exceeding the 80% fulfillment floor (delivering 90.18%)."
-    cp4.font.size = Pt(10)
+    cp4.font.size = Pt(11)
     cp4.font.color.rgb = SLATE_DARK
 
     # =========================================================================
@@ -436,17 +433,16 @@ def build_presentation():
     slide8 = prs.slides.add_slide(blank_layout)
     add_header(slide8, "Decision Explainability & Independent 12-Invariant Verification")
 
-    # Left: 12-Invariant Verifier
     add_card(slide8, Inches(0.8), Inches(1.5), Inches(6.0), Inches(5.35), WHITE, BORDER_COLOR)
     vtbox = slide8.shapes.add_textbox(Inches(1.0), Inches(1.7), Inches(5.6), Inches(4.9))
     vtf = vtbox.text_frame
     vtf.word_wrap = True
     vp1 = vtf.paragraphs[0]
     vp1.text = "Independent 12-Invariant Solution Verifier"
-    vp1.font.size = Pt(15)
+    vp1.font.size = Pt(16)
     vp1.font.bold = True
     vp1.font.color.rgb = NAVY
-    vp1.space_after = Pt(6)
+    vp1.space_after = Pt(8)
 
     v_points = [
         "1. Strictly Positive Quantities (x > 0)",
@@ -465,17 +461,16 @@ def build_presentation():
     for vp in v_points:
         p = vtf.add_paragraph()
         p.text = f"✓ {vp}"
-        p.font.size = Pt(9.5)
+        p.font.size = Pt(10.5)
         p.font.color.rgb = ACCENT_GREEN
 
-    # Right: Decision Explainer
     add_card(slide8, Inches(7.1), Inches(1.5), Inches(5.4), Inches(5.35), SLATE_LIGHT, BORDER_COLOR)
     etbox = slide8.shapes.add_textbox(Inches(7.3), Inches(1.7), Inches(5.0), Inches(4.9))
     etf = etbox.text_frame
     etf.word_wrap = True
     ep1 = etf.paragraphs[0]
     ep1.text = "Driver-Based Decision Attribution"
-    ep1.font.size = Pt(15)
+    ep1.font.size = Pt(16)
     ep1.font.bold = True
     ep1.font.color.rgb = NAVY
     ep1.space_after = Pt(8)
@@ -489,14 +484,14 @@ def build_presentation():
     for et, ed in expl_items:
         p = etf.add_paragraph()
         p.text = f"• {et}:"
-        p.font.size = Pt(10.5)
+        p.font.size = Pt(11.5)
         p.font.bold = True
         p.font.color.rgb = ACCENT_BLUE
         pd = etf.add_paragraph()
         pd.text = f"  {ed}"
-        pd.font.size = Pt(9.5)
+        pd.font.size = Pt(10.5)
         pd.font.color.rgb = SLATE_DARK
-        pd.space_after = Pt(6)
+        pd.space_after = Pt(8)
 
     # =========================================================================
     # SLIDE 9: Live Demonstration Workflow
@@ -507,7 +502,7 @@ def build_presentation():
     demo_steps = [
         ("01. Overview Control Tower", "0:00 - 0:45", "Verify LOCAL-FIRST status, multi-echelon network scope (4 WH, 16 SKUs, 50 Destinations), and warehouse capacity telemetry."),
         ("02. Inventory Explorer", "0:45 - 1:30", "Audit 4-tier inventory ledger. Filter by QUARANTINED to prove that quarantined batches show 0 Usable units and are excluded."),
-        ("03. Demand Forecasting", "1:30 - 2:15", "Select corridor PRD-MILK -> DST-001. Run EWMA (alpha=0.30) 7-day forecast. Display Recharts projection curve and backtest holdout evaluation (MAE/WAPE)."),
+        ("03. Demand Forecasting", "1:30 - 2:15", "Select Corridor SKU-0001 (Whole Milk) -> DST-01 (Sacramento). Run EWMA (alpha=0.30) 7-day forecast. Display Recharts curve and backtest holdout evaluation (MAE/WAPE)."),
         ("04. Replenishment Planner", "2:15 - 3:00", "Review stockout urgency tiers. Highlight GAP-1 / GAP-2 operational notices. Open explanation drawer showing LTD and Safety Stock math."),
         ("05. Local OR-Tools Solver", "3:00 - 3:45", "Execute Balanced profile. Showcase sub-second solve (0.20s), OPTIMAL status, Verifier: Feasible badge, and shipment schedule."),
         ("06. Scenario Matrix & Export", "3:45 - 5:00", "Run 3-profile comparison matrix proving cost vs service trade-offs. Download RFC 4180 CSV export with formula injection sanitization.")
@@ -526,20 +521,20 @@ def build_presentation():
 
         p1 = tf.paragraphs[0]
         p1.text = step_title
-        p1.font.size = Pt(13)
+        p1.font.size = Pt(13.5)
         p1.font.bold = True
         p1.font.color.rgb = NAVY
 
         p_time = tf.add_paragraph()
         p_time.text = f"Target Time: {step_time}"
-        p_time.font.size = Pt(9.5)
+        p_time.font.size = Pt(10.5)
         p_time.font.bold = True
         p_time.font.color.rgb = ACCENT_BLUE
         p_time.space_after = Pt(6)
 
         p2 = tf.add_paragraph()
         p2.text = step_desc
-        p2.font.size = Pt(9.5)
+        p2.font.size = Pt(10.5)
         p2.font.color.rgb = SLATE_DARK
 
     # =========================================================================
@@ -548,14 +543,13 @@ def build_presentation():
     slide10 = prs.slides.add_slide(blank_layout)
     add_header(slide10, "Architectural Disclosures & Production Roadmap")
 
-    # Left: Disclosed Limitations
     add_card(slide10, Inches(0.8), Inches(1.5), Inches(5.7), Inches(5.35), SLATE_LIGHT, BORDER_COLOR)
     ltbox10 = slide10.shapes.add_textbox(Inches(1.0), Inches(1.7), Inches(5.3), Inches(4.9))
     ltf10 = ltbox10.text_frame
     ltf10.word_wrap = True
     lp1_10 = ltf10.paragraphs[0]
     lp1_10.text = "Current Limitations & Disclosures"
-    lp1_10.font.size = Pt(15)
+    lp1_10.font.size = Pt(16)
     lp1_10.font.bold = True
     lp1_10.font.color.rgb = NAVY
     lp1_10.space_after = Pt(8)
@@ -570,23 +564,22 @@ def build_presentation():
     for lt, ld in limits:
         p = ltf10.add_paragraph()
         p.text = f"• {lt}:"
-        p.font.size = Pt(10.5)
+        p.font.size = Pt(11)
         p.font.bold = True
-        p.font.color.rgb = RGBColor(185, 28, 28) # Red 700
+        p.font.color.rgb = RED_ACCENT
         pd = ltf10.add_paragraph()
         pd.text = f"  {ld}"
-        pd.font.size = Pt(9.5)
+        pd.font.size = Pt(10)
         pd.font.color.rgb = SLATE_DARK
         pd.space_after = Pt(4)
 
-    # Right: Production Next Steps
     add_card(slide10, Inches(6.8), Inches(1.5), Inches(5.7), Inches(5.35), WHITE, BORDER_COLOR)
     rtbox10 = slide10.shapes.add_textbox(Inches(7.0), Inches(1.7), Inches(5.3), Inches(4.9))
     rtf10 = rtbox10.text_frame
     rtf10.word_wrap = True
     rp1_10 = rtf10.paragraphs[0]
     rp1_10.text = "Production Next Steps (Roadmap)"
-    rp1_10.font.size = Pt(15)
+    rp1_10.font.size = Pt(16)
     rp1_10.font.bold = True
     rp1_10.font.color.rgb = NAVY
     rp1_10.space_after = Pt(8)
@@ -601,12 +594,12 @@ def build_presentation():
     for rmt, rmd in roadmap:
         p = rtf10.add_paragraph()
         p.text = f"• {rmt}:"
-        p.font.size = Pt(10.5)
+        p.font.size = Pt(11)
         p.font.bold = True
         p.font.color.rgb = ACCENT_BLUE
         pd = rtf10.add_paragraph()
         pd.text = f"  {rmd}"
-        pd.font.size = Pt(9.5)
+        pd.font.size = Pt(10)
         pd.font.color.rgb = SLATE_DARK
         pd.space_after = Pt(4)
 

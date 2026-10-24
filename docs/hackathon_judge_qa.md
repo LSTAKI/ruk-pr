@@ -19,14 +19,21 @@
 **Answer**:
 Let $x_{w,d,p} \in \mathbb{Z}_{\ge 0}$ be the number of units of product $p$ shipped from warehouse $w$ to destination $d$, and $u_{d,p} \in \mathbb{Z}_{\ge 0}$ be unmet replenishment demand.
 * **Cost-First Profile**:
-  $$\min \sum_{w,d,p} c_{w,d} \cdot x_{w,d,p} + \sum_{d,p} (2 \cdot P_p) \cdot u_{d,p} \quad \text{s.t.} \quad \sum_{w,d,p} x_{w,d,p} \ge \gamma_{\min} \cdot \text{TotalDemand}$$
-  Where $c_{w,d}$ is unit transportation freight ($/unit), $P_p$ is lost sales margin ($/unit), and $\gamma_{\min}$ is the minimum fulfillment floor (default 80%).
-* **Service-First Profile (Lexicographic 2-Stage Solve)**:
+  $$\min \sum_{w,d,p} c_{w,d} \cdot x_{w,d,p} + \sum_{d,p} (2 \cdot P_p) \cdot u_{d,p}$$
+  $$\text{Subject to:} \quad \sum_{w,d,p} x_{w,d,p} \ge \lceil \gamma_{\min} \cdot \text{TotalDemand} \rceil \quad (\text{when policy active, default } \gamma_{\min} = 0.80)$$
+  Where:
+  - $c_{w,d} = \text{unit\_transport\_cost} \times \text{transport\_weight}$ (default weight $= 1.0$).
+  - $2 \cdot P_p$: Unmet-demand penalty set to twice the product's lost-sales margin ($P_p = \text{lost\_sales\_penalty}$, default 5.0).
+  - Minimum fulfillment floor: $\lceil 0.80 \times \text{TotalDemand} \rceil = 31,902 \text{ units}$. If `allow_unconstrained_cost_first` is enabled or floor $= 0.0$, the floor constraint is bypassed.
+* **Service-First Profile (Lexicographic 2-Stage Priority Solve)**:
   * *Stage 1*: $\min \sum_{d,p} u_{d,p} \implies \text{yields global minimum unmet } u^*$.
   * *Stage 2*: $\min \sum_{w,d,p} c_{w,d} \cdot x_{w,d,p} \quad \text{s.t.} \quad \sum_{d,p} u_{d,p} \le u^*$.
 * **Balanced Profile**:
   $$\min \sum_{w,d,p} \left(c_{w,d} + \lambda_{\text{LT}} \cdot T_{w,d}\right) x_{w,d,p} + \sum_{d,p} \left(\lambda_{\text{stockout}} \cdot P_p\right) u_{d,p}$$
   Where $T_{w,d}$ is route lead time (days), $\lambda_{\text{LT}} = \$0.20/\text{day/unit}$ (shelf-life freshness penalty), and $\lambda_{\text{stockout}} = 5.0$ (stockout priority multiplier). All terms are dimensionally consistent in $\$ / \text{unit}$.
+
+**Crucial Distinction: Objective Value vs. Reported Freight Cost**:
+The mathematical objective function value (which includes penalty multipliers like $2 \cdot P_p \cdot u_{d,p}$ or transit penalties $\lambda_{\text{LT}} \cdot T_{w,d} \cdot x_{w,d,p}$) is strictly an internal scalar score used by the branch-and-cut solver algorithm to navigate trade-offs. The business metric `total_transport_cost` reported on dashboards, API responses, and benchmark tables is **pure transportation freight**: $\sum_{(w,d,p)} x_{w,d,p} \cdot c_{w,d}$. Penalties are never added into the reported freight dollar total.
 
 ---
 
@@ -54,10 +61,13 @@ Let $x_{w,d,p} \in \mathbb{Z}_{\ge 0}$ be the number of units of product $p$ shi
 Safety stock is computed per corridor using the standard supply chain formula:
 $$\text{SafetyStock}_{d,p} = z \times \sigma_{d,p} \times \sqrt{L_{w^*,d}}$$
 Where:
-* $z = 1.65$: Corresponds to a 95% service-level cycle probability under normal demand distribution.
+* $z = 1.65$: Reflects a theoretical **95% cycle-service level** under normally distributed demand.
 * $\sigma_{d,p}$: Sample standard deviation of daily demand from historical observations.
 * $L_{w^*,d}$: Transit lead time (in days) from the primary eligible supplying warehouse.
 * A fallback factor (0.25 $\times$ mean demand) is enforced if history is limited, and the result is rounded up to the nearest integer. Across our 800 corridors, continuous safety stock totals 10,744.93 units.
+
+**Important Statistical Clarification**:
+$z = 1.65$ represents a theoretical **cycle-service level** (the statistical probability that lead-time demand will not exceed replenishment stock during a replenishment cycle under normally distributed demand). It is **not** a guarantee of 95% aggregate network fulfillment (volume fill rate). Realized network fulfillment is bounded by physical warehouse inventory availability (e.g. the network-wide butter shortage on SKU-0004), non-normal Poisson demand clustering, and route eligibility constraints.
 
 ---
 
@@ -126,9 +136,9 @@ Where:
 
 ### Q11. What does the solver status `OPTIMAL` mean? Does it guarantee zero stockouts?
 **Answer**:
-* `OPTIMAL` is the formal return status from Google OR-Tools branch-and-cut linear programming solver. It proves mathematically that **no feasible integer solution exists within the model's constraints that achieves a lower objective value**.
-* **It does NOT mean zero stockouts**. If the total physical stock across all warehouses for a given SKU is less than total network demand, stockouts are physically unavoidable.
-* In our benchmark, `OPTIMAL` was achieved with 3,295 unmet units because the network has only 30 units of butter (SKU-0004) against 3,325 units of butter demanded. The solver fulfilled all 30 available units and correctly reported the remaining 3,295 units as physical deficit.
+* `OPTIMAL` is the formal return status from Google OR-Tools branch-and-cut linear programming solver. It proves mathematically that **no feasible integer solution exists within the model's specified decision space and constraints that achieves a lower objective value**.
+* **It does NOT mean zero stockouts**. If total physical stock across all warehouses for a given SKU is less than total network demand, stockouts are physically unavoidable. In our benchmark, `OPTIMAL` was achieved with 3,295 unmet units because the network has only 30 units of butter (SKU-0004) against 3,325 units of butter demanded. The solver fulfilled all 30 available units and correctly reported the remaining 3,295 units as physical deficit.
+* **Scope of Optimality & Determinism**: Optimality is relative strictly to the mixed-integer programming objective function and the explicit modeled constraints (warehouse usable stock, route eligibility, delivery cutoffs, daily dispatch and receiving capacities). It does not claim that unmodeled operational variables (such as store backroom space or unexpected weather delays) are optimized. Solver determinism is empirically verified: branch-and-cut execution over identical inputs reliably reproduces the exact same allocation schedule within sub-second runtime (0.16s to 0.43s on standard laptop CPUs).
 
 ---
 
