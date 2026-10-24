@@ -96,9 +96,21 @@ npm run dev
 
 ---
 
-## E. Empirical Validation Results
+## E. Empirical Validation Results & Benchmark Methodology
 
-The following metrics were measured on the deterministic seed `42` dataset (7-day horizon, 39,878 units total replenishment demand considered):
+### 1. Demand Metric Definition & Decomposition
+The benchmark demand of **39,878 units** represents the multi-echelon replenishment threshold computed over all 800 corridors (50 destinations &times; 16 products):
+$$\text{Corridor Demand}_{d,p} = \lceil \text{LeadTimeDemand}_{d,p} + \text{SafetyStock}_{d,p} - (\text{OnHand}_{d,p} + \text{InTransit}_{d,p}) \rceil$$
+Under the active operational data gaps (**GAP-1** store on-hand $= 0$ and **GAP-2** in-transit $= 0$), this simplifies to:
+$$\text{Corridor Demand}_{d,p} = \lceil \text{LeadTimeDemand}_{d,p} + \text{SafetyStock}_{d,p} \rceil$$
+* **Total Lead-Time Demand**: $\sum \text{LTD} = 28,745.44 \text{ units}$ (daily mean &times; route lead time in days).
+* **Total Safety Stock**: $\sum \text{SS} = 10,744.93 \text{ units}$ ($z \times \sigma \times \sqrt{L}$, where $z = 1.65$).
+* **Continuous Sum (LTD + SS)**: $39,490.36 \text{ units}$.
+* **Discrete Integer Sum ($\sum \lceil \text{LTD} + \text{SS} \rceil$)**: **39,878 integer units** (integer ceiling adds $+387.64 \text{ u}$ over 800 corridors, $+0.48 \text{ u/corridor}$).
+
+### 2. Empirical Performance Matrix
+
+The following metrics were measured on the deterministic seed `42` dataset (`v1.0-seed-42`, 7-day horizon, 39,878 units total replenishment demand considered):
 
 | Metric | Cost-First Profile | Balanced Profile | Service-First Profile | Deterministic Greedy Baseline |
 | :--- | :---: | :---: | :---: | :---: |
@@ -106,28 +118,53 @@ The following metrics were measured on the deterministic seed `42` dataset (7-da
 | **Total Demand Considered** | 39,878 u | 39,878 u | 39,878 u | 39,878 u |
 | **Fulfilled Units** | 35,963 u | 36,583 u | 36,583 u | 36,583 u |
 | **Unmet Demand Units** | 3,915 u | 3,295 u | 3,295 u | 3,295 u |
+| **Demand Reconciliation** | $35,963 + 3,915 = 39,878$ | $36,583 + 3,295 = 39,878$ | $36,583 + 3,295 = 39,878$ | $36,583 + 3,295 = 39,878$ |
 | **Network Fulfillment Rate** | **90.18%** | **91.74%** | **91.74%** | **91.74%** |
 | **Total Transportation Cost** | **$50,150.99** | **$52,816.51** | **$52,812.09** | **$54,085.66** |
 | **Average Cost / Fulfilled Unit** | **$1.3945 / u** | **$1.4437 / u** | **$1.4436 / u** | **$1.4784 / u** |
 | **Recommended Shipment Lines** | 764 lines | 774 lines | 774 lines | 774 lines |
 | **Destinations Served** | 50 / 50 | 50 / 50 | 50 / 50 | 50 / 50 |
-| **Solver Runtime** | 0.51s | 0.16s | 0.26s | < 0.05s |
-| **12-Invariant Verifier** | `FEASIBLE` | `FEASIBLE` | `FEASIBLE` | Validated |
+| **Solver Runtime** | 0.39s | 0.20s | 0.43s | < 0.05s |
+| **12-Invariant Verifier** | `FEASIBLE` (12/12) | `FEASIBLE` (12/12) | `FEASIBLE` (12/12) | `FEASIBLE` (12/12) |
+
+### 3. Explicit Mathematical Formulas
+* **Fulfillment Rate**: $\text{Rate} = \frac{\text{Fulfilled Units}}{\text{Total Demand Considered}} \times 100\%$
+* **Average Freight Cost per Fulfilled Unit**: $\text{Avg Cost} = \frac{\text{Total Freight Cost}}{\text{Fulfilled Units}}$
+* **Freight Cost Reduction vs. Baseline**: $\Delta \text{Cost} = \text{Baseline Freight Cost} - \text{Optimized Freight Cost}$
+* **Percentage Reduction**: $\text{Savings \%} = \frac{\Delta \text{Cost}}{\text{Baseline Freight Cost}} \times 100\%$
+* **Demand Conservation**: $\text{Fulfilled Units} + \text{Unmet Units} \equiv \text{Total Demand Considered}$
 
 ---
 
 ## F. Optimization vs. Greedy Baseline Analysis
 
 ### 1. Cost-First vs. Greedy Baseline
-* **Freight Cost Reduction**: Cost-First achieves **$50,150.99** vs. Baseline **$54,085.66**, delivering an operational freight reduction of **-$3,934.67 (-7.28%)**.
+* **Freight Cost Reduction**: Cost-First achieves **$50,150.99** vs. Baseline **$54,085.66**, delivering an operational freight reduction of **-$3,934.67 (-7.27%)**.
 * **Trade-off**: It deliberately trims 620 units (-1.56%) of long-haul, margin-diluting shipments while strictly satisfying the configured &ge; 80% fulfillment floor (delivering 90.18%).
 
 ### 2. Service-First vs. Greedy Baseline
-* **Fulfillment Parity**: Both Service-First and the Greedy Baseline fulfill **36,583 units (91.74%)**, which represents the mathematical maximum allocatable supply across the network.
-* **Intelligent Routing Savings**: In Stage 2 of the lexicographic solve, Service-First optimizes routing across all eligible hubs without sacrificing a single unit of service, delivering **-$1,273.57 (-2.35%)** lower freight cost than the myopic greedy heuristic.
+* **Fulfillment Parity**: Both Service-First and the Greedy Baseline fulfill **36,583 units (91.74%)**, which represents the mathematical maximum allocatable supply across the network (the remaining 3,295 units cannot be fulfilled due to total physical stock exhaustion of SKU-0004).
+* **Intelligent Routing Savings**: In Stage 2 of the lexicographic solve, Service-First optimizes routing across all eligible hubs without sacrificing a single unit of service, delivering **-$1,273.57 (-2.35%)** lower freight cost than the greedy heuristic ($52,812.09 vs. $54,085.66).
 
 ### 3. Balanced vs. Service-First
-* **Freshness Lead-Time Penalty**: The Balanced profile incorporates a lead-time transit penalty ($0.20/day/unit), routing select shipments through faster transit corridors to preserve shelf life at a minor freight delta of +$4.42 across the entire network.
+* **Freshness Lead-Time Penalty**: The Balanced profile incorporates a lead-time transit penalty ($0.20/day/unit), routing select shipments through faster transit corridors to preserve shelf life at a minor freight delta of +$4.42 across the entire network ($52,816.51 vs $52,812.09).
+
+### 4. Independent Verifier Coverage (12 Invariants)
+
+| Invariant | Description | Enforcement Level |
+| :--- | :--- | :--- |
+| **1. Non-Negative Shipments** | All allocated quantities $x_{w,d,p} > 0$ strictly. | Hard check |
+| **2. Integer Allocations** | All recommended quantities are whole numbers ($x \in \mathbb{Z}^+$). | Hard check |
+| **3. Usable Batch Status** | Expired or quarantined batches contribute 0 usable units. | Hard check |
+| **4. Warehouse Supply Bound** | $\sum_d x_{w,d,p} \le \text{AvailableSupply}_{w,p}$ for every warehouse and SKU. | Hard check |
+| **5. Demand Ceiling** | $\sum_w x_{w,d,p} \le \text{Demand}_{d,p}$ prevents destination over-allocation. | Hard check |
+| **6. Active Route Validity** | Inactive or non-existent routes are completely excluded. | Hard check |
+| **7. Dispatch Throughput** | $\sum_{d,p} x_{w,d,p} \le C_w^{\text{dispatch}}$ daily warehouse limit. | Hard check |
+| **8. Receiving Throughput** | $\sum_{w,p} x_{w,d,p} \le C_d^{\text{receive}}$ daily destination limit. | Hard check |
+| **9. Lead-Time Cutoff** | Transit lead time $L_{w,d} \le \text{Cutoff}$ days. | Hard check |
+| **10. Batch Arrival Expiry** | Batch expiry date must exceed $\text{Arrival Date} + \text{Min Shelf Life}$. | Hard check |
+| **11. Demand Reconciliation** | $\text{Fulfilled} + \text{Unmet} = \text{Total Demand}$ strictly across all corridors. | Hard check |
+| **12. Cost Reconciliation** | $\sum (x_{w,d,p} \times c_{w,d}) = \text{Reported Transport Cost}$ within $\pm \$0.05$. | Hard check |
 
 ---
 
