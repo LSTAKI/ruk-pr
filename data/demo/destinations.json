@@ -1,0 +1,502 @@
+[
+  {
+    "code": "DST-001",
+    "name": "Metro Mart Express 101",
+    "channel_type": "supermarket",
+    "city": "Chicago",
+    "state": "IL",
+    "daily_receiving_capacity_units": 3500,
+    "latitude": 41.8818,
+    "longitude": -87.6231
+  },
+  {
+    "code": "DST-002",
+    "name": "Lakeside Convenience 04",
+    "channel_type": "convenience",
+    "city": "Evanston",
+    "state": "IL",
+    "daily_receiving_capacity_units": 1200,
+    "latitude": 42.0451,
+    "longitude": -87.6877
+  },
+  {
+    "code": "DST-003",
+    "name": "Midwest Wholesale 12",
+    "channel_type": "wholesaler",
+    "city": "Peoria",
+    "state": "IL",
+    "daily_receiving_capacity_units": 8000,
+    "latitude": 40.6936,
+    "longitude": -89.589
+  },
+  {
+    "code": "DST-004",
+    "name": "Lincoln Park Fresh Mart",
+    "channel_type": "supermarket",
+    "city": "Chicago",
+    "state": "IL",
+    "daily_receiving_capacity_units": 3000,
+    "latitude": 41.9214,
+    "longitude": -87.6513
+  },
+  {
+    "code": "DST-005",
+    "name": "Naperville Daily Goods",
+    "channel_type": "supermarket",
+    "city": "Naperville",
+    "state": "IL",
+    "daily_receiving_capacity_units": 3200,
+    "latitude": 41.7508,
+    "longitude": -88.1535
+  },
+  {
+    "code": "DST-006",
+    "name": "Rockford QuickMart",
+    "channel_type": "convenience",
+    "city": "Rockford",
+    "state": "IL",
+    "daily_receiving_capacity_units": 1500,
+    "latitude": 42.2711,
+    "longitude": -89.094
+  },
+  {
+    "code": "DST-007",
+    "name": "Springfield Depot",
+    "channel_type": "wholesaler",
+    "city": "Springfield",
+    "state": "IL",
+    "daily_receiving_capacity_units": 6000,
+    "latitude": 39.7817,
+    "longitude": -89.6501
+  },
+  {
+    "code": "DST-008",
+    "name": "Champaign Pantry",
+    "channel_type": "convenience",
+    "city": "Champaign",
+    "state": "IL",
+    "daily_receiving_capacity_units": 1100,
+    "latitude": 40.1164,
+    "longitude": -88.2434
+  },
+  {
+    "code": "DST-009",
+    "name": "Manhattan Fresh 52",
+    "channel_type": "supermarket",
+    "city": "New York",
+    "state": "NY",
+    "daily_receiving_capacity_units": 4000,
+    "latitude": 40.758,
+    "longitude": -73.9855
+  },
+  {
+    "code": "DST-010",
+    "name": "Brooklyn Corner Bodega 09",
+    "channel_type": "convenience",
+    "city": "Brooklyn",
+    "state": "NY",
+    "daily_receiving_capacity_units": 1000,
+    "latitude": 40.6782,
+    "longitude": -73.9442
+  },
+  {
+    "code": "DST-011",
+    "name": "Jersey Wholesale Depot",
+    "channel_type": "wholesaler",
+    "city": "Newark",
+    "state": "NJ",
+    "daily_receiving_capacity_units": 9000,
+    "latitude": 40.7357,
+    "longitude": -74.1724
+  },
+  {
+    "code": "DST-012",
+    "name": "Queens Boulevard Mart",
+    "channel_type": "supermarket",
+    "city": "Queens",
+    "state": "NY",
+    "daily_receiving_capacity_units": 3200,
+    "latitude": 40.7282,
+    "longitude": -73.7949
+  },
+  {
+    "code": "DST-013",
+    "name": "Bronx Community Grocer",
+    "channel_type": "supermarket",
+    "city": "Bronx",
+    "state": "NY",
+    "daily_receiving_capacity_units": 2800,
+    "latitude": 40.8448,
+    "longitude": -73.8648
+  },
+  {
+    "code": "DST-014",
+    "name": "Hoboken River Market",
+    "channel_type": "convenience",
+    "city": "Hoboken",
+    "state": "NJ",
+    "daily_receiving_capacity_units": 1300,
+    "latitude": 40.7439,
+    "longitude": -74.0324
+  },
+  {
+    "code": "DST-015",
+    "name": "Philadelphia Food Hall",
+    "channel_type": "supermarket",
+    "city": "Philadelphia",
+    "state": "PA",
+    "daily_receiving_capacity_units": 3800,
+    "latitude": 39.9526,
+    "longitude": -75.1652
+  },
+  {
+    "code": "DST-016",
+    "name": "Boston Harbor Grocer",
+    "channel_type": "supermarket",
+    "city": "Boston",
+    "state": "MA",
+    "daily_receiving_capacity_units": 3600,
+    "latitude": 42.3601,
+    "longitude": -71.0589
+  },
+  {
+    "code": "DST-017",
+    "name": "Providence QuickStop",
+    "channel_type": "convenience",
+    "city": "Providence",
+    "state": "RI",
+    "daily_receiving_capacity_units": 1200,
+    "latitude": 41.824,
+    "longitude": -71.4128
+  },
+  {
+    "code": "DST-018",
+    "name": "Hartford Wholesale Club",
+    "channel_type": "wholesaler",
+    "city": "Hartford",
+    "state": "CT",
+    "daily_receiving_capacity_units": 7500,
+    "latitude": 41.7658,
+    "longitude": -72.6734
+  },
+  {
+    "code": "DST-019",
+    "name": "Buckhead Organic Grocer",
+    "channel_type": "supermarket",
+    "city": "Atlanta",
+    "state": "GA",
+    "daily_receiving_capacity_units": 3500,
+    "latitude": 33.8378,
+    "longitude": -84.3813
+  },
+  {
+    "code": "DST-020",
+    "name": "Savannah Coastal Market",
+    "channel_type": "convenience",
+    "city": "Savannah",
+    "state": "GA",
+    "daily_receiving_capacity_units": 1400,
+    "latitude": 32.0809,
+    "longitude": -81.0912
+  },
+  {
+    "code": "DST-021",
+    "name": "Dixie Cash & Carry",
+    "channel_type": "wholesaler",
+    "city": "Macon",
+    "state": "GA",
+    "daily_receiving_capacity_units": 6500,
+    "latitude": 32.8407,
+    "longitude": -83.6324
+  },
+  {
+    "code": "DST-022",
+    "name": "Midtown Atlanta Mart",
+    "channel_type": "convenience",
+    "city": "Atlanta",
+    "state": "GA",
+    "daily_receiving_capacity_units": 1600,
+    "latitude": 33.784,
+    "longitude": -84.383
+  },
+  {
+    "code": "DST-023",
+    "name": "Charlotte Daily Goods",
+    "channel_type": "supermarket",
+    "city": "Charlotte",
+    "state": "NC",
+    "daily_receiving_capacity_units": 3400,
+    "latitude": 35.2271,
+    "longitude": -80.8431
+  },
+  {
+    "code": "DST-024",
+    "name": "Raleigh Triangle Market",
+    "channel_type": "supermarket",
+    "city": "Raleigh",
+    "state": "NC",
+    "daily_receiving_capacity_units": 3100,
+    "latitude": 35.7796,
+    "longitude": -78.6382
+  },
+  {
+    "code": "DST-025",
+    "name": "Nashville Music City Grocer",
+    "channel_type": "supermarket",
+    "city": "Nashville",
+    "state": "TN",
+    "daily_receiving_capacity_units": 3600,
+    "latitude": 36.1627,
+    "longitude": -86.7816
+  },
+  {
+    "code": "DST-026",
+    "name": "Memphis River Wholesale",
+    "channel_type": "wholesaler",
+    "city": "Memphis",
+    "state": "TN",
+    "daily_receiving_capacity_units": 7000,
+    "latitude": 35.1495,
+    "longitude": -90.049
+  },
+  {
+    "code": "DST-027",
+    "name": "Jacksonville Sun Market",
+    "channel_type": "supermarket",
+    "city": "Jacksonville",
+    "state": "FL",
+    "daily_receiving_capacity_units": 3300,
+    "latitude": 30.3322,
+    "longitude": -81.6557
+  },
+  {
+    "code": "DST-028",
+    "name": "Orlando Theme Pantry",
+    "channel_type": "convenience",
+    "city": "Orlando",
+    "state": "FL",
+    "daily_receiving_capacity_units": 1500,
+    "latitude": 28.5383,
+    "longitude": -81.3792
+  },
+  {
+    "code": "DST-029",
+    "name": "Tampa Bay Grocers",
+    "channel_type": "supermarket",
+    "city": "Tampa",
+    "state": "FL",
+    "daily_receiving_capacity_units": 3200,
+    "latitude": 27.9506,
+    "longitude": -82.4572
+  },
+  {
+    "code": "DST-030",
+    "name": "Miami Beach Fresh Corner",
+    "channel_type": "convenience",
+    "city": "Miami",
+    "state": "FL",
+    "daily_receiving_capacity_units": 1800,
+    "latitude": 25.7617,
+    "longitude": -80.1918
+  },
+  {
+    "code": "DST-031",
+    "name": "Bay Area Gourmet 88",
+    "channel_type": "supermarket",
+    "city": "San Francisco",
+    "state": "CA",
+    "daily_receiving_capacity_units": 3800,
+    "latitude": 37.7749,
+    "longitude": -122.4194
+  },
+  {
+    "code": "DST-032",
+    "name": "SoCal QuickStop 19",
+    "channel_type": "convenience",
+    "city": "Long Beach",
+    "state": "CA",
+    "daily_receiving_capacity_units": 1400,
+    "latitude": 33.7701,
+    "longitude": -118.1937
+  },
+  {
+    "code": "DST-033",
+    "name": "Pacific Rim Wholesale",
+    "channel_type": "wholesaler",
+    "city": "Oakland",
+    "state": "CA",
+    "daily_receiving_capacity_units": 8500,
+    "latitude": 37.8044,
+    "longitude": -122.2712
+  },
+  {
+    "code": "DST-034",
+    "name": "Silicon Valley Mart",
+    "channel_type": "convenience",
+    "city": "San Jose",
+    "state": "CA",
+    "daily_receiving_capacity_units": 1700,
+    "latitude": 37.3382,
+    "longitude": -121.8863
+  },
+  {
+    "code": "DST-035",
+    "name": "Hollywood Sunset Foods",
+    "channel_type": "supermarket",
+    "city": "Los Angeles",
+    "state": "CA",
+    "daily_receiving_capacity_units": 3900,
+    "latitude": 34.0928,
+    "longitude": -118.3287
+  },
+  {
+    "code": "DST-036",
+    "name": "San Diego Border Grocer",
+    "channel_type": "supermarket",
+    "city": "San Diego",
+    "state": "CA",
+    "daily_receiving_capacity_units": 3500,
+    "latitude": 32.7157,
+    "longitude": -117.1611
+  },
+  {
+    "code": "DST-037",
+    "name": "Pasadena Valley Market",
+    "channel_type": "convenience",
+    "city": "Pasadena",
+    "state": "CA",
+    "daily_receiving_capacity_units": 1300,
+    "latitude": 34.1478,
+    "longitude": -118.1445
+  },
+  {
+    "code": "DST-038",
+    "name": "Sacramento Capitol Foods",
+    "channel_type": "supermarket",
+    "city": "Sacramento",
+    "state": "CA",
+    "daily_receiving_capacity_units": 3200,
+    "latitude": 38.5816,
+    "longitude": -121.4944
+  },
+  {
+    "code": "DST-039",
+    "name": "Fresno Central Wholesale",
+    "channel_type": "wholesaler",
+    "city": "Fresno",
+    "state": "CA",
+    "daily_receiving_capacity_units": 6800,
+    "latitude": 36.7468,
+    "longitude": -119.7726
+  },
+  {
+    "code": "DST-040",
+    "name": "Seattle Sound Grocers",
+    "channel_type": "supermarket",
+    "city": "Seattle",
+    "state": "WA",
+    "daily_receiving_capacity_units": 3700,
+    "latitude": 47.6062,
+    "longitude": -122.3321
+  },
+  {
+    "code": "DST-041",
+    "name": "Portland Rose Pantry",
+    "channel_type": "convenience",
+    "city": "Portland",
+    "state": "OR",
+    "daily_receiving_capacity_units": 1500,
+    "latitude": 45.5152,
+    "longitude": -122.6784
+  },
+  {
+    "code": "DST-042",
+    "name": "Midtown Pantry 03",
+    "channel_type": "convenience",
+    "city": "Indianapolis",
+    "state": "IN",
+    "daily_receiving_capacity_units": 1400,
+    "latitude": 39.7684,
+    "longitude": -86.1581
+  },
+  {
+    "code": "DST-043",
+    "name": "Columbus Metro Foods",
+    "channel_type": "supermarket",
+    "city": "Columbus",
+    "state": "OH",
+    "daily_receiving_capacity_units": 3300,
+    "latitude": 39.9612,
+    "longitude": -82.9988
+  },
+  {
+    "code": "DST-044",
+    "name": "Cleveland Lakefront Mart",
+    "channel_type": "supermarket",
+    "city": "Cleveland",
+    "state": "OH",
+    "daily_receiving_capacity_units": 3100,
+    "latitude": 41.4993,
+    "longitude": -81.6944
+  },
+  {
+    "code": "DST-045",
+    "name": "Detroit Motor Market",
+    "channel_type": "supermarket",
+    "city": "Detroit",
+    "state": "MI",
+    "daily_receiving_capacity_units": 3400,
+    "latitude": 42.3314,
+    "longitude": -83.0458
+  },
+  {
+    "code": "DST-046",
+    "name": "Milwaukee River Pantry",
+    "channel_type": "convenience",
+    "city": "Milwaukee",
+    "state": "WI",
+    "daily_receiving_capacity_units": 1300,
+    "latitude": 43.0389,
+    "longitude": -87.9065
+  },
+  {
+    "code": "DST-047",
+    "name": "Minneapolis Twin Mart",
+    "channel_type": "supermarket",
+    "city": "Minneapolis",
+    "state": "MN",
+    "daily_receiving_capacity_units": 3600,
+    "latitude": 44.9778,
+    "longitude": -93.265
+  },
+  {
+    "code": "DST-048",
+    "name": "Dallas Lone Star Grocer",
+    "channel_type": "supermarket",
+    "city": "Dallas",
+    "state": "TX",
+    "daily_receiving_capacity_units": 4200,
+    "latitude": 32.7767,
+    "longitude": -96.797
+  },
+  {
+    "code": "DST-049",
+    "name": "Houston Gulf Wholesale",
+    "channel_type": "wholesaler",
+    "city": "Houston",
+    "state": "TX",
+    "daily_receiving_capacity_units": 9200,
+    "latitude": 29.7604,
+    "longitude": -95.3698
+  },
+  {
+    "code": "DST-050",
+    "name": "Austin River City Mart",
+    "channel_type": "convenience",
+    "city": "Austin",
+    "state": "TX",
+    "daily_receiving_capacity_units": 1600,
+    "latitude": 30.2672,
+    "longitude": -97.7431
+  }
+]

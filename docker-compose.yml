@@ -1,0 +1,47 @@
+services:
+  backend:
+    build:
+      context: ./services/api
+      dockerfile: Dockerfile
+    container_name: stockwise-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - STOCKWISE_ENV=production
+      - STOCKWISE_API_HOST=0.0.0.0
+      - STOCKWISE_API_PORT=8000
+      - STOCKWISE_API_DEBUG=false
+      - STOCKWISE_DATABASE_URL=sqlite:////app/data/stockwise.db
+      - STOCKWISE_CORS_ORIGINS=["http://localhost:3000","http://127.0.0.1:3000"]
+      - STOCKWISE_SIMULATOR_SEED=42
+    volumes:
+      - stockwise-data:/app/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=http://localhost:8000
+    container_name: stockwise-web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - PORT=3000
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  stockwise-data:
+    driver: local

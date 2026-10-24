@@ -1,0 +1,17 @@
+# StockWise AI - API Backend Dependencies
+# Verified for Python 3.11, 3.12, 3.13 (x86_64, Windows, Linux, macOS)
+
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+pydantic==2.10.4
+pydantic-settings==2.7.0
+sqlalchemy==2.0.36
+alembic==1.14.0
+ortools==9.11.4210; python_version < "3.13"
+ortools>=9.11.4210; python_version >= "3.13"
+pandas>=2.2.0
+numpy>=2.0.0
+httpx==0.28.1
+pytest==8.3.4
+pytest-asyncio==0.25.0
+python-multipart==0.0.20

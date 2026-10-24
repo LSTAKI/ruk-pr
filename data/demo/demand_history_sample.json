@@ -1,0 +1,4002 @@
+[
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-06-26T00:00:00",
+    "quantity_demanded": 90,
+    "quantity_sold": 90,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-06-27T00:00:00",
+    "quantity_demanded": 65,
+    "quantity_sold": 65,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-06-28T00:00:00",
+    "quantity_demanded": 53,
+    "quantity_sold": 53,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-06-29T00:00:00",
+    "quantity_demanded": 97,
+    "quantity_sold": 97,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-06-30T00:00:00",
+    "quantity_demanded": 98,
+    "quantity_sold": 98,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-01T00:00:00",
+    "quantity_demanded": 99,
+    "quantity_sold": 99,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-02T00:00:00",
+    "quantity_demanded": 59,
+    "quantity_sold": 59,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-03T00:00:00",
+    "quantity_demanded": 73,
+    "quantity_sold": 73,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-04T00:00:00",
+    "quantity_demanded": 73,
+    "quantity_sold": 73,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-05T00:00:00",
+    "quantity_demanded": 56,
+    "quantity_sold": 56,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-06T00:00:00",
+    "quantity_demanded": 109,
+    "quantity_sold": 109,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-07T00:00:00",
+    "quantity_demanded": 126,
+    "quantity_sold": 126,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-08T00:00:00",
+    "quantity_demanded": 103,
+    "quantity_sold": 103,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-09T00:00:00",
+    "quantity_demanded": 66,
+    "quantity_sold": 66,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-10T00:00:00",
+    "quantity_demanded": 67,
+    "quantity_sold": 67,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-11T00:00:00",
+    "quantity_demanded": 74,
+    "quantity_sold": 74,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-12T00:00:00",
+    "quantity_demanded": 54,
+    "quantity_sold": 54,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-13T00:00:00",
+    "quantity_demanded": 103,
+    "quantity_sold": 103,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-14T00:00:00",
+    "quantity_demanded": 96,
+    "quantity_sold": 96,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-15T00:00:00",
+    "quantity_demanded": 123,
+    "quantity_sold": 123,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-16T00:00:00",
+    "quantity_demanded": 67,
+    "quantity_sold": 67,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-17T00:00:00",
+    "quantity_demanded": 82,
+    "quantity_sold": 82,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-18T00:00:00",
+    "quantity_demanded": 60,
+    "quantity_sold": 60,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-19T00:00:00",
+    "quantity_demanded": 74,
+    "quantity_sold": 74,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-20T00:00:00",
+    "quantity_demanded": 105,
+    "quantity_sold": 105,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-21T00:00:00",
+    "quantity_demanded": 90,
+    "quantity_sold": 90,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-22T00:00:00",
+    "quantity_demanded": 103,
+    "quantity_sold": 103,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-23T00:00:00",
+    "quantity_demanded": 79,
+    "quantity_sold": 79,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-24T00:00:00",
+    "quantity_demanded": 66,
+    "quantity_sold": 66,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-25T00:00:00",
+    "quantity_demanded": 55,
+    "quantity_sold": 55,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-26T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 69,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-27T00:00:00",
+    "quantity_demanded": 90,
+    "quantity_sold": 90,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-28T00:00:00",
+    "quantity_demanded": 97,
+    "quantity_sold": 97,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-29T00:00:00",
+    "quantity_demanded": 100,
+    "quantity_sold": 100,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-30T00:00:00",
+    "quantity_demanded": 55,
+    "quantity_sold": 55,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-07-31T00:00:00",
+    "quantity_demanded": 55,
+    "quantity_sold": 55,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-01T00:00:00",
+    "quantity_demanded": 73,
+    "quantity_sold": 73,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-02T00:00:00",
+    "quantity_demanded": 64,
+    "quantity_sold": 64,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-03T00:00:00",
+    "quantity_demanded": 70,
+    "quantity_sold": 70,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-04T00:00:00",
+    "quantity_demanded": 110,
+    "quantity_sold": 110,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-05T00:00:00",
+    "quantity_demanded": 104,
+    "quantity_sold": 104,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-06T00:00:00",
+    "quantity_demanded": 63,
+    "quantity_sold": 63,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-07T00:00:00",
+    "quantity_demanded": 58,
+    "quantity_sold": 58,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-08T00:00:00",
+    "quantity_demanded": 76,
+    "quantity_sold": 76,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-09T00:00:00",
+    "quantity_demanded": 72,
+    "quantity_sold": 72,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-10T00:00:00",
+    "quantity_demanded": 130,
+    "quantity_sold": 130,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-11T00:00:00",
+    "quantity_demanded": 106,
+    "quantity_sold": 106,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-12T00:00:00",
+    "quantity_demanded": 106,
+    "quantity_sold": 106,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-13T00:00:00",
+    "quantity_demanded": 67,
+    "quantity_sold": 67,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-14T00:00:00",
+    "quantity_demanded": 75,
+    "quantity_sold": 75,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-15T00:00:00",
+    "quantity_demanded": 74,
+    "quantity_sold": 74,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-16T00:00:00",
+    "quantity_demanded": 79,
+    "quantity_sold": 79,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-17T00:00:00",
+    "quantity_demanded": 95,
+    "quantity_sold": 95,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-18T00:00:00",
+    "quantity_demanded": 96,
+    "quantity_sold": 96,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-19T00:00:00",
+    "quantity_demanded": 95,
+    "quantity_sold": 95,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-20T00:00:00",
+    "quantity_demanded": 75,
+    "quantity_sold": 75,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-21T00:00:00",
+    "quantity_demanded": 81,
+    "quantity_sold": 81,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-22T00:00:00",
+    "quantity_demanded": 65,
+    "quantity_sold": 65,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-23T00:00:00",
+    "quantity_demanded": 65,
+    "quantity_sold": 65,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-24T00:00:00",
+    "quantity_demanded": 105,
+    "quantity_sold": 105,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-25T00:00:00",
+    "quantity_demanded": 98,
+    "quantity_sold": 98,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-26T00:00:00",
+    "quantity_demanded": 113,
+    "quantity_sold": 113,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-27T00:00:00",
+    "quantity_demanded": 50,
+    "quantity_sold": 50,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-28T00:00:00",
+    "quantity_demanded": 62,
+    "quantity_sold": 62,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-29T00:00:00",
+    "quantity_demanded": 62,
+    "quantity_sold": 62,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-30T00:00:00",
+    "quantity_demanded": 50,
+    "quantity_sold": 50,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-08-31T00:00:00",
+    "quantity_demanded": 89,
+    "quantity_sold": 89,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-01T00:00:00",
+    "quantity_demanded": 90,
+    "quantity_sold": 90,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-02T00:00:00",
+    "quantity_demanded": 99,
+    "quantity_sold": 99,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-03T00:00:00",
+    "quantity_demanded": 78,
+    "quantity_sold": 78,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-04T00:00:00",
+    "quantity_demanded": 67,
+    "quantity_sold": 67,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-05T00:00:00",
+    "quantity_demanded": 60,
+    "quantity_sold": 60,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-06T00:00:00",
+    "quantity_demanded": 68,
+    "quantity_sold": 68,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-07T00:00:00",
+    "quantity_demanded": 114,
+    "quantity_sold": 114,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-08T00:00:00",
+    "quantity_demanded": 89,
+    "quantity_sold": 89,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-09T00:00:00",
+    "quantity_demanded": 90,
+    "quantity_sold": 90,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-10T00:00:00",
+    "quantity_demanded": 73,
+    "quantity_sold": 73,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-11T00:00:00",
+    "quantity_demanded": 67,
+    "quantity_sold": 67,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-12T00:00:00",
+    "quantity_demanded": 74,
+    "quantity_sold": 74,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-13T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 69,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-14T00:00:00",
+    "quantity_demanded": 109,
+    "quantity_sold": 109,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-15T00:00:00",
+    "quantity_demanded": 88,
+    "quantity_sold": 88,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-16T00:00:00",
+    "quantity_demanded": 101,
+    "quantity_sold": 101,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-17T00:00:00",
+    "quantity_demanded": 67,
+    "quantity_sold": 67,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-18T00:00:00",
+    "quantity_demanded": 59,
+    "quantity_sold": 59,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-19T00:00:00",
+    "quantity_demanded": 56,
+    "quantity_sold": 56,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-20T00:00:00",
+    "quantity_demanded": 74,
+    "quantity_sold": 74,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-21T00:00:00",
+    "quantity_demanded": 97,
+    "quantity_sold": 97,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-22T00:00:00",
+    "quantity_demanded": 89,
+    "quantity_sold": 89,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-23T00:00:00",
+    "quantity_demanded": 100,
+    "quantity_sold": 100,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-24T00:00:00",
+    "quantity_demanded": 78,
+    "quantity_sold": 78,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-25T00:00:00",
+    "quantity_demanded": 50,
+    "quantity_sold": 50,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-26T00:00:00",
+    "quantity_demanded": 56,
+    "quantity_sold": 56,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-27T00:00:00",
+    "quantity_demanded": 61,
+    "quantity_sold": 61,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-28T00:00:00",
+    "quantity_demanded": 119,
+    "quantity_sold": 119,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-29T00:00:00",
+    "quantity_demanded": 104,
+    "quantity_sold": 104,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-09-30T00:00:00",
+    "quantity_demanded": 110,
+    "quantity_sold": 110,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-01T00:00:00",
+    "quantity_demanded": 59,
+    "quantity_sold": 59,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-02T00:00:00",
+    "quantity_demanded": 59,
+    "quantity_sold": 59,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-03T00:00:00",
+    "quantity_demanded": 72,
+    "quantity_sold": 72,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-04T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 69,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-05T00:00:00",
+    "quantity_demanded": 108,
+    "quantity_sold": 108,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-06T00:00:00",
+    "quantity_demanded": 99,
+    "quantity_sold": 99,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-07T00:00:00",
+    "quantity_demanded": 104,
+    "quantity_sold": 104,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-08T00:00:00",
+    "quantity_demanded": 70,
+    "quantity_sold": 70,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-09T00:00:00",
+    "quantity_demanded": 75,
+    "quantity_sold": 75,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-10T00:00:00",
+    "quantity_demanded": 75,
+    "quantity_sold": 75,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-11T00:00:00",
+    "quantity_demanded": 55,
+    "quantity_sold": 55,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-12T00:00:00",
+    "quantity_demanded": 74,
+    "quantity_sold": 74,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-13T00:00:00",
+    "quantity_demanded": 113,
+    "quantity_sold": 113,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-14T00:00:00",
+    "quantity_demanded": 115,
+    "quantity_sold": 115,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-15T00:00:00",
+    "quantity_demanded": 60,
+    "quantity_sold": 51,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-16T00:00:00",
+    "quantity_demanded": 53,
+    "quantity_sold": 45,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-17T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 59,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-18T00:00:00",
+    "quantity_demanded": 76,
+    "quantity_sold": 65,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-19T00:00:00",
+    "quantity_demanded": 123,
+    "quantity_sold": 105,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-20T00:00:00",
+    "quantity_demanded": 107,
+    "quantity_sold": 91,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-21T00:00:00",
+    "quantity_demanded": 96,
+    "quantity_sold": 82,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-22T00:00:00",
+    "quantity_demanded": 61,
+    "quantity_sold": 52,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0001",
+    "demand_date": "2026-10-23T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 59,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-06-26T00:00:00",
+    "quantity_demanded": 66,
+    "quantity_sold": 66,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-06-27T00:00:00",
+    "quantity_demanded": 60,
+    "quantity_sold": 60,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-06-28T00:00:00",
+    "quantity_demanded": 86,
+    "quantity_sold": 86,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-06-29T00:00:00",
+    "quantity_demanded": 123,
+    "quantity_sold": 123,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-06-30T00:00:00",
+    "quantity_demanded": 115,
+    "quantity_sold": 115,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-01T00:00:00",
+    "quantity_demanded": 90,
+    "quantity_sold": 90,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-02T00:00:00",
+    "quantity_demanded": 76,
+    "quantity_sold": 76,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-03T00:00:00",
+    "quantity_demanded": 74,
+    "quantity_sold": 74,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-04T00:00:00",
+    "quantity_demanded": 72,
+    "quantity_sold": 72,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-05T00:00:00",
+    "quantity_demanded": 79,
+    "quantity_sold": 79,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-06T00:00:00",
+    "quantity_demanded": 109,
+    "quantity_sold": 109,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-07T00:00:00",
+    "quantity_demanded": 110,
+    "quantity_sold": 110,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-08T00:00:00",
+    "quantity_demanded": 109,
+    "quantity_sold": 109,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-09T00:00:00",
+    "quantity_demanded": 71,
+    "quantity_sold": 71,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-10T00:00:00",
+    "quantity_demanded": 54,
+    "quantity_sold": 54,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-11T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 69,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-12T00:00:00",
+    "quantity_demanded": 64,
+    "quantity_sold": 64,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-13T00:00:00",
+    "quantity_demanded": 85,
+    "quantity_sold": 85,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-14T00:00:00",
+    "quantity_demanded": 121,
+    "quantity_sold": 121,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-15T00:00:00",
+    "quantity_demanded": 122,
+    "quantity_sold": 122,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-16T00:00:00",
+    "quantity_demanded": 80,
+    "quantity_sold": 80,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-17T00:00:00",
+    "quantity_demanded": 71,
+    "quantity_sold": 71,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-18T00:00:00",
+    "quantity_demanded": 80,
+    "quantity_sold": 80,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-19T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 69,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-20T00:00:00",
+    "quantity_demanded": 103,
+    "quantity_sold": 103,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-21T00:00:00",
+    "quantity_demanded": 88,
+    "quantity_sold": 88,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-22T00:00:00",
+    "quantity_demanded": 106,
+    "quantity_sold": 106,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-23T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 69,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-24T00:00:00",
+    "quantity_demanded": 58,
+    "quantity_sold": 58,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-25T00:00:00",
+    "quantity_demanded": 68,
+    "quantity_sold": 68,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-26T00:00:00",
+    "quantity_demanded": 68,
+    "quantity_sold": 68,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-27T00:00:00",
+    "quantity_demanded": 123,
+    "quantity_sold": 123,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-28T00:00:00",
+    "quantity_demanded": 112,
+    "quantity_sold": 112,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-29T00:00:00",
+    "quantity_demanded": 101,
+    "quantity_sold": 101,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-30T00:00:00",
+    "quantity_demanded": 71,
+    "quantity_sold": 71,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-07-31T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 69,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-01T00:00:00",
+    "quantity_demanded": 67,
+    "quantity_sold": 67,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-02T00:00:00",
+    "quantity_demanded": 60,
+    "quantity_sold": 60,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-03T00:00:00",
+    "quantity_demanded": 99,
+    "quantity_sold": 99,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-04T00:00:00",
+    "quantity_demanded": 92,
+    "quantity_sold": 92,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-05T00:00:00",
+    "quantity_demanded": 86,
+    "quantity_sold": 86,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-06T00:00:00",
+    "quantity_demanded": 73,
+    "quantity_sold": 73,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-07T00:00:00",
+    "quantity_demanded": 72,
+    "quantity_sold": 72,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-08T00:00:00",
+    "quantity_demanded": 54,
+    "quantity_sold": 54,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-09T00:00:00",
+    "quantity_demanded": 68,
+    "quantity_sold": 68,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-10T00:00:00",
+    "quantity_demanded": 113,
+    "quantity_sold": 113,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-11T00:00:00",
+    "quantity_demanded": 114,
+    "quantity_sold": 114,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-12T00:00:00",
+    "quantity_demanded": 113,
+    "quantity_sold": 113,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-13T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 69,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-14T00:00:00",
+    "quantity_demanded": 62,
+    "quantity_sold": 62,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-15T00:00:00",
+    "quantity_demanded": 60,
+    "quantity_sold": 60,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-16T00:00:00",
+    "quantity_demanded": 72,
+    "quantity_sold": 72,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-17T00:00:00",
+    "quantity_demanded": 106,
+    "quantity_sold": 106,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-18T00:00:00",
+    "quantity_demanded": 117,
+    "quantity_sold": 117,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-19T00:00:00",
+    "quantity_demanded": 114,
+    "quantity_sold": 114,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-20T00:00:00",
+    "quantity_demanded": 68,
+    "quantity_sold": 68,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-21T00:00:00",
+    "quantity_demanded": 58,
+    "quantity_sold": 58,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-22T00:00:00",
+    "quantity_demanded": 66,
+    "quantity_sold": 66,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-23T00:00:00",
+    "quantity_demanded": 70,
+    "quantity_sold": 70,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-24T00:00:00",
+    "quantity_demanded": 99,
+    "quantity_sold": 99,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-25T00:00:00",
+    "quantity_demanded": 94,
+    "quantity_sold": 94,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-26T00:00:00",
+    "quantity_demanded": 104,
+    "quantity_sold": 104,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-27T00:00:00",
+    "quantity_demanded": 65,
+    "quantity_sold": 65,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-28T00:00:00",
+    "quantity_demanded": 63,
+    "quantity_sold": 63,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-29T00:00:00",
+    "quantity_demanded": 71,
+    "quantity_sold": 71,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-30T00:00:00",
+    "quantity_demanded": 65,
+    "quantity_sold": 65,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-08-31T00:00:00",
+    "quantity_demanded": 104,
+    "quantity_sold": 104,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-01T00:00:00",
+    "quantity_demanded": 104,
+    "quantity_sold": 104,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-02T00:00:00",
+    "quantity_demanded": 87,
+    "quantity_sold": 87,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-03T00:00:00",
+    "quantity_demanded": 65,
+    "quantity_sold": 65,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-04T00:00:00",
+    "quantity_demanded": 81,
+    "quantity_sold": 81,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-05T00:00:00",
+    "quantity_demanded": 59,
+    "quantity_sold": 59,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-06T00:00:00",
+    "quantity_demanded": 51,
+    "quantity_sold": 51,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-07T00:00:00",
+    "quantity_demanded": 78,
+    "quantity_sold": 78,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-08T00:00:00",
+    "quantity_demanded": 101,
+    "quantity_sold": 101,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-09T00:00:00",
+    "quantity_demanded": 101,
+    "quantity_sold": 101,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-10T00:00:00",
+    "quantity_demanded": 68,
+    "quantity_sold": 68,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-11T00:00:00",
+    "quantity_demanded": 79,
+    "quantity_sold": 79,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-12T00:00:00",
+    "quantity_demanded": 47,
+    "quantity_sold": 47,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-13T00:00:00",
+    "quantity_demanded": 72,
+    "quantity_sold": 72,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-14T00:00:00",
+    "quantity_demanded": 120,
+    "quantity_sold": 120,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-15T00:00:00",
+    "quantity_demanded": 87,
+    "quantity_sold": 87,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-16T00:00:00",
+    "quantity_demanded": 96,
+    "quantity_sold": 96,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-17T00:00:00",
+    "quantity_demanded": 62,
+    "quantity_sold": 62,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-18T00:00:00",
+    "quantity_demanded": 61,
+    "quantity_sold": 61,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-19T00:00:00",
+    "quantity_demanded": 66,
+    "quantity_sold": 66,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-20T00:00:00",
+    "quantity_demanded": 80,
+    "quantity_sold": 80,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-21T00:00:00",
+    "quantity_demanded": 123,
+    "quantity_sold": 123,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-22T00:00:00",
+    "quantity_demanded": 97,
+    "quantity_sold": 97,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-23T00:00:00",
+    "quantity_demanded": 124,
+    "quantity_sold": 124,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-24T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 69,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-25T00:00:00",
+    "quantity_demanded": 83,
+    "quantity_sold": 83,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-26T00:00:00",
+    "quantity_demanded": 68,
+    "quantity_sold": 68,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-27T00:00:00",
+    "quantity_demanded": 70,
+    "quantity_sold": 70,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-28T00:00:00",
+    "quantity_demanded": 105,
+    "quantity_sold": 105,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-29T00:00:00",
+    "quantity_demanded": 140,
+    "quantity_sold": 140,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-09-30T00:00:00",
+    "quantity_demanded": 111,
+    "quantity_sold": 111,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-01T00:00:00",
+    "quantity_demanded": 63,
+    "quantity_sold": 63,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-02T00:00:00",
+    "quantity_demanded": 77,
+    "quantity_sold": 77,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-03T00:00:00",
+    "quantity_demanded": 66,
+    "quantity_sold": 66,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-04T00:00:00",
+    "quantity_demanded": 65,
+    "quantity_sold": 65,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-05T00:00:00",
+    "quantity_demanded": 112,
+    "quantity_sold": 112,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-06T00:00:00",
+    "quantity_demanded": 101,
+    "quantity_sold": 101,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-07T00:00:00",
+    "quantity_demanded": 104,
+    "quantity_sold": 104,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-08T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 69,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-09T00:00:00",
+    "quantity_demanded": 71,
+    "quantity_sold": 71,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-10T00:00:00",
+    "quantity_demanded": 72,
+    "quantity_sold": 72,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-11T00:00:00",
+    "quantity_demanded": 53,
+    "quantity_sold": 53,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-12T00:00:00",
+    "quantity_demanded": 109,
+    "quantity_sold": 109,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-13T00:00:00",
+    "quantity_demanded": 89,
+    "quantity_sold": 89,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-14T00:00:00",
+    "quantity_demanded": 84,
+    "quantity_sold": 84,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-15T00:00:00",
+    "quantity_demanded": 68,
+    "quantity_sold": 58,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-16T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 59,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-17T00:00:00",
+    "quantity_demanded": 63,
+    "quantity_sold": 54,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-18T00:00:00",
+    "quantity_demanded": 76,
+    "quantity_sold": 65,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-19T00:00:00",
+    "quantity_demanded": 85,
+    "quantity_sold": 72,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-20T00:00:00",
+    "quantity_demanded": 96,
+    "quantity_sold": 82,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-21T00:00:00",
+    "quantity_demanded": 94,
+    "quantity_sold": 80,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-22T00:00:00",
+    "quantity_demanded": 68,
+    "quantity_sold": 58,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0002",
+    "demand_date": "2026-10-23T00:00:00",
+    "quantity_demanded": 71,
+    "quantity_sold": 60,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-06-26T00:00:00",
+    "quantity_demanded": 60,
+    "quantity_sold": 60,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-06-27T00:00:00",
+    "quantity_demanded": 75,
+    "quantity_sold": 75,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-06-28T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 69,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-06-29T00:00:00",
+    "quantity_demanded": 78,
+    "quantity_sold": 78,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-06-30T00:00:00",
+    "quantity_demanded": 77,
+    "quantity_sold": 77,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-01T00:00:00",
+    "quantity_demanded": 101,
+    "quantity_sold": 101,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-02T00:00:00",
+    "quantity_demanded": 67,
+    "quantity_sold": 67,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-03T00:00:00",
+    "quantity_demanded": 68,
+    "quantity_sold": 68,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-04T00:00:00",
+    "quantity_demanded": 68,
+    "quantity_sold": 68,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-05T00:00:00",
+    "quantity_demanded": 71,
+    "quantity_sold": 71,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-06T00:00:00",
+    "quantity_demanded": 112,
+    "quantity_sold": 112,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-07T00:00:00",
+    "quantity_demanded": 88,
+    "quantity_sold": 88,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-08T00:00:00",
+    "quantity_demanded": 87,
+    "quantity_sold": 87,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-09T00:00:00",
+    "quantity_demanded": 60,
+    "quantity_sold": 60,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-10T00:00:00",
+    "quantity_demanded": 71,
+    "quantity_sold": 71,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-11T00:00:00",
+    "quantity_demanded": 79,
+    "quantity_sold": 79,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-12T00:00:00",
+    "quantity_demanded": 65,
+    "quantity_sold": 65,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-13T00:00:00",
+    "quantity_demanded": 71,
+    "quantity_sold": 71,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-14T00:00:00",
+    "quantity_demanded": 80,
+    "quantity_sold": 80,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-15T00:00:00",
+    "quantity_demanded": 91,
+    "quantity_sold": 91,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-16T00:00:00",
+    "quantity_demanded": 64,
+    "quantity_sold": 64,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-17T00:00:00",
+    "quantity_demanded": 65,
+    "quantity_sold": 65,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-18T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 69,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-19T00:00:00",
+    "quantity_demanded": 66,
+    "quantity_sold": 66,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-20T00:00:00",
+    "quantity_demanded": 114,
+    "quantity_sold": 114,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-21T00:00:00",
+    "quantity_demanded": 93,
+    "quantity_sold": 93,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-22T00:00:00",
+    "quantity_demanded": 91,
+    "quantity_sold": 91,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-23T00:00:00",
+    "quantity_demanded": 73,
+    "quantity_sold": 73,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-24T00:00:00",
+    "quantity_demanded": 56,
+    "quantity_sold": 56,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-25T00:00:00",
+    "quantity_demanded": 72,
+    "quantity_sold": 72,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-26T00:00:00",
+    "quantity_demanded": 70,
+    "quantity_sold": 70,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-27T00:00:00",
+    "quantity_demanded": 99,
+    "quantity_sold": 99,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-28T00:00:00",
+    "quantity_demanded": 120,
+    "quantity_sold": 120,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-29T00:00:00",
+    "quantity_demanded": 93,
+    "quantity_sold": 93,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-30T00:00:00",
+    "quantity_demanded": 86,
+    "quantity_sold": 86,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-07-31T00:00:00",
+    "quantity_demanded": 67,
+    "quantity_sold": 67,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-01T00:00:00",
+    "quantity_demanded": 58,
+    "quantity_sold": 58,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-02T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 69,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-03T00:00:00",
+    "quantity_demanded": 88,
+    "quantity_sold": 88,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-04T00:00:00",
+    "quantity_demanded": 92,
+    "quantity_sold": 92,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-05T00:00:00",
+    "quantity_demanded": 106,
+    "quantity_sold": 106,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-06T00:00:00",
+    "quantity_demanded": 73,
+    "quantity_sold": 73,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-07T00:00:00",
+    "quantity_demanded": 64,
+    "quantity_sold": 64,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-08T00:00:00",
+    "quantity_demanded": 77,
+    "quantity_sold": 77,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-09T00:00:00",
+    "quantity_demanded": 78,
+    "quantity_sold": 78,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-10T00:00:00",
+    "quantity_demanded": 118,
+    "quantity_sold": 118,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-11T00:00:00",
+    "quantity_demanded": 107,
+    "quantity_sold": 107,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-12T00:00:00",
+    "quantity_demanded": 118,
+    "quantity_sold": 118,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-13T00:00:00",
+    "quantity_demanded": 53,
+    "quantity_sold": 53,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-14T00:00:00",
+    "quantity_demanded": 66,
+    "quantity_sold": 66,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-15T00:00:00",
+    "quantity_demanded": 62,
+    "quantity_sold": 62,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-16T00:00:00",
+    "quantity_demanded": 70,
+    "quantity_sold": 70,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-17T00:00:00",
+    "quantity_demanded": 94,
+    "quantity_sold": 94,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-18T00:00:00",
+    "quantity_demanded": 99,
+    "quantity_sold": 99,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-19T00:00:00",
+    "quantity_demanded": 124,
+    "quantity_sold": 124,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-20T00:00:00",
+    "quantity_demanded": 67,
+    "quantity_sold": 67,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-21T00:00:00",
+    "quantity_demanded": 72,
+    "quantity_sold": 72,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-22T00:00:00",
+    "quantity_demanded": 67,
+    "quantity_sold": 67,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-23T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 69,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-24T00:00:00",
+    "quantity_demanded": 101,
+    "quantity_sold": 101,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-25T00:00:00",
+    "quantity_demanded": 106,
+    "quantity_sold": 106,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-26T00:00:00",
+    "quantity_demanded": 115,
+    "quantity_sold": 115,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-27T00:00:00",
+    "quantity_demanded": 82,
+    "quantity_sold": 82,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-28T00:00:00",
+    "quantity_demanded": 71,
+    "quantity_sold": 71,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-29T00:00:00",
+    "quantity_demanded": 74,
+    "quantity_sold": 74,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-30T00:00:00",
+    "quantity_demanded": 59,
+    "quantity_sold": 59,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-08-31T00:00:00",
+    "quantity_demanded": 100,
+    "quantity_sold": 100,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-01T00:00:00",
+    "quantity_demanded": 112,
+    "quantity_sold": 112,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-02T00:00:00",
+    "quantity_demanded": 111,
+    "quantity_sold": 111,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-03T00:00:00",
+    "quantity_demanded": 70,
+    "quantity_sold": 70,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-04T00:00:00",
+    "quantity_demanded": 76,
+    "quantity_sold": 76,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-05T00:00:00",
+    "quantity_demanded": 73,
+    "quantity_sold": 73,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-06T00:00:00",
+    "quantity_demanded": 79,
+    "quantity_sold": 79,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-07T00:00:00",
+    "quantity_demanded": 104,
+    "quantity_sold": 104,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-08T00:00:00",
+    "quantity_demanded": 97,
+    "quantity_sold": 97,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-09T00:00:00",
+    "quantity_demanded": 105,
+    "quantity_sold": 105,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-10T00:00:00",
+    "quantity_demanded": 45,
+    "quantity_sold": 45,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-11T00:00:00",
+    "quantity_demanded": 72,
+    "quantity_sold": 72,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-12T00:00:00",
+    "quantity_demanded": 39,
+    "quantity_sold": 39,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-13T00:00:00",
+    "quantity_demanded": 54,
+    "quantity_sold": 54,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-14T00:00:00",
+    "quantity_demanded": 106,
+    "quantity_sold": 106,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-15T00:00:00",
+    "quantity_demanded": 107,
+    "quantity_sold": 107,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-16T00:00:00",
+    "quantity_demanded": 87,
+    "quantity_sold": 87,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-17T00:00:00",
+    "quantity_demanded": 63,
+    "quantity_sold": 63,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-18T00:00:00",
+    "quantity_demanded": 80,
+    "quantity_sold": 80,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-19T00:00:00",
+    "quantity_demanded": 65,
+    "quantity_sold": 65,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-20T00:00:00",
+    "quantity_demanded": 87,
+    "quantity_sold": 87,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-21T00:00:00",
+    "quantity_demanded": 101,
+    "quantity_sold": 101,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-22T00:00:00",
+    "quantity_demanded": 106,
+    "quantity_sold": 106,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-23T00:00:00",
+    "quantity_demanded": 121,
+    "quantity_sold": 121,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-24T00:00:00",
+    "quantity_demanded": 70,
+    "quantity_sold": 70,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-25T00:00:00",
+    "quantity_demanded": 60,
+    "quantity_sold": 60,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-26T00:00:00",
+    "quantity_demanded": 68,
+    "quantity_sold": 68,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-27T00:00:00",
+    "quantity_demanded": 68,
+    "quantity_sold": 68,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-28T00:00:00",
+    "quantity_demanded": 84,
+    "quantity_sold": 84,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-29T00:00:00",
+    "quantity_demanded": 98,
+    "quantity_sold": 98,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-09-30T00:00:00",
+    "quantity_demanded": 92,
+    "quantity_sold": 92,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-01T00:00:00",
+    "quantity_demanded": 76,
+    "quantity_sold": 76,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-02T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 69,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-03T00:00:00",
+    "quantity_demanded": 66,
+    "quantity_sold": 66,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-04T00:00:00",
+    "quantity_demanded": 68,
+    "quantity_sold": 68,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-05T00:00:00",
+    "quantity_demanded": 104,
+    "quantity_sold": 104,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-06T00:00:00",
+    "quantity_demanded": 108,
+    "quantity_sold": 108,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-07T00:00:00",
+    "quantity_demanded": 89,
+    "quantity_sold": 89,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-08T00:00:00",
+    "quantity_demanded": 60,
+    "quantity_sold": 60,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-09T00:00:00",
+    "quantity_demanded": 78,
+    "quantity_sold": 78,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-10T00:00:00",
+    "quantity_demanded": 65,
+    "quantity_sold": 65,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-11T00:00:00",
+    "quantity_demanded": 57,
+    "quantity_sold": 57,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-12T00:00:00",
+    "quantity_demanded": 106,
+    "quantity_sold": 106,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-13T00:00:00",
+    "quantity_demanded": 107,
+    "quantity_sold": 107,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-14T00:00:00",
+    "quantity_demanded": 82,
+    "quantity_sold": 82,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-15T00:00:00",
+    "quantity_demanded": 71,
+    "quantity_sold": 60,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-16T00:00:00",
+    "quantity_demanded": 75,
+    "quantity_sold": 64,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-17T00:00:00",
+    "quantity_demanded": 72,
+    "quantity_sold": 61,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-18T00:00:00",
+    "quantity_demanded": 74,
+    "quantity_sold": 63,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-19T00:00:00",
+    "quantity_demanded": 84,
+    "quantity_sold": 71,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-20T00:00:00",
+    "quantity_demanded": 105,
+    "quantity_sold": 89,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-21T00:00:00",
+    "quantity_demanded": 97,
+    "quantity_sold": 82,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-22T00:00:00",
+    "quantity_demanded": 65,
+    "quantity_sold": 55,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0003",
+    "demand_date": "2026-10-23T00:00:00",
+    "quantity_demanded": 76,
+    "quantity_sold": 65,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-06-26T00:00:00",
+    "quantity_demanded": 81,
+    "quantity_sold": 81,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-06-27T00:00:00",
+    "quantity_demanded": 83,
+    "quantity_sold": 83,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-06-28T00:00:00",
+    "quantity_demanded": 80,
+    "quantity_sold": 80,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-06-29T00:00:00",
+    "quantity_demanded": 100,
+    "quantity_sold": 100,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-06-30T00:00:00",
+    "quantity_demanded": 105,
+    "quantity_sold": 105,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-01T00:00:00",
+    "quantity_demanded": 110,
+    "quantity_sold": 110,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-02T00:00:00",
+    "quantity_demanded": 70,
+    "quantity_sold": 70,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-03T00:00:00",
+    "quantity_demanded": 70,
+    "quantity_sold": 70,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-04T00:00:00",
+    "quantity_demanded": 75,
+    "quantity_sold": 75,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-05T00:00:00",
+    "quantity_demanded": 68,
+    "quantity_sold": 68,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-06T00:00:00",
+    "quantity_demanded": 92,
+    "quantity_sold": 92,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-07T00:00:00",
+    "quantity_demanded": 96,
+    "quantity_sold": 96,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-08T00:00:00",
+    "quantity_demanded": 109,
+    "quantity_sold": 109,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-09T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 69,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-10T00:00:00",
+    "quantity_demanded": 71,
+    "quantity_sold": 71,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-11T00:00:00",
+    "quantity_demanded": 74,
+    "quantity_sold": 74,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-12T00:00:00",
+    "quantity_demanded": 66,
+    "quantity_sold": 66,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-13T00:00:00",
+    "quantity_demanded": 110,
+    "quantity_sold": 110,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-14T00:00:00",
+    "quantity_demanded": 106,
+    "quantity_sold": 106,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-15T00:00:00",
+    "quantity_demanded": 86,
+    "quantity_sold": 86,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-16T00:00:00",
+    "quantity_demanded": 81,
+    "quantity_sold": 81,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-17T00:00:00",
+    "quantity_demanded": 65,
+    "quantity_sold": 65,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-18T00:00:00",
+    "quantity_demanded": 55,
+    "quantity_sold": 55,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-19T00:00:00",
+    "quantity_demanded": 60,
+    "quantity_sold": 60,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-20T00:00:00",
+    "quantity_demanded": 89,
+    "quantity_sold": 89,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-21T00:00:00",
+    "quantity_demanded": 102,
+    "quantity_sold": 102,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-22T00:00:00",
+    "quantity_demanded": 98,
+    "quantity_sold": 98,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-23T00:00:00",
+    "quantity_demanded": 66,
+    "quantity_sold": 66,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-24T00:00:00",
+    "quantity_demanded": 74,
+    "quantity_sold": 74,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-25T00:00:00",
+    "quantity_demanded": 71,
+    "quantity_sold": 71,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-26T00:00:00",
+    "quantity_demanded": 71,
+    "quantity_sold": 71,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-27T00:00:00",
+    "quantity_demanded": 106,
+    "quantity_sold": 106,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-28T00:00:00",
+    "quantity_demanded": 108,
+    "quantity_sold": 108,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-29T00:00:00",
+    "quantity_demanded": 75,
+    "quantity_sold": 75,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-30T00:00:00",
+    "quantity_demanded": 66,
+    "quantity_sold": 66,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-07-31T00:00:00",
+    "quantity_demanded": 51,
+    "quantity_sold": 51,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-01T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 69,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-02T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 69,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-03T00:00:00",
+    "quantity_demanded": 114,
+    "quantity_sold": 114,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-04T00:00:00",
+    "quantity_demanded": 115,
+    "quantity_sold": 115,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-05T00:00:00",
+    "quantity_demanded": 103,
+    "quantity_sold": 103,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-06T00:00:00",
+    "quantity_demanded": 65,
+    "quantity_sold": 65,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-07T00:00:00",
+    "quantity_demanded": 73,
+    "quantity_sold": 73,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-08T00:00:00",
+    "quantity_demanded": 64,
+    "quantity_sold": 64,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-09T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 69,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-10T00:00:00",
+    "quantity_demanded": 113,
+    "quantity_sold": 113,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-11T00:00:00",
+    "quantity_demanded": 94,
+    "quantity_sold": 94,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-12T00:00:00",
+    "quantity_demanded": 111,
+    "quantity_sold": 111,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-13T00:00:00",
+    "quantity_demanded": 74,
+    "quantity_sold": 74,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-14T00:00:00",
+    "quantity_demanded": 61,
+    "quantity_sold": 61,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-15T00:00:00",
+    "quantity_demanded": 77,
+    "quantity_sold": 77,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-16T00:00:00",
+    "quantity_demanded": 74,
+    "quantity_sold": 74,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-17T00:00:00",
+    "quantity_demanded": 102,
+    "quantity_sold": 102,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-18T00:00:00",
+    "quantity_demanded": 92,
+    "quantity_sold": 92,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-19T00:00:00",
+    "quantity_demanded": 91,
+    "quantity_sold": 91,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-20T00:00:00",
+    "quantity_demanded": 64,
+    "quantity_sold": 64,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-21T00:00:00",
+    "quantity_demanded": 73,
+    "quantity_sold": 73,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-22T00:00:00",
+    "quantity_demanded": 61,
+    "quantity_sold": 61,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-23T00:00:00",
+    "quantity_demanded": 72,
+    "quantity_sold": 72,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-24T00:00:00",
+    "quantity_demanded": 86,
+    "quantity_sold": 86,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-25T00:00:00",
+    "quantity_demanded": 99,
+    "quantity_sold": 99,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-26T00:00:00",
+    "quantity_demanded": 102,
+    "quantity_sold": 102,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-27T00:00:00",
+    "quantity_demanded": 89,
+    "quantity_sold": 89,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-28T00:00:00",
+    "quantity_demanded": 57,
+    "quantity_sold": 57,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-29T00:00:00",
+    "quantity_demanded": 81,
+    "quantity_sold": 81,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-30T00:00:00",
+    "quantity_demanded": 70,
+    "quantity_sold": 70,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-08-31T00:00:00",
+    "quantity_demanded": 106,
+    "quantity_sold": 106,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-01T00:00:00",
+    "quantity_demanded": 102,
+    "quantity_sold": 102,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-02T00:00:00",
+    "quantity_demanded": 106,
+    "quantity_sold": 106,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-03T00:00:00",
+    "quantity_demanded": 67,
+    "quantity_sold": 67,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-04T00:00:00",
+    "quantity_demanded": 81,
+    "quantity_sold": 81,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-05T00:00:00",
+    "quantity_demanded": 65,
+    "quantity_sold": 65,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-06T00:00:00",
+    "quantity_demanded": 78,
+    "quantity_sold": 78,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-07T00:00:00",
+    "quantity_demanded": 93,
+    "quantity_sold": 93,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-08T00:00:00",
+    "quantity_demanded": 100,
+    "quantity_sold": 100,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-09T00:00:00",
+    "quantity_demanded": 88,
+    "quantity_sold": 88,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-10T00:00:00",
+    "quantity_demanded": 72,
+    "quantity_sold": 72,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-11T00:00:00",
+    "quantity_demanded": 81,
+    "quantity_sold": 81,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-12T00:00:00",
+    "quantity_demanded": 68,
+    "quantity_sold": 68,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-13T00:00:00",
+    "quantity_demanded": 67,
+    "quantity_sold": 67,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-14T00:00:00",
+    "quantity_demanded": 87,
+    "quantity_sold": 87,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-15T00:00:00",
+    "quantity_demanded": 98,
+    "quantity_sold": 98,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-16T00:00:00",
+    "quantity_demanded": 82,
+    "quantity_sold": 82,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-17T00:00:00",
+    "quantity_demanded": 61,
+    "quantity_sold": 61,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-18T00:00:00",
+    "quantity_demanded": 71,
+    "quantity_sold": 71,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-19T00:00:00",
+    "quantity_demanded": 80,
+    "quantity_sold": 80,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-20T00:00:00",
+    "quantity_demanded": 92,
+    "quantity_sold": 92,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-21T00:00:00",
+    "quantity_demanded": 94,
+    "quantity_sold": 94,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-22T00:00:00",
+    "quantity_demanded": 118,
+    "quantity_sold": 118,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-23T00:00:00",
+    "quantity_demanded": 104,
+    "quantity_sold": 104,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-24T00:00:00",
+    "quantity_demanded": 67,
+    "quantity_sold": 67,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-25T00:00:00",
+    "quantity_demanded": 72,
+    "quantity_sold": 72,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-26T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 69,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-27T00:00:00",
+    "quantity_demanded": 70,
+    "quantity_sold": 70,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-28T00:00:00",
+    "quantity_demanded": 96,
+    "quantity_sold": 96,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-29T00:00:00",
+    "quantity_demanded": 84,
+    "quantity_sold": 84,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-09-30T00:00:00",
+    "quantity_demanded": 82,
+    "quantity_sold": 82,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-01T00:00:00",
+    "quantity_demanded": 74,
+    "quantity_sold": 74,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-02T00:00:00",
+    "quantity_demanded": 66,
+    "quantity_sold": 66,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-03T00:00:00",
+    "quantity_demanded": 64,
+    "quantity_sold": 64,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-04T00:00:00",
+    "quantity_demanded": 69,
+    "quantity_sold": 69,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-05T00:00:00",
+    "quantity_demanded": 111,
+    "quantity_sold": 111,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-06T00:00:00",
+    "quantity_demanded": 103,
+    "quantity_sold": 103,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-07T00:00:00",
+    "quantity_demanded": 93,
+    "quantity_sold": 93,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-08T00:00:00",
+    "quantity_demanded": 79,
+    "quantity_sold": 79,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-09T00:00:00",
+    "quantity_demanded": 82,
+    "quantity_sold": 82,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-10T00:00:00",
+    "quantity_demanded": 73,
+    "quantity_sold": 73,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-11T00:00:00",
+    "quantity_demanded": 77,
+    "quantity_sold": 77,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-12T00:00:00",
+    "quantity_demanded": 116,
+    "quantity_sold": 116,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-13T00:00:00",
+    "quantity_demanded": 115,
+    "quantity_sold": 115,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-14T00:00:00",
+    "quantity_demanded": 108,
+    "quantity_sold": 108,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-15T00:00:00",
+    "quantity_demanded": 74,
+    "quantity_sold": 63,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-16T00:00:00",
+    "quantity_demanded": 73,
+    "quantity_sold": 62,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-17T00:00:00",
+    "quantity_demanded": 60,
+    "quantity_sold": 51,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-18T00:00:00",
+    "quantity_demanded": 74,
+    "quantity_sold": 63,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-19T00:00:00",
+    "quantity_demanded": 85,
+    "quantity_sold": 72,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-20T00:00:00",
+    "quantity_demanded": 91,
+    "quantity_sold": 77,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-21T00:00:00",
+    "quantity_demanded": 117,
+    "quantity_sold": 99,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-22T00:00:00",
+    "quantity_demanded": 76,
+    "quantity_sold": 65,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0004",
+    "demand_date": "2026-10-23T00:00:00",
+    "quantity_demanded": 81,
+    "quantity_sold": 69,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0005",
+    "demand_date": "2026-06-26T00:00:00",
+    "quantity_demanded": 81,
+    "quantity_sold": 81,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0005",
+    "demand_date": "2026-06-27T00:00:00",
+    "quantity_demanded": 72,
+    "quantity_sold": 72,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0005",
+    "demand_date": "2026-06-28T00:00:00",
+    "quantity_demanded": 81,
+    "quantity_sold": 81,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0005",
+    "demand_date": "2026-06-29T00:00:00",
+    "quantity_demanded": 53,
+    "quantity_sold": 53,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0005",
+    "demand_date": "2026-06-30T00:00:00",
+    "quantity_demanded": 53,
+    "quantity_sold": 53,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0005",
+    "demand_date": "2026-07-01T00:00:00",
+    "quantity_demanded": 60,
+    "quantity_sold": 60,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0005",
+    "demand_date": "2026-07-02T00:00:00",
+    "quantity_demanded": 50,
+    "quantity_sold": 50,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0005",
+    "demand_date": "2026-07-03T00:00:00",
+    "quantity_demanded": 87,
+    "quantity_sold": 87,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0005",
+    "demand_date": "2026-07-04T00:00:00",
+    "quantity_demanded": 74,
+    "quantity_sold": 74,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0005",
+    "demand_date": "2026-07-05T00:00:00",
+    "quantity_demanded": 88,
+    "quantity_sold": 88,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0005",
+    "demand_date": "2026-07-06T00:00:00",
+    "quantity_demanded": 53,
+    "quantity_sold": 53,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0005",
+    "demand_date": "2026-07-07T00:00:00",
+    "quantity_demanded": 48,
+    "quantity_sold": 48,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0005",
+    "demand_date": "2026-07-08T00:00:00",
+    "quantity_demanded": 51,
+    "quantity_sold": 51,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0005",
+    "demand_date": "2026-07-09T00:00:00",
+    "quantity_demanded": 51,
+    "quantity_sold": 51,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0005",
+    "demand_date": "2026-07-10T00:00:00",
+    "quantity_demanded": 81,
+    "quantity_sold": 81,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0005",
+    "demand_date": "2026-07-11T00:00:00",
+    "quantity_demanded": 101,
+    "quantity_sold": 101,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0005",
+    "demand_date": "2026-07-12T00:00:00",
+    "quantity_demanded": 82,
+    "quantity_sold": 82,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0005",
+    "demand_date": "2026-07-13T00:00:00",
+    "quantity_demanded": 51,
+    "quantity_sold": 51,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0005",
+    "demand_date": "2026-07-14T00:00:00",
+    "quantity_demanded": 39,
+    "quantity_sold": 39,
+    "is_simulated": true
+  },
+  {
+    "destination_code": "DST-001",
+    "product_sku": "SKU-0005",
+    "demand_date": "2026-07-15T00:00:00",
+    "quantity_demanded": 47,
+    "quantity_sold": 47,
+    "is_simulated": true
+  }
+]

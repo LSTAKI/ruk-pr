@@ -1,0 +1,42 @@
+[
+  {
+    "code": "WH-01",
+    "name": "Central Metro DC",
+    "city": "Central",
+    "state": "North Central",
+    "capacity_units": 75000,
+    "daily_dispatch_capacity_units": 25000,
+    "latitude": 41.8781,
+    "longitude": -87.6298
+  },
+  {
+    "code": "WH-02",
+    "name": "Eastern Logistics Hub",
+    "city": "Eastern",
+    "state": "Northeast",
+    "capacity_units": 95000,
+    "daily_dispatch_capacity_units": 35000,
+    "latitude": 40.7128,
+    "longitude": -74.006
+  },
+  {
+    "code": "WH-03",
+    "name": "Southern Regional Hub",
+    "city": "Southern",
+    "state": "South",
+    "capacity_units": 65000,
+    "daily_dispatch_capacity_units": 20000,
+    "latitude": 33.749,
+    "longitude": -84.388
+  },
+  {
+    "code": "WH-04",
+    "name": "Western Gateway Hub",
+    "city": "Western",
+    "state": "West Coast",
+    "capacity_units": 50000,
+    "daily_dispatch_capacity_units": 15000,
+    "latitude": 34.0522,
+    "longitude": -118.2437
+  }
+]
