@@ -206,6 +206,21 @@ StockWise AI includes an enterprise-grade distribution intelligence control towe
 
 ---
 
+## Hackathon Demonstration & Validation Guide
+
+For a complete live demonstration script, empirical benchmark results, and business metric audit, see:
+👉 **[Hackathon Demonstration Guide (docs/hackathon_demo.md)](docs/hackathon_demo.md)**
+
+It details:
+- **Project Problem Statement & Multi-Echelon Architecture**
+- **5-Minute Live Demonstration Script** with step-by-step clicks and talking points
+- **Empirical Optimization Benchmarks** comparing Cost-First, Service-First, Balanced, and Deterministic Greedy Baseline
+- **4 Repeatable Demonstration Scenarios** (Stockout Risk, Warehouse Supply Shortage, Route/Cutoff Constraints, Cost vs. Service Trade-Off)
+- **Business Metric Audit** with exact mathematical formulations and data classifications
+- **Known Operational Data Gaps (GAP-1 & GAP-2)** and local troubleshooting FAQ
+
+---
+
 ## Key Architectural Invariants
 
 1. **Decoupled Datasets & Plans**: Raw inventory batches in `InventoryItem` are strictly separated from optimization runs in `PlanningRun`. Scenarios never mutate baseline source records.

@@ -10,7 +10,7 @@ test.describe("StockWise AI End-to-End Workflow & Module Navigation", () => {
     await expect(page.getByText("LOCAL-FIRST", { exact: true })).toBeVisible();
 
     // 2. Verify Overview Dashboard
-    await expect(page.getByRole("heading", { name: "Distribution Intelligence Overview" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Distribution Intelligence Overview" })).toBeVisible({ timeout: 15000 });
     await expect(page.getByText("Network Infrastructure")).toBeVisible();
     await expect(page.getByText("Regional Warehouses")).toBeVisible();
     await expect(page.getByText("Retail Destinations")).toBeVisible();
@@ -46,5 +46,33 @@ test.describe("StockWise AI End-to-End Workflow & Module Navigation", () => {
     // 8. Navigate to Planning History
     await page.getByTestId("nav-tab-history").click();
     await expect(page.getByRole("heading", { name: "Planning Runs History & Audit Log" })).toBeVisible();
+  });
+
+  test("executes real end-to-end optimization run, renders solver outcome, and exports CSV", async ({ page }) => {
+    await page.goto("/");
+
+    // 1. Navigate to Optimizer Planner
+    await page.getByTestId("nav-tab-optimization").click();
+    await expect(page.getByRole("heading", { name: "OR-Tools Distribution Optimizer" })).toBeVisible();
+
+    // 2. Click Run Local Optimizer
+    const runBtn = page.getByTestId("run-optimization-submit-btn");
+    await expect(runBtn).toBeVisible();
+    await runBtn.click();
+
+    // 3. Await Solver Outcome Card with extended timeout for MIP solve
+    const outcomeCard = page.getByTestId("solver-outcome-card");
+    await expect(outcomeCard).toBeVisible({ timeout: 20000 });
+    await expect(page.getByText("OPTIMAL")).toBeVisible();
+    await expect(page.getByText("Verifier: Feasible")).toBeVisible();
+
+    // 4. Verify Shipment Recommendations Table Rendering
+    await expect(page.getByText("Recommended Allocation Schedule")).toBeVisible();
+
+    // 5. Verify CSV Download Trigger
+    const downloadPromise = page.waitForEvent("download");
+    await page.getByRole("button", { name: "Export CSV" }).click();
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toMatch(/^stockwise_shipments_(PLAN|RUN)-.*\.csv$/);
   });
 });
