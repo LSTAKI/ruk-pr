@@ -14,6 +14,7 @@ from app.routes.scenarios import router as scenarios_router
 from app.routes.routes import router as routes_router
 from app.routes.demand import router as demand_router
 from app.routes.forecast import router as forecast_router
+from app.routes.replenishment import router as replenishment_router
 from app.db.session import engine, Base
 
 @asynccontextmanager
@@ -48,6 +49,7 @@ app.include_router(scenarios_router, prefix="/api/v1")
 app.include_router(routes_router, prefix="/api/v1")
 app.include_router(demand_router, prefix="/api/v1")
 app.include_router(forecast_router, prefix="/api/v1")
+app.include_router(replenishment_router, prefix="/api/v1")
 
 # Top-level health check endpoint for container probes
 @app.get("/health")

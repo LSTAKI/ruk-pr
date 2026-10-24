@@ -10,7 +10,8 @@ Establishes standardized, mathematically rigorous inventory accounting:
 """
 
 from datetime import datetime, timedelta
-from typing import List, Dict, Any, Tuple
+from typing import Dict, List, Any, Optional, Tuple
+
 
 class InventoryPositionAnalyzer:
     """Evaluates network inventory health, usable availability, and risk posture."""
@@ -105,12 +106,43 @@ class InventoryPositionAnalyzer:
         demand_forecasts: List[Dict[str, Any]],
         destination_current_stock: Dict[str, Dict[str, int]] | None = None,
         critical_days_threshold: float = 3.0,
+        lead_time_days_map: Dict[str, float] | None = None,
+        safety_stock_days_map: Dict[str, float] | None = None,
     ) -> List[Dict[str, Any]]:
-        """
-        Flags products and destinations with days-of-supply under threshold.
+        """Flags products and destinations with elevated stockout risk.
+
+        Risk categories (NOT calibrated probabilities):
+          Critical        — cover_days == 0 (already out of stock)
+          High            — 0 < cover_days <= lead_time_days
+          Moderate        — lead_time_days < cover_days <= lead_time_days + ss_days
+          Low             — cover_days > lead_time_days + ss_days
+          InsufficientData — daily_demand == 0 or no history
+
+        Backward compatibility: when lead_time_days_map is not provided,
+        critical_days_threshold is used as the lead-time proxy (matches legacy
+        behaviour with HIGH/MEDIUM renamed to HIGH; all below threshold → HIGH,
+        all at/above → LOW).
+
+        Parameters
+        ----------
+        demand_forecasts:
+            List of forecast dicts (must contain destination_code, sku,
+            daily_mean_demand, and optionally destination_name, product_name).
+        destination_current_stock:
+            {destination_code: {sku: units}}.  Defaults to empty (zero stock).
+        critical_days_threshold:
+            Legacy threshold used when lead_time_days_map is absent.
+        lead_time_days_map:
+            Optional {destination_code: lead_time_days} for 5-level scoring.
+        safety_stock_days_map:
+            Optional {destination_code_sku: safety_stock_days} for Moderate band.
         """
         if destination_current_stock is None:
             destination_current_stock = {}
+        if lead_time_days_map is None:
+            lead_time_days_map = {}
+        if safety_stock_days_map is None:
+            safety_stock_days_map = {}
 
         alerts = []
         for demand in demand_forecasts:
@@ -119,18 +151,60 @@ class InventoryPositionAnalyzer:
             daily_demand = demand.get("daily_mean_demand", 1.0)
             cur_stock = destination_current_stock.get(dst_code, {}).get(sku, 0)
 
-            cover_days = cur_stock / daily_demand if daily_demand > 0 else 99.0
+            if daily_demand <= 0:
+                risk_level = "InsufficientData"
+                cover_days = None
+            else:
+                cover_days = round(cur_stock / daily_demand, 2)
 
-            if cover_days <= critical_days_threshold:
-                risk_level = "HIGH" if cover_days <= 1.0 else "MEDIUM"
-                alerts.append({
-                    "destination_code": dst_code,
-                    "destination_name": demand.get("destination_name", dst_code),
-                    "product_sku": sku,
-                    "product_name": demand.get("product_name", sku),
-                    "current_inventory_days": round(cover_days, 1),
-                    "forecasted_daily_demand": round(daily_demand, 1),
-                    "risk_level": risk_level,
-                })
+                lead_t = lead_time_days_map.get(dst_code, critical_days_threshold)
+                ss_key = f"{dst_code}_{sku}"
+                ss_days = safety_stock_days_map.get(ss_key, 0.0)
+
+                if cover_days <= 0.0:
+                    risk_level = "Critical"
+                elif cover_days <= lead_t:
+                    risk_level = "High"
+                elif cover_days <= lead_t + ss_days:
+                    risk_level = "Moderate"
+                else:
+                    risk_level = "Low"
+
+            alerts.append({
+                "destination_code": dst_code,
+                "destination_name": demand.get("destination_name", dst_code),
+                "product_sku": sku,
+                "product_name": demand.get("product_name", sku),
+                "current_inventory_days": cover_days,
+                "forecasted_daily_demand": round(daily_demand, 2),
+                "risk_level": risk_level,
+                # Legacy key kept for backward compat (same as risk_level)
+                "risk_category": risk_level,
+            })
 
         return alerts
+
+    @staticmethod
+    def calculate_cover_days(
+        usable_units: int,
+        daily_mean_demand: float,
+    ) -> Optional[float]:
+        """Returns estimated days of inventory cover, or None when demand is zero.
+
+        cover_days = usable_units / daily_mean_demand
+
+        Parameters
+        ----------
+        usable_units:
+            Units available after excluding expired, quarantined, reserved.
+        daily_mean_demand:
+            Mean daily demand from the forecasting engine.
+
+        Returns
+        -------
+        float (rounded to 2 dp) or None.
+        """
+        if daily_mean_demand <= 0:
+            return None
+        return round(usable_units / daily_mean_demand, 2)
+

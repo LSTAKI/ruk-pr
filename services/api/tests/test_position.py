@@ -23,5 +23,7 @@ def test_identify_stockout_risks():
         demands, destination_current_stock=current_stock, critical_days_threshold=3.0
     )
     assert len(alerts) == 1
-    assert alerts[0]["risk_level"] == "HIGH"
+    # With 20 units at 20/day → 1.0 day cover, lead_time_days defaults to
+    # critical_days_threshold=3.0, so cover (1.0) <= lead_time (3.0) → High
+    assert alerts[0]["risk_level"] == "High"
     assert alerts[0]["current_inventory_days"] == 1.0
