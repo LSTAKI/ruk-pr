@@ -166,21 +166,36 @@ docker compose exec backend python /app/../../scripts/seed_demo_data.py
 
 ### Backend Unit & Integration Tests (pytest)
 ```bash
-# Run all 11 backend tests
-pytest services/api/tests -v
+# Run all 182 backend tests across data layer, forecaster, replenishment, optimizer, and verifier
+.venv/Scripts/python -m pytest services/api/tests -v
 ```
 
 ### Frontend Unit & Component Tests (Vitest)
 ```bash
+# Run all 18 frontend tests covering navigation, overview, inventory explorer, forecasting, replenishment, optimizer, scenarios, and CSV export
 cd apps/web
-npm run test
+npm test
 ```
 
-### End-to-End Tests (Playwright)
+### TypeScript Compile & Production Build
 ```bash
 cd apps/web
-npx playwright test
+npx tsc --noEmit
+npm run build
 ```
+
+---
+
+## Interactive Planner Dashboard (Next.js 15)
+
+StockWise AI includes an enterprise-grade distribution intelligence control tower with 7 interconnected operational modules:
+1. **Overview Dashboard**: High-level network telemetry, 4-tier inventory accounting (Physical on-hand, Reserved, Available, Usable), replenishment alerts, latest solver run status, and warehouse capacity distributions.
+2. **Inventory Explorer**: Batch-level inventory ledger with regional warehouse, SKU, and batch status filters (`AVAILABLE`, `RESERVED`, `QUARANTINED`, `EXPIRED`), physical vs. usable accounting, and FEFO expiry badges.
+3. **Demand Forecasting**: Interactive corridor time-series selector (product × destination), algorithm picker (`naive`, `ewma`, `seasonal_naive`), 7/14/30-day horizons, actual vs forecast Recharts curve, and holdout backtest evaluation (MAE & WAPE).
+4. **Replenishment Planner**: Safety-stock reorder requirements ledger with lead-time demand, risk tiers (`Critical`, `High`, `Moderate`, `Low`), explanation drawer, and explicit GAP-1/GAP-2 data gap disclosures.
+5. **Optimizer Planner**: Interactive MIP solver controls for `balanced`, `service_first`, and `cost_first` profiles, lead-time delivery cutoffs, minimum fulfillment floors, solver status banners, shipment recommendations, unmet demand analysis, and 12-invariant verifier audit reports.
+6. **Scenario Comparison**: Side-by-side comparative matrix evaluating trade-offs across Cost-First, Balanced, and Service-First formulations under identical network constraints.
+7. **Planning History & Export**: Complete chronological audit log of all persisted planning runs with one-click detail inspector and RFC 4180 CSV export.
 
 ---
 

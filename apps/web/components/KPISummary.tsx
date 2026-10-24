@@ -2,12 +2,23 @@ import React from "react";
 import { Truck, DollarSign, AlertTriangle, ShieldCheck } from "lucide-react";
 import { PlanMetrics } from "@/lib/api";
 
-interface KPISummaryProps {
+export interface KPISummaryProps {
   metrics?: PlanMetrics;
   loading?: boolean;
 }
 
-export function KPISummary({ metrics, loading }: { metrics?: PlanMetrics; loading?: boolean }) {
+export function KPISummary({ metrics, loading }: KPISummaryProps) {
+  let expiryDisplay = "—";
+  if (metrics) {
+    if (metrics.avg_expiry_risk_pct !== null && metrics.avg_expiry_risk_pct !== undefined) {
+      expiryDisplay = `${metrics.avg_expiry_risk_pct}%`;
+    } else if (metrics.expiry_waste_modeled) {
+      expiryDisplay = "0%";
+    } else {
+      expiryDisplay = "Not Modeled";
+    }
+  }
+
   const cards = [
     {
       title: "Recommended Shipments",
@@ -20,7 +31,7 @@ export function KPISummary({ metrics, loading }: { metrics?: PlanMetrics; loadin
     },
     {
       title: "Optimized Freight Cost",
-      value: metrics ? `$${metrics.total_transport_cost.toLocaleString(undefined, { minimumFractionDigits: 2 })}` : "—",
+      value: metrics ? `$${metrics.total_transport_cost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "—",
       subtext: "Minimizing mileage & transit cost",
       icon: DollarSign,
       color: "text-emerald-400",
@@ -29,7 +40,7 @@ export function KPISummary({ metrics, loading }: { metrics?: PlanMetrics; loadin
     },
     {
       title: "Expiry Wastage Risk",
-      value: metrics ? `${metrics.avg_expiry_risk_pct}%` : "—",
+      value: expiryDisplay,
       subtext: "Prioritizing near-dated stock (FEFO)",
       icon: ShieldCheck,
       color: "text-amber-400",
@@ -55,19 +66,19 @@ export function KPISummary({ metrics, loading }: { metrics?: PlanMetrics; loadin
           <div
             key={c.title}
             data-testid={c.testId}
-            className="rounded-xl border border-border bg-card/60 backdrop-blur-sm p-4 flex flex-col justify-between hover:border-border/80 transition-all shadow-sm"
+            className="rounded-xl border border-slate-800 bg-slate-900/60 backdrop-blur-sm p-4 flex flex-col justify-between hover:border-slate-700 transition-all shadow-sm"
           >
             <div className="flex items-center justify-between">
-              <span className="text-xs font-medium text-muted-foreground">{c.title}</span>
+              <span className="text-xs font-medium text-slate-400">{c.title}</span>
               <div className={`p-2 rounded-lg border ${c.bg}`}>
                 <Icon className={`h-4 w-4 ${c.color}`} />
               </div>
             </div>
             <div className="mt-3">
               <div className="text-2xl font-bold tracking-tight text-white">
-                {loading ? <span className="animate-pulse">Loading...</span> : c.value}
+                {loading ? <span className="animate-pulse text-slate-500 text-lg">Calculating...</span> : c.value}
               </div>
-              <p className="text-xs text-muted-foreground mt-1">{c.subtext}</p>
+              <p className="text-xs text-slate-500 mt-1">{c.subtext}</p>
             </div>
           </div>
         );

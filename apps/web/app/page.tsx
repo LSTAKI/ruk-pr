@@ -1,102 +1,76 @@
 "use client";
 
 import React, { useState } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { Navbar } from "@/components/Navbar";
-import { KPISummary } from "@/components/KPISummary";
-import { InventoryChart } from "@/components/InventoryChart";
-import { StockoutAlerts } from "@/components/StockoutAlerts";
-import { ShipmentTable } from "@/components/ShipmentTable";
-import { OptimizationControls } from "@/components/OptimizationControls";
-import { fetchInventoryOverview, executePlanRun, PlanResponse } from "@/lib/api";
+import { useQuery } from "@tanstack/react-query";
+import { Navbar, TabType } from "@/components/Navbar";
+import { OverviewTab } from "@/components/OverviewTab";
+import { InventoryTab } from "@/components/InventoryTab";
+import { ForecastingTab } from "@/components/ForecastingTab";
+import { ReplenishmentTab } from "@/components/ReplenishmentTab";
+import { OptimizationTab } from "@/components/OptimizationTab";
+import { ScenarioTab } from "@/components/ScenarioTab";
+import { HistoryTab } from "@/components/HistoryTab";
+import { fetchInventoryOverview, PlanResponse } from "@/lib/api";
 
 export default function DashboardPage() {
-  const [horizonDays, setHorizonDays] = useState(7);
-  const [planResult, setPlanResult] = useState<PlanResponse | null>(null);
+  const [activeTab, setActiveTab] = useState<TabType>("overview");
+  const [currentPlan, setCurrentPlan] = useState<PlanResponse | null>(null);
 
-  const {
-    data: overview,
-    isLoading: overviewLoading,
-    error: overviewError,
-  } = useQuery({
+  const { data: overview } = useQuery({
     queryKey: ["inventory-overview"],
     queryFn: fetchInventoryOverview,
   });
 
-  const planMutation = useMutation({
-    mutationFn: (days: number) =>
-      executePlanRun({
-        forecast_horizon_days: days,
-        parameters: {
-          transport_weight: 1.0,
-          stockout_penalty_weight: 5.0,
-          expiry_risk_weight: 2.5,
-          max_solver_time_seconds: 10,
-        },
-      }),
-    onSuccess: (data) => {
-      setPlanResult(data);
-    },
-  });
-
-  const handleRunPlan = () => {
-    planMutation.mutate(horizonDays);
-  };
-
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col">
-      <Navbar activeDatasetVersion={overview?.dataset_version} />
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-sky-500/30 selection:text-sky-200">
+      {/* Top Application Shell & Navigation */}
+      <Navbar
+        activeTab={activeTab}
+        onSelectTab={setActiveTab}
+        activeDatasetVersion={overview?.dataset_version}
+      />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight text-white">
-              Distribution Intelligence & Inventory Engine
-            </h1>
-            <p className="text-xs text-muted-foreground mt-0.5">
-              Deterministic multi-echelon network planning and shelf-life constrained optimization
-            </p>
-          </div>
-          <div className="flex items-center space-x-2 text-xs text-muted-foreground">
-            <span>Network:</span>
-            <span className="font-mono text-white font-medium">
-              {overview?.total_warehouses ?? 4} Hubs / {overview?.total_destinations ?? 16} Stores
-            </span>
-          </div>
-        </div>
+      {/* Main Control Tower Content */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {activeTab === "overview" && (
+          <OverviewTab onNavigateTab={(tab) => setActiveTab(tab)} />
+        )}
 
-        {/* Controls */}
-        <OptimizationControls
-          onRunPlan={handleRunPlan}
-          loading={planMutation.isPending}
-          horizonDays={horizonDays}
-          setHorizonDays={setHorizonDays}
-          solverStatus={planResult?.solver_status}
-          runCode={planResult?.run_code}
-        />
+        {activeTab === "inventory" && <InventoryTab />}
 
-        {/* KPI Summary Cards */}
-        <KPISummary metrics={planResult?.metrics} loading={planMutation.isPending} />
+        {activeTab === "forecasting" && <ForecastingTab />}
 
-        {/* Charts & Early Alerts Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2">
-            <InventoryChart
-              warehouses={overview?.warehouses || []}
-              products={overview?.products || []}
-            />
-          </div>
-          <div className="lg:col-span-1">
-            <StockoutAlerts alerts={planResult?.stockout_risks || []} />
-          </div>
-        </div>
+        {activeTab === "replenishment" && <ReplenishmentTab />}
 
-        {/* Shipments Data Table */}
-        <ShipmentTable shipments={planResult?.shipments || []} />
+        {activeTab === "optimization" && (
+          <OptimizationTab
+            currentPlan={currentPlan}
+            onPlanGenerated={(plan) => setCurrentPlan(plan)}
+          />
+        )}
+
+        {activeTab === "scenarios" && <ScenarioTab />}
+
+        {activeTab === "history" && (
+          <HistoryTab
+            onLoadRunToDashboard={(plan) => {
+              setCurrentPlan(plan);
+              setActiveTab("optimization");
+            }}
+          />
+        )}
       </main>
 
-      <footer className="border-t border-border/40 py-4 text-center text-xs text-muted-foreground">
-        StockWise AI &bull; FMCG Distribution Intelligence Engine &bull; Local-First Architecture
+      {/* Control Tower Footer */}
+      <footer className="border-t border-slate-900 bg-slate-950/80 py-4 text-center text-xs text-slate-500">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div>
+            StockWise AI &bull; FMCG Distribution Intelligence Engine &bull; Local-First Architecture
+          </div>
+          <div className="font-mono text-[11px] text-slate-600">
+            Next.js App Router &bull; FastAPI Backend &bull; Google OR-Tools MIP
+          </div>
+        </div>
       </footer>
     </div>
   );
