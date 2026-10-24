@@ -1,19 +1,55 @@
 """Planning and Optimization Request and Response Schemas."""
 
-from datetime import datetime
-from typing import List, Optional, Dict, Any
+from datetime import date, datetime
+from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, ConfigDict, Field
 
+
 class OptimizationParameters(BaseModel):
-    transport_weight: float = Field(default=1.0, ge=0.0, description="Cost weight for transportation distance")
-    stockout_penalty_weight: float = Field(default=5.0, ge=0.0, description="Penalty weight for unsatisfied demand")
-    expiry_risk_weight: float = Field(default=2.5, ge=0.0, description="Penalty weight for holding near-expiry stock")
+    transport_weight: float = Field(
+        default=1.0, ge=0.0, description="Cost weight for transportation freight"
+    )
+    stockout_penalty_weight: float = Field(
+        default=5.0, ge=0.0, description="Penalty weight for unsatisfied demand"
+    )
+    expiry_risk_weight: float = Field(
+        default=2.5, ge=0.0, description="Penalty weight for holding near-expiry stock"
+    )
     max_solver_time_seconds: int = Field(default=10, ge=1, le=120)
+    profile: str = Field(
+        default="balanced",
+        description="Optimization profile: 'cost_first', 'service_first', or 'balanced'",
+    )
+    max_lead_time_days: Optional[float] = Field(
+        default=None,
+        ge=0.0,
+        description="Delivery cutoff: routes exceeding this lead time are excluded.",
+    )
+    use_replenishment_engine: bool = Field(
+        default=True,
+        description="If True, uses safety-stock replenishment requirements as demand signal.",
+    )
+    ewma_alpha: float = Field(default=0.3, ge=0.01, le=1.0)
+    service_level_z: float = Field(default=1.65, ge=0.0, le=4.0)
+
 
 class PlanRequest(BaseModel):
     dataset_version_id: Optional[int] = None
     forecast_horizon_days: int = Field(default=7, ge=1, le=30)
     parameters: OptimizationParameters = Field(default_factory=OptimizationParameters)
+    optimization_profile: Optional[str] = Field(
+        default=None,
+        description="Direct shortcut for parameters.profile ('cost_first', 'service_first', 'balanced')",
+    )
+    max_lead_time_days: Optional[float] = Field(
+        default=None,
+        description="Direct shortcut for parameters.max_lead_time_days",
+    )
+    as_of_date: Optional[date] = Field(
+        default=None,
+        description="Planning date. Future observations excluded.",
+    )
+
 
 class ShipmentSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
@@ -28,7 +64,9 @@ class ShipmentSchema(BaseModel):
     unit_transport_cost: float
     total_transport_cost: float
     estimated_expiry_risk_pct: float
+    lead_time_days: Optional[float] = 1.0
     reasoning: Optional[str] = None
+
 
 class StockoutRiskAlert(BaseModel):
     destination_code: str
@@ -36,7 +74,43 @@ class StockoutRiskAlert(BaseModel):
     product_sku: str
     current_inventory_days: float
     forecasted_daily_demand: float
-    risk_level: str  # HIGH, MEDIUM, LOW
+    risk_level: str  # Critical, High, Moderate, Low
+
+
+class UnmetDemandSchema(BaseModel):
+    destination_code: str
+    destination_name: str
+    product_sku: str
+    product_name: str
+    demanded_units: int
+    fulfilled_units: int
+    unmet_units: int
+    risk_category: str
+
+
+class BaselineComparisonSchema(BaseModel):
+    baseline_total_units: int
+    baseline_total_cost: float
+    baseline_unmet_units: int
+    baseline_fulfillment_rate: float
+    optimized_total_units: int
+    optimized_total_cost: float
+    optimized_unmet_units: int
+    optimized_fulfillment_rate: float
+    units_difference: int
+    cost_difference: float
+    fulfillment_rate_difference: float
+
+
+class VerificationSummarySchema(BaseModel):
+    is_feasible: bool
+    violations_count: int
+    violations: List[str]
+    recalculated_cost: float
+    recalculated_units: int
+    recalculated_fulfilled: int
+    recalculated_unmet: int
+
 
 class PlanSummaryMetrics(BaseModel):
     total_shipped_units: int
@@ -44,6 +118,11 @@ class PlanSummaryMetrics(BaseModel):
     avg_expiry_risk_pct: float
     stockouts_prevented: int
     destinations_at_risk: int
+    total_demanded_units: Optional[int] = 0
+    total_unmet_units: Optional[int] = 0
+    fulfillment_rate: Optional[float] = 1.0
+    solver_runtime_seconds: Optional[float] = 0.0
+
 
 class PlanResponse(BaseModel):
     run_code: str
@@ -54,6 +133,12 @@ class PlanResponse(BaseModel):
     metrics: PlanSummaryMetrics
     shipments: List[ShipmentSchema]
     stockout_risks: List[StockoutRiskAlert]
+    unmet_demands: List[UnmetDemandSchema] = Field(default_factory=list)
+    baseline_comparison: Optional[BaselineComparisonSchema] = None
+    verification: Optional[VerificationSummarySchema] = None
+    data_quality_warnings: List[str] = Field(default_factory=list)
+    optimization_profile: str = "balanced"
+
 
 class PlanningRunListItem(BaseModel):
     model_config = ConfigDict(from_attributes=True)
@@ -68,6 +153,7 @@ class PlanningRunListItem(BaseModel):
     stockout_risk_count: int
     status: str
     created_at: datetime
+
 
 class PlanningRunListResponse(BaseModel):
     total: int
