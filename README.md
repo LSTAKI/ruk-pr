@@ -206,18 +206,13 @@ StockWise AI includes an enterprise-grade distribution intelligence control towe
 
 ---
 
-## Hackathon Demonstration & Validation Guide
+## Hackathon Presentation & Demonstration Package
 
-For a complete live demonstration script, empirical benchmark results, and business metric audit, see:
-👉 **[Hackathon Demonstration Guide (docs/hackathon_demo.md)](docs/hackathon_demo.md)**
-
-It details:
-- **Project Problem Statement & Multi-Echelon Architecture**
-- **5-Minute Live Demonstration Script** with step-by-step clicks and talking points
-- **Empirical Optimization Benchmarks** comparing Cost-First, Service-First, Balanced, and Deterministic Greedy Baseline
-- **4 Repeatable Demonstration Scenarios** (Stockout Risk, Warehouse Supply Shortage, Route/Cutoff Constraints, Cost vs. Service Trade-Off)
-- **Business Metric Audit** with exact mathematical formulations and data classifications
-- **Known Operational Data Gaps (GAP-1 & GAP-2)** and local troubleshooting FAQ
+The complete presentation and demonstration package for Triwizathon Problem Statement 2 is available in `docs/`:
+1. 📊 **[Executive Presentation Slide Deck (docs/StockWise_AI_Hackathon_Presentation.pptx)](docs/StockWise_AI_Hackathon_Presentation.pptx)**: 10-slide widescreen presentation detailing problem statement, architecture, mathematical formulations, empirical benchmarks, and production roadmap.
+2. 🎙️ **[5-Minute Live Demonstration Script (docs/hackathon_demo_script.md)](docs/hackathon_demo_script.md)**: Second-by-second conversational walkthrough with exact UI clicks and talk tracks.
+3. 🧠 **[Technical Judge Q&A Guide (docs/hackathon_judge_qa.md)](docs/hackathon_judge_qa.md)**: 20 comprehensive, defensible answers to deep architectural and mathematical questions.
+4. 📑 **[Hackathon Validation & Demonstration Guide (docs/hackathon_demo.md)](docs/hackathon_demo.md)**: Complete benchmark methodology, empirical results, mathematical formulas, and 12-invariant verifier audit.
 
 ---
 
