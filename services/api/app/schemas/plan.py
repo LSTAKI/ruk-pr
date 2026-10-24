@@ -2,18 +2,38 @@
 
 from datetime import date, datetime
 from typing import Any, Dict, List, Optional
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 class OptimizationParameters(BaseModel):
     transport_weight: float = Field(
-        default=1.0, ge=0.0, description="Cost weight for transportation freight"
+        default=1.0, ge=0.0, description="Cost weight for transportation freight ($/unit multiplier)"
     )
     stockout_penalty_weight: float = Field(
-        default=5.0, ge=0.0, description="Penalty weight for unsatisfied demand"
+        default=5.0, ge=0.0, description="Penalty multiplier for unsatisfied demand (lost-sales multiplier)"
     )
     expiry_risk_weight: float = Field(
-        default=2.5, ge=0.0, description="Penalty weight for holding near-expiry stock"
+        default=2.5, ge=0.0, description="Weight for holding near-expiry stock"
+    )
+    lead_time_penalty_weight: float = Field(
+        default=0.20,
+        ge=0.0,
+        description="Monetary penalty per transit day per unit ($/day/unit) representing transit holding/freshness cost",
+    )
+    min_fulfillment_rate: float = Field(
+        default=0.80,
+        ge=0.0,
+        le=1.0,
+        description="Minimum network fulfillment rate required under Cost-First (default 0.80 = 80%). Set to 0.0 only for unconstrained cost-first.",
+    )
+    allow_unconstrained_cost_first: bool = Field(
+        default=False,
+        description="If True, permits cost-first optimization without a fulfillment rate floor.",
+    )
+    min_arrival_shelf_life_days: float = Field(
+        default=0.0,
+        ge=0.0,
+        description="Minimum remaining shelf life required upon arrival at destination (days).",
     )
     max_solver_time_seconds: int = Field(default=10, ge=1, le=120)
     profile: str = Field(
@@ -32,6 +52,14 @@ class OptimizationParameters(BaseModel):
     ewma_alpha: float = Field(default=0.3, ge=0.01, le=1.0)
     service_level_z: float = Field(default=1.65, ge=0.0, le=4.0)
 
+    @field_validator("profile")
+    @classmethod
+    def validate_profile(cls, v: str) -> str:
+        low = v.lower()
+        if low not in ("cost_first", "service_first", "balanced"):
+            raise ValueError("profile must be 'cost_first', 'service_first', or 'balanced'")
+        return low
+
 
 class PlanRequest(BaseModel):
     dataset_version_id: Optional[int] = None
@@ -44,6 +72,16 @@ class PlanRequest(BaseModel):
     max_lead_time_days: Optional[float] = Field(
         default=None,
         description="Direct shortcut for parameters.max_lead_time_days",
+    )
+    min_fulfillment_rate: Optional[float] = Field(
+        default=None,
+        ge=0.0,
+        le=1.0,
+        description="Direct shortcut for parameters.min_fulfillment_rate",
+    )
+    allow_unconstrained_cost_first: Optional[bool] = Field(
+        default=None,
+        description="Direct shortcut for parameters.allow_unconstrained_cost_first",
     )
     as_of_date: Optional[date] = Field(
         default=None,
@@ -63,7 +101,7 @@ class ShipmentSchema(BaseModel):
     recommended_units: int
     unit_transport_cost: float
     total_transport_cost: float
-    estimated_expiry_risk_pct: float
+    estimated_expiry_risk_pct: Optional[float] = None
     lead_time_days: Optional[float] = 1.0
     reasoning: Optional[str] = None
 
@@ -115,12 +153,14 @@ class VerificationSummarySchema(BaseModel):
 class PlanSummaryMetrics(BaseModel):
     total_shipped_units: int
     total_transport_cost: float
-    avg_expiry_risk_pct: float
+    avg_expiry_risk_pct: Optional[float] = None
+    expiry_waste_modeled: bool = False
     stockouts_prevented: int
     destinations_at_risk: int
     total_demanded_units: Optional[int] = 0
     total_unmet_units: Optional[int] = 0
     fulfillment_rate: Optional[float] = 1.0
+    min_fulfillment_target_met: Optional[bool] = None
     solver_runtime_seconds: Optional[float] = 0.0
 
 
@@ -129,6 +169,7 @@ class PlanResponse(BaseModel):
     dataset_version: str
     forecast_identifier: str
     solver_status: str
+    status_message: Optional[str] = None
     created_at: datetime
     metrics: PlanSummaryMetrics
     shipments: List[ShipmentSchema]

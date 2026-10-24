@@ -3,22 +3,26 @@ Deterministic, Constraint-Aware Greedy Baseline Heuristic
 ==========================================================
 
 Provides an independent benchmark for the OR-Tools optimization engine.
-Enforces the exact same physical constraints:
+Enforces the exact same physical and operational constraints:
   - Warehouse usable supply bounds (excluding reserved, expired, quarantined).
+  - Route-specific batch expiry feasibility (batches expiring before delivery are excluded).
   - Demand requirement upper bounds (no over-allocation).
   - Active route eligibility (inactive routes rejected).
   - Maximum delivery lead-time cutoff.
   - Warehouse daily dispatch throughput capacities.
   - Destination daily receiving throughput capacities.
+  - Minimum fulfillment rate policies.
   - Integer shipment quantities.
 
 The baseline prioritizes urgent demand requirements and selects the lowest-cost
-eligible warehouse with available supply and capacity.
+eligible warehouse with available supply, capacity, and fresh inventory.
 """
 
 from __future__ import annotations
 
+import math
 import time
+from datetime import date, datetime, timedelta
 from typing import Any, Dict, List, Optional, Tuple
 
 
@@ -32,6 +36,75 @@ def _risk_priority(risk_category: str) -> int:
     }.get(risk_category, 1)
 
 
+def compute_route_eligible_supply(
+    inventory_items: Optional[List[Dict[str, Any]]],
+    available_supply: Dict[str, Dict[str, int]],
+    routes_map: Dict[Tuple[str, str], Dict[str, Any]],
+    as_of_date: Optional[date] = None,
+    min_arrival_shelf_life_days: float = 0.0,
+) -> Dict[Tuple[str, str, str], int]:
+    """Computes route-specific eligible supply accounting for batch expiry vs delivery lead time.
+
+    Returns mapping of (wh_code, dest_code, sku) -> eligible_units.
+    """
+    ref_date = as_of_date or datetime.utcnow().date()
+    if isinstance(ref_date, datetime):
+        ref_date = ref_date.date()
+
+    if not inventory_items:
+        # Fallback to available_supply for all routes
+        eligible = {}
+        for (w_code, d_code) in routes_map.keys():
+            for sku, units in available_supply.get(w_code, {}).items():
+                eligible[(w_code, d_code, sku)] = units
+        return eligible
+
+    # Sum available batch units satisfying expiry > ref_date + lead_time + min_shelf_life
+    eligible_supply: Dict[Tuple[str, str, str], int] = {}
+
+    for (w_code, d_code), r_info in routes_map.items():
+        lt = float(r_info.get("lead_time_days") or r_info.get("lead_time") or 1.0)
+        transit_days = math.ceil(lt) + math.ceil(min_arrival_shelf_life_days)
+        min_expiry_date = ref_date + timedelta(days=transit_days)
+
+        for item in inventory_items:
+            if item.get("warehouse_code") != w_code:
+                continue
+            status = str(item.get("batch_status", "AVAILABLE")).upper()
+            if status != "AVAILABLE":
+                continue
+
+            exp = item.get("expiry_date")
+            if isinstance(exp, str):
+                try:
+                    exp = datetime.fromisoformat(exp).date()
+                except Exception:
+                    continue
+            elif isinstance(exp, datetime):
+                exp = exp.date()
+            elif isinstance(exp, date):
+                pass
+
+            if not exp or exp <= min_expiry_date:
+                # Expired before or upon arrival -> ineligible for this route
+                continue
+
+            sku = item.get("product_sku")
+            on_hand = int(item.get("on_hand_units", 0))
+            reserved = int(item.get("reserved_units", 0))
+            usable_in_batch = max(0, on_hand - reserved)
+
+            key = (w_code, d_code, sku)
+            eligible_supply[key] = eligible_supply.get(key, 0) + usable_in_batch
+
+    # Cap by warehouse total available supply to prevent double-counting
+    for (w_code, d_code, sku), el_units in eligible_supply.items():
+        cap = available_supply.get(w_code, {}).get(sku, 0)
+        eligible_supply[(w_code, d_code, sku)] = min(el_units, cap)
+
+    return eligible_supply
+
+
 def solve_greedy_baseline(
     warehouses: List[Dict[str, Any]],
     destinations: List[Dict[str, Any]],
@@ -40,32 +113,12 @@ def solve_greedy_baseline(
     demand_targets: List[Dict[str, Any]],
     routes: Optional[List[Dict[str, Any]]] = None,
     max_lead_time_days: Optional[float] = None,
+    inventory_items: Optional[List[Dict[str, Any]]] = None,
+    as_of_date: Optional[date] = None,
+    min_arrival_shelf_life_days: float = 0.0,
+    min_fulfillment_rate: Optional[float] = None,
 ) -> Dict[str, Any]:
-    """Computes a deterministic, constraint-aware greedy allocation plan.
-
-    Parameters
-    ----------
-    warehouses:
-        List of warehouse records with 'code' and optional 'daily_dispatch_capacity_units'.
-    destinations:
-        List of destination records with 'code' and optional 'daily_receiving_capacity_units'.
-    products:
-        List of product records with 'sku'.
-    available_supply:
-        Mapping of {wh_code: {sku: usable_units}}.
-    demand_targets:
-        List of dicts with 'destination_code', 'sku', 'units' (or 'forecasted_units'),
-        and optional 'risk_category'.
-    routes:
-        List of route records with 'origin_warehouse_code', 'destination_code',
-        'unit_transport_cost', 'lead_time_days', and 'is_active'.
-    max_lead_time_days:
-        Optional lead-time threshold. Routes exceeding this are excluded.
-
-    Returns
-    -------
-    Dict containing baseline shipments, total_units, total_cost, unmet units, and fulfillment rate.
-    """
+    """Computes a deterministic, constraint-aware greedy allocation plan."""
     start_time = time.perf_counter()
 
     # 1. Capacity tracking
@@ -83,9 +136,9 @@ def solve_greedy_baseline(
         w_code: dict(skus) for w_code, skus in available_supply.items()
     }
 
-    # 2. Index active, eligible routes: (wh_code, dest_code) -> route_dict
+    # 2. Index active, eligible routes
     route_map: Dict[Tuple[str, str], Dict[str, Any]] = {}
-    if routes:
+    if routes is not None:
         for r in routes:
             w_code = r.get("origin_warehouse_code") or r.get("source_warehouse_code")
             d_code = r.get("destination_code")
@@ -97,8 +150,26 @@ def solve_greedy_baseline(
             if max_lead_time_days is not None and lt > max_lead_time_days:
                 continue
             route_map[(w_code, d_code)] = r
+    else:
+        for w in warehouses:
+            for d in destinations:
+                route_map[(w["code"], d["code"])] = {
+                    "unit_transport_cost": 1.0,
+                    "lead_time_days": 1.0,
+                    "is_active": True,
+                }
 
-    # 3. Normalize demand targets and sort by priority
+    # 3. Route-specific batch expiry supply bounds
+    route_eligible = compute_route_eligible_supply(
+        inventory_items=inventory_items,
+        available_supply=available_supply,
+        routes_map=route_map,
+        as_of_date=as_of_date,
+        min_arrival_shelf_life_days=min_arrival_shelf_life_days,
+    )
+    route_eligible_rem = dict(route_eligible)
+
+    # 4. Normalize demand targets and sort by priority
     normalized_demands = []
     total_demand_units = 0
     for dt in demand_targets:
@@ -123,13 +194,12 @@ def solve_greedy_baseline(
         key=lambda d: (-_risk_priority(d["risk_category"]), -d["units"], d["destination_code"])
     )
 
-    # 4. Greedy allocation
+    # 5. Greedy allocation
     shipments: List[Dict[str, Any]] = []
     total_transport_cost = 0.0
     total_fulfilled_units = 0
     unmet_demand_list: List[Dict[str, Any]] = []
 
-    dest_codes = {d["code"] for d in destinations}
     wh_codes = [w["code"] for w in warehouses]
 
     for req in normalized_demands:
@@ -138,23 +208,23 @@ def solve_greedy_baseline(
         needed = req["units"]
         fulfilled_for_req = 0
 
-        # Find eligible candidate warehouses with available supply and capacity
         candidates: List[Tuple[float, float, str, Dict[str, Any]]] = []
         for w_code in wh_codes:
-            # Check route eligibility
-            if routes is not None and (w_code, d_code) not in route_map:
+            if (w_code, d_code) not in route_map:
                 continue
 
-            r_info = route_map.get((w_code, d_code), {})
+            r_info = route_map[(w_code, d_code)]
             cost = float(r_info.get("unit_transport_cost", 1.0))
             lt = float(r_info.get("lead_time_days", 1.0))
 
             avail_supply = wh_supply_rem.get(w_code, {}).get(sku, 0)
+            avail_route_exp = route_eligible_rem.get((w_code, d_code, sku), avail_supply)
             avail_dispatch = wh_dispatch_rem.get(w_code, 0)
             avail_recv = dst_recv_rem.get(d_code, 0)
 
-            if avail_supply > 0 and avail_dispatch > 0 and avail_recv > 0:
-                # Rank by unit cost asc, then lead time asc
+            effective_avail = min(avail_supply, avail_route_exp)
+
+            if effective_avail > 0 and avail_dispatch > 0 and avail_recv > 0:
                 candidates.append((cost, lt, w_code, r_info))
 
         candidates.sort(key=lambda c: (c[0], c[1], c[2]))
@@ -164,10 +234,13 @@ def solve_greedy_baseline(
                 break
 
             avail_supply = wh_supply_rem[w_code].get(sku, 0)
+            avail_route_exp = route_eligible_rem.get((w_code, d_code, sku), avail_supply)
             avail_dispatch = wh_dispatch_rem[w_code]
             avail_recv = dst_recv_rem[d_code]
 
-            alloc = min(needed, avail_supply, avail_dispatch, avail_recv)
+            effective_avail = min(avail_supply, avail_route_exp)
+
+            alloc = min(needed, effective_avail, avail_dispatch, avail_recv)
             if alloc > 0:
                 shipment_cost = round(alloc * cost, 2)
                 shipments.append({
@@ -180,11 +253,13 @@ def solve_greedy_baseline(
                     "unit_transport_cost": cost,
                     "total_transport_cost": shipment_cost,
                     "lead_time_days": lt,
-                    "estimated_expiry_risk_pct": 0.0,
+                    "estimated_expiry_risk_pct": None,
                     "allocation_method": "greedy_baseline",
                 })
 
                 wh_supply_rem[w_code][sku] -= alloc
+                if (w_code, d_code, sku) in route_eligible_rem:
+                    route_eligible_rem[(w_code, d_code, sku)] -= alloc
                 wh_dispatch_rem[w_code] -= alloc
                 dst_recv_rem[d_code] -= alloc
                 needed -= alloc
@@ -210,6 +285,10 @@ def solve_greedy_baseline(
         round(total_fulfilled_units / total_demand_units, 4) if total_demand_units > 0 else 1.0
     )
 
+    target_met = True
+    if min_fulfillment_rate is not None and min_fulfillment_rate > 0.0:
+        target_met = (fulfillment_rate >= min_fulfillment_rate)
+
     return {
         "method": "greedy_baseline",
         "solver_status": "FEASIBLE" if total_fulfilled_units > 0 or total_demand_units == 0 else "NO_FEASIBLE_SHIPMENT",
@@ -218,6 +297,7 @@ def solve_greedy_baseline(
         "total_demand_units": total_demand_units,
         "total_unmet_units": total_demand_units - total_fulfilled_units,
         "fulfillment_rate": fulfillment_rate,
+        "min_fulfillment_target_met": target_met,
         "runtime_seconds": elapsed,
         "shipments": shipments,
         "unmet_demands": unmet_demand_list,

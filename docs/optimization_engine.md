@@ -30,57 +30,73 @@ Where $\text{UsableSupply}_{w, p}$ strictly excludes:
 * Expired batches ($\text{expiry\_date} \le \text{as\_of\_date}$).
 * Quarantined or damaged batches.
 
-### B. Destination-Product Demand Balance & Unmet Accounting
-Shipment allocations and unmet shortages must reconcile strictly to the demand requirement:
+### B. Route-Specific Batch Expiry Feasibility
+For each specific route $(w, d)$, transit lead time is $L_{w, d}$ days. Arrival date is:
+$$\text{ArrivalDate} = \text{as\_of\_date} + \lceil L_{w, d} \rceil + \text{min\_arrival\_shelf\_life\_days}$$
+Batches at warehouse $w$ expiring on or before $\text{ArrivalDate}$ are **ineligible to supply destination $d$**.
+The solver strictly constrains:
+$$x_{w, d, p} \le S^{\text{eligible}}_{w, d, p} \quad \forall (w, d) \in \mathcal{R}_{\text{active}}, p \in \mathcal{P}$$
+Where $S^{\text{eligible}}_{w, d, p}$ is the sum of unreserved units in batches with $\text{expiry\_date} > \text{ArrivalDate}$.
+
+### C. Destination-Product Demand Balance & Unmet Accounting
+Shipment allocations and unmet shortages reconcile strictly to the demand requirement:
 $$\sum_{w: (w, d) \in \mathcal{R}_{\text{active}}} x_{w, d, p} + u_{d, p} = \text{Demand}_{d, p} \quad \forall d \in \mathcal{D}, p \in \mathcal{P}$$
 * If no eligible routes exist to destination $d$, $u_{d, p} = \text{Demand}_{d, p}$ and $f_{d, p} = 0$.
 
-### C. Warehouse Daily Dispatch Throughput Limit
+### D. Warehouse Daily Dispatch Throughput Limit
 Total units dispatched across all products and destinations must respect physical handling/dock limits:
 $$\sum_{d \in \mathcal{D}} \sum_{p \in \mathcal{P}} x_{w, d, p} \le \text{DailyDispatchCapacity}_w \quad \forall w \in \mathcal{W}$$
 
-### D. Destination Daily Receiving Throughput Limit
+### E. Destination Daily Receiving Throughput Limit
 Total units received at a destination across all warehouses and products must respect store dock/intake limits:
 $$\sum_{w \in \mathcal{W}} \sum_{p \in \mathcal{P}} x_{w, d, p} \le \text{DailyReceivingCapacity}_d \quad \forall d \in \mathcal{D}$$
 
-### E. Route Eligibility & Delivery Lead-Time Cutoff
+### F. Route Eligibility & Delivery Lead-Time Cutoff
 $$\text{If } (w, d) \notin \mathcal{R}_{\text{active}} \text{ or } L_{w, d} > L_{\text{max}} \implies x_{w, d, p} = 0$$
 
-### F. Integrality
+### G. Integrality
 $$x_{w, d, p} \in \mathbb{Z}_{\ge 0}, \quad u_{d, p} \in \mathbb{Z}_{\ge 0}$$
 
 ---
 
-## 3. Optimization Profiles & Objective Functions
+## 3. Optimization Profiles & Exact Objective Formulations
 
 The solver supports three configurable profiles that alter mathematical solver behavior:
 
-### 1. Cost-First (`cost_first`)
-Minimizes total freight cost while fulfilling demand when freight is economical relative to the lost-sales penalty:
-$$\min \sum_{w, d, p} c_{w, d} \cdot x_{w, d, p} + \sum_{d, p} 2 \cdot \text{LostPenalty}_p \cdot u_{d, p}$$
-* Prioritizes lowest-cost sourcing paths.
-* Prevents unprofitable remote dispatch if freight exceeds lost-sales penalties.
+### 1. Cost-First (`cost_first`) with Fulfillment Floor Policy
+Minimizes total freight cost subject to a configurable minimum fulfillment floor (default **80%**):
+$$\min \sum_{w, d, p} c_{w, d} \cdot w_{\text{transport}} \cdot x_{w, d, p} + \sum_{d, p} 2 \cdot \text{LostPenalty}_p \cdot u_{d, p}$$
+Subject to:
+$$\sum_{w, d, p} x_{w, d, p} \ge \lceil \text{min\_fulfillment\_rate} \cdot D_{\text{total}} \rceil \quad (\text{when } \text{min\_fulfillment\_rate} > 0)$$
 
-### 2. Service-First (`service_first`)
+* **Target Infeasibility Protection:** If total network usable supply is less than the requested target ($S_{\text{total}} < \lceil \text{min\_fulfillment\_rate} \cdot D_{\text{total}} \rceil$), the solver halts immediately and reports status `TARGET_UNACHIEVABLE` with an explicit diagnostic message.
+* **Unconstrained Mode:** Unconstrained cost-first requires explicit opt-in (`allow_unconstrained_cost_first=True` or `min_fulfillment_rate=0.0`). In unconstrained mode, remote shipments are curtailed when unit freight exceeds lost-sales penalties, and a clear trade-off warning is attached to the plan.
+
+### 2. Service-First (`service_first`) — Two-Stage Lexicographic
 Implements **lexicographic two-stage optimization**:
 * **Stage 1 (Maximize Service Level):**
   $$\min \sum_{d, p} u_{d, p} \implies \text{Find minimal unmet demand } U^*$$
 * **Stage 2 (Minimize Freight at Max Service):**
   Constrain $\sum_{d, p} u_{d, p} \le U^*$, then solve:
-  $$\min \sum_{w, d, p} c_{w, d} \cdot x_{w, d, p}$$
+  $$\min \sum_{w, d, p} c_{w, d} \cdot w_{\text{transport}} \cdot x_{w, d, p}$$
 * Guarantees maximum possible fulfillment across the network first, using freight cost strictly to break ties.
 
-### 3. Balanced (`balanced` — Default)
-Multi-objective compromise blending freight costs, stockout avoidance, and delivery transit speed:
-$$\min \sum_{w, d, p} \left(c_{w, d} + 0.2 \cdot L_{w, d}\right) \cdot x_{w, d, p} + \sum_{d, p} 5 \cdot \text{LostPenalty}_p \cdot u_{d, p}$$
+### 3. Balanced (`balanced` — Default) — Unified Dimensional Units
+Multi-objective compromise blending freight costs, delivery transit speed, and lost-sales penalties.
+**All objective terms are unified in units of $/unit:**
+$$\min \sum_{w, d, p} \left(c_{w, d} \cdot w_{\text{transport}} + L_{w, d} \cdot w_{\text{lead\_time}}\right) x_{w, d, p} + \sum_{d, p} \text{LostPenalty}_p \cdot w_{\text{unmet}} \cdot u_{d, p}$$
+
+* $c_{w, d} \cdot w_{\text{transport}}$: Direct freight freight cost in **$/unit** ($w_{\text{transport}} \ge 0$, default 1.0).
+* $L_{w, d} \cdot w_{\text{lead\_time}}$: Transit delay cost ($\text{days} \times \text{\$/day/unit} = \mathbf{\$/unit}$), where $w_{\text{lead\_time}} \ge 0$ (default $0.20/day/unit).
+* $\text{LostPenalty}_p \cdot w_{\text{unmet}}$: Shortage penalty in **$/unit** ($w_{\text{unmet}} \ge 0$, default 5.0).
 
 ---
 
 ## 4. Deterministic Greedy Baseline Heuristic
 
 Every optimization run executes a parallel **constraint-aware greedy baseline** on identical inputs:
-1. Filters active routes and lead-time cutoffs.
-2. Tracks remaining dispatch capacity, receiving capacity, and warehouse usable stock.
+1. Enforces the exact same active routes, lead-time cutoffs, dispatch capacities, and receiving capacities.
+2. Evaluates the same route-level batch expiry limits ($S^{\text{eligible}}_{w, d, p}$).
 3. Sorts requirements by risk urgency (`Critical` > `High` > `Moderate` > `Low`) and quantity.
 4. Selects the lowest unit freight cost warehouse route with available inventory and capacity.
 5. Computes baseline metrics ($U_{\text{baseline}}$, $C_{\text{baseline}}$, $\text{FulfillmentRate}_{\text{baseline}}$).
@@ -100,7 +116,7 @@ The `SolutionVerifier` independently evaluates the plan without trusting solver 
 7. **Dispatch capacity:** $\sum_{d, p} x_{w, d, p} \le \text{DailyDispatchCapacity}_w$.
 8. **Receiving capacity:** $\sum_{w, p} x_{w, d, p} \le \text{DailyReceivingCapacity}_d$.
 9. **Lead-time cutoff:** $L_{w, d} \le L_{\text{max}}$.
-10. **Batch-level expiry feasibility:** Arrival dates do not violate shelf life.
+10. **Batch-level arrival expiry feasibility:** Verifies that no shipment relies on batches expiring on or before destination arrival ($x_{w, d, p} \le S^{\text{eligible}}_{w, d, p}$).
 11. **Demand reconciliation:** $\text{Fulfilled} + \text{Unmet} = \text{Demanded}$.
 12. **Cost reconciliation:** $\sum (x_{w, d, p} \cdot c_{w, d}) = \text{Reported Total Transport Cost}$.
 
@@ -113,6 +129,7 @@ The `SolutionVerifier` independently evaluates the plan without trusting solver 
 | `OPTIMAL` | Mathematically proven global optimum found by MIP solver. | Full plan returned. |
 | `FEASIBLE` | Feasible integer solution found before time limit expired. | Usable plan returned. |
 | `INFEASIBLE` | Network constraints cannot be satisfied simultaneously. | Empty plan returned with full unmet demand list. |
+| `TARGET_UNACHIEVABLE` | Requested Cost-First fulfillment target exceeds available network supply. | Explicit diagnostic message returned; shortage explained. |
 | `TIMED_OUT` | Solver time limit reached with no integer solution found. | Reported explicitly without disguising failure. |
 | `INVALID_INPUT` | Input network lists are empty or corrupted. | Rejected with clear error message. |
 | `INTERNAL_ERROR` | Underlying solver engine failed to initialize. | Reported with diagnostic logs. |
@@ -138,7 +155,10 @@ Every shipment allocation receives a structured, factor-based explanation detail
 {
   "forecast_horizon_days": 7,
   "parameters": {
-    "profile": "service_first",
+    "profile": "cost_first",
+    "min_fulfillment_rate": 0.85,
+    "allow_unconstrained_cost_first": false,
+    "lead_time_penalty_weight": 0.20,
     "max_lead_time_days": 3.0,
     "max_solver_time_seconds": 10,
     "transport_weight": 1.0,
@@ -150,9 +170,10 @@ Every shipment allocation receives a structured, factor-based explanation detail
 
 **Response Payload Structure:**
 * `run_code`: Unique UUID run code.
-* `solver_status`: `OPTIMAL` or `FEASIBLE`.
-* `metrics`: Total shipped units, transport cost, fulfillment rate, runtime.
-* `shipments`: List of shipments with route costs, lead times, and empirical reasoning.
+* `solver_status`: `OPTIMAL`, `FEASIBLE`, or `TARGET_UNACHIEVABLE`.
+* `status_message`: Optional diagnostic explanation.
+* `metrics`: Total shipped units, transport cost, fulfillment rate, `min_fulfillment_target_met`, `expiry_waste_modeled=False`, runtime.
+* `shipments`: List of shipments with route costs, lead times, and empirical reasoning (`estimated_expiry_risk_pct=null` when unmodeled).
 * `unmet_demands`: List of unfulfilled demand quantities per destination and SKU.
 * `baseline_comparison`: Exact empirical comparisons with the greedy baseline.
 * `verification`: 12-invariant independent verification report.
@@ -163,16 +184,17 @@ Every shipment allocation receives a structured, factor-based explanation detail
 
 1. **GAP-1 (Destination Inventory):** Store-level on-hand is not recorded in the DB; destination initial inventory is assumed zero.
 2. **GAP-2 (In-Transit Dispatches):** Confirmed in-transit shipments are not tracked in DB; incoming inventory is assumed zero.
-3. **No Stock Mutation:** Running the optimization engine generates `PlanningRun` and `ShipmentRecommendation` records in the database, but **never mutates physical warehouse inventory** (`InventoryItem.on_hand_units` remains untouched).
+3. **Expiry Waste Reporting:** Because retail destination consumption rates and shelf turnover are not tracked in DB, destination-level expiry waste is **not fabricated as zero**; it is explicitly reported as `null` / `expiry_waste_modeled: false`.
+4. **No Stock Mutation:** Running the optimization engine generates `PlanningRun` and `ShipmentRecommendation` records in the database, but **never mutates physical warehouse inventory** (`InventoryItem.on_hand_units` remains untouched).
 
 ---
 
 ## 10. Running Tests
 
 ```bash
-# Run complete test suite (173 passing tests)
+# Run complete test suite (182 passing tests)
 .venv\Scripts\python.exe -m pytest services\api\tests\ -v
 
-# Run optimization engine test suite exclusively
+# Run optimization engine test suite exclusively (33 passing tests)
 .venv\Scripts\python.exe -m pytest services\api\tests\test_optimization_engine.py -v
 ```

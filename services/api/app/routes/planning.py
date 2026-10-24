@@ -311,10 +311,27 @@ def execute_planning_run(request: PlanRequest, db: Session = Depends(get_db)):
         data_quality_warnings.extend(validation_errors)
 
     # 6. Optimization solver
+    eff_min_fulfillment = (
+        request.min_fulfillment_rate
+        if request.min_fulfillment_rate is not None
+        else request.parameters.min_fulfillment_rate
+    )
+    eff_allow_unconstrained = (
+        request.allow_unconstrained_cost_first
+        if request.allow_unconstrained_cost_first is not None
+        else request.parameters.allow_unconstrained_cost_first
+    )
+    eff_lt_penalty = request.parameters.lead_time_penalty_weight
+    eff_min_shelf_life = request.parameters.min_arrival_shelf_life_days
+
     solver = DistributionSolver(
         transport_weight=request.parameters.transport_weight,
         stockout_penalty_weight=request.parameters.stockout_penalty_weight,
         expiry_risk_weight=request.parameters.expiry_risk_weight,
+        lead_time_penalty_weight=eff_lt_penalty,
+        min_fulfillment_rate=eff_min_fulfillment,
+        allow_unconstrained_cost_first=eff_allow_unconstrained,
+        min_arrival_shelf_life_days=eff_min_shelf_life,
         max_solver_time_seconds=request.parameters.max_solver_time_seconds,
         profile=opt_profile,
         max_lead_time_days=lead_time_cutoff,
@@ -330,10 +347,17 @@ def execute_planning_run(request: PlanRequest, db: Session = Depends(get_db)):
         inventory_items=inventory_items,
         profile=opt_profile,
         max_lead_time_days=lead_time_cutoff,
+        as_of_date=as_of,
+        min_fulfillment_rate=eff_min_fulfillment,
+        allow_unconstrained_cost_first=eff_allow_unconstrained,
+        lead_time_penalty_weight=eff_lt_penalty,
+        min_arrival_shelf_life_days=eff_min_shelf_life,
     )
 
     raw_shipments = solver_result.get("shipments", [])
     raw_unmet = solver_result.get("unmet_demands", [])
+    if solver_result.get("warnings"):
+        data_quality_warnings.extend(solver_result["warnings"])
 
     # 7. Independent Solution Verification
     verification_report = SolutionVerifier.verify_comprehensive(
@@ -348,6 +372,7 @@ def execute_planning_run(request: PlanRequest, db: Session = Depends(get_db)):
         unmet_demands=raw_unmet,
         reported_transport_cost=solver_result.get("total_transport_cost"),
         as_of_date=as_of,
+        min_arrival_shelf_life_days=eff_min_shelf_life,
     )
 
     # 8. Explainability
@@ -414,12 +439,14 @@ def execute_planning_run(request: PlanRequest, db: Session = Depends(get_db)):
     metrics = PlanSummaryMetrics(
         total_shipped_units=solver_result.get("total_units", 0),
         total_transport_cost=solver_result.get("total_transport_cost", 0.0),
-        avg_expiry_risk_pct=0.0,
+        avg_expiry_risk_pct=None,
+        expiry_waste_modeled=False,
         stockouts_prevented=max(0, len(stockout_alerts_raw) - len(raw_unmet)),
         destinations_at_risk=len(set(a["destination_code"] for a in stockout_alerts_raw)),
         total_demanded_units=solver_result.get("total_demanded_units", 0),
         total_unmet_units=solver_result.get("total_unmet_units", 0),
         fulfillment_rate=solver_result.get("fulfillment_rate", 1.0),
+        min_fulfillment_target_met=solver_result.get("min_fulfillment_target_met"),
         solver_runtime_seconds=solver_result.get("solver_runtime_seconds", 0.0),
     )
 
@@ -446,7 +473,7 @@ def execute_planning_run(request: PlanRequest, db: Session = Depends(get_db)):
             recommended_units=s["recommended_units"],
             unit_transport_cost=s["unit_transport_cost"],
             total_transport_cost=s["total_transport_cost"],
-            estimated_expiry_risk_pct=s.get("estimated_expiry_risk_pct", 0.0),
+            estimated_expiry_risk_pct=s.get("estimated_expiry_risk_pct"),
             lead_time_days=s.get("lead_time_days", 1.0),
             reasoning=s.get("reasoning"),
         )
@@ -499,6 +526,7 @@ def execute_planning_run(request: PlanRequest, db: Session = Depends(get_db)):
         dataset_version=ds_ver.version_tag,
         forecast_identifier=forecast_id,
         solver_status=solver_result.get("solver_status", "UNKNOWN"),
+        status_message=solver_result.get("status_message"),
         created_at=plan_run.created_at,
         metrics=metrics,
         shipments=shipment_schemas,

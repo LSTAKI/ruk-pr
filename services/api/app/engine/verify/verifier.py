@@ -3,7 +3,7 @@ Solution Verification Module
 ============================
 
 Independently recomputes and verifies the feasibility of recommended shipment plans
-against all physical, throughput, eligibility, and accounting constraints.
+against all physical, throughput, eligibility, batch-expiry, and accounting constraints.
 
 Never trusts solver status or self-reported metrics.
 
@@ -26,7 +26,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass, field
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from typing import Any, Dict, List, Optional, Set, Tuple
 
 
@@ -69,6 +69,7 @@ class SolutionVerifier:
         unmet_demands: Optional[List[Dict[str, Any]]] = None,
         reported_transport_cost: Optional[float] = None,
         as_of_date: Optional[datetime | date] = None,
+        min_arrival_shelf_life_days: float = 0.0,
     ) -> Tuple[bool, List[str]]:
         """Verifies all shipment decisions against physical constraints.
 
@@ -87,6 +88,7 @@ class SolutionVerifier:
             unmet_demands=unmet_demands,
             reported_transport_cost=reported_transport_cost,
             as_of_date=as_of_date,
+            min_arrival_shelf_life_days=min_arrival_shelf_life_days,
         )
         return report.is_feasible, report.violations
 
@@ -104,6 +106,7 @@ class SolutionVerifier:
         unmet_demands: Optional[List[Dict[str, Any]]] = None,
         reported_transport_cost: Optional[float] = None,
         as_of_date: Optional[datetime | date] = None,
+        min_arrival_shelf_life_days: float = 0.0,
     ) -> VerificationReport:
         """Executes all 12 independent validation rules and produces a structured report."""
         violations: List[str] = []
@@ -145,6 +148,7 @@ class SolutionVerifier:
         received_by_dest: Dict[str, int] = {}
         shipped_supply: Dict[str, Dict[str, int]] = {}
         shipped_demand: Dict[str, Dict[str, int]] = {}
+        shipped_route_prod: Dict[Tuple[str, str, str], int] = {}
 
         # -------------------------------------------------------------------
         # 1. Non-negativity, Integer check, and individual shipment properties
@@ -214,6 +218,9 @@ class SolutionVerifier:
                 shipped_demand[d_code] = {}
             shipped_demand[d_code][sku] = shipped_demand[d_code].get(sku, 0) + int_units
 
+            route_prod_key = (w_code, d_code, sku)
+            shipped_route_prod[route_prod_key] = shipped_route_prod.get(route_prod_key, 0) + int_units
+
         # -------------------------------------------------------------------
         # 4. Warehouse supply bound check
         # -------------------------------------------------------------------
@@ -265,25 +272,53 @@ class SolutionVerifier:
                 errors.append(VerificationError("RECEIVING_CAPACITY_EXCEEDED", msg, d_code, total_received, limit))
 
         # -------------------------------------------------------------------
-        # 3 & 10. Expired / Quarantined and Batch Expiry Checks
+        # 10. Batch-Level Expiry Feasibility Check
         # -------------------------------------------------------------------
         if inventory_items:
-            for item in inventory_items:
-                status = str(item.get("batch_status", "")).upper()
-                exp = item.get("expiry_date")
-                if isinstance(exp, str):
-                    try:
-                        exp = datetime.fromisoformat(exp).date()
-                    except Exception:
-                        pass
-                elif isinstance(exp, datetime):
-                    exp = exp.date()
+            # For each shipment on route (w, d) with SKU, verify that warehouse w
+            # has sufficient unreserved batch units whose expiry > arrival_date
+            for (w_code, d_code, sku), total_alloc in shipped_route_prod.items():
+                r_info = route_lookup.get((w_code, d_code), {})
+                lt = float(r_info.get("lead_time_days", 1.0))
+                transit_days = math.ceil(lt) + math.ceil(min_arrival_shelf_life_days)
+                min_arrival_expiry = now_date + timedelta(days=transit_days)
 
-                if status in ("QUARANTINED", "DAMAGED") or (exp and exp <= now_date):
-                    # Check that this warehouse/product was not allocated beyond unexpired batches
-                    w = item.get("warehouse_code")
-                    p = item.get("product_sku")
-                    # Verified at available_supply level where require_usable=True excludes them
+                eligible_batch_units = 0
+                for item in inventory_items:
+                    if item.get("warehouse_code") != w_code or item.get("product_sku") != sku:
+                        continue
+                    status = str(item.get("batch_status", "AVAILABLE")).upper()
+                    if status != "AVAILABLE":
+                        continue
+
+                    exp = item.get("expiry_date")
+                    if isinstance(exp, str):
+                        try:
+                            exp = datetime.fromisoformat(exp).date()
+                        except Exception:
+                            continue
+                    elif isinstance(exp, datetime):
+                        exp = exp.date()
+
+                    if exp and exp > min_arrival_expiry:
+                        on_hand = int(item.get("on_hand_units", 0))
+                        reserved = int(item.get("reserved_units", 0))
+                        eligible_batch_units += max(0, on_hand - reserved)
+
+                if total_alloc > eligible_batch_units:
+                    msg = (
+                        f"Expiry eligibility violation for route {w_code}->{d_code} SKU {sku}: "
+                        f"Allocated {total_alloc} units > Fresh batch stock {eligible_batch_units} "
+                        f"(batches expiring on or before arrival date {min_arrival_expiry} cannot be shipped)"
+                    )
+                    violations.append(msg)
+                    errors.append(VerificationError(
+                        "EXPIRY_BEFORE_ARRIVAL_VIOLATION",
+                        msg,
+                        f"{w_code}->{d_code}:{sku}",
+                        total_alloc,
+                        eligible_batch_units,
+                    ))
 
         # -------------------------------------------------------------------
         # 11. Fulfilled and Unmet Demand Reconciliation

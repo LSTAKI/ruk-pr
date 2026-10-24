@@ -673,3 +673,264 @@ def test_24_multi_product_multi_destination_network_optimality():
     # Total cost must be 40 + 50 = $90.00
     assert result["total_transport_cost"] == 90.0
 
+
+# ---------------------------------------------------------------------------
+# Prompt 5.1 Targeted Tests: Objective Audit & Constraint Corrections
+# ---------------------------------------------------------------------------
+
+def test_25_cost_first_minimum_fulfillment_enforcement():
+    """Cost-First must enforce the minimum fulfillment floor (e.g. 80%) instead of curtailing demand."""
+    warehouses = [
+        {"code": "WH-LowCost", "daily_dispatch_capacity_units": 500},
+        {"code": "WH-HighCost", "daily_dispatch_capacity_units": 500},
+    ]
+    destinations = [
+        {"code": "DST-1", "daily_receiving_capacity_units": 500},
+    ]
+    products = [{"sku": "SKU-1", "lost_sales_penalty": 2.0}]
+    routes = [
+        {"origin_warehouse_code": "WH-LowCost", "destination_code": "DST-1", "unit_transport_cost": 1.0, "lead_time_days": 1.0, "is_active": True},
+        # Freight $12.0/u exceeds penalty ($2 * 2 = $4.0/u); unconstrained would skip this
+        {"origin_warehouse_code": "WH-HighCost", "destination_code": "DST-1", "unit_transport_cost": 12.0, "lead_time_days": 1.0, "is_active": True},
+    ]
+    available_supply = {
+        "WH-LowCost": {"SKU-1": 30},
+        "WH-HighCost": {"SKU-1": 100},
+    }
+    demand_targets = [{"destination_code": "DST-1", "sku": "SKU-1", "forecasted_units": 100}]
+
+    # With min_fulfillment_rate = 0.80 (80%), solver must ship at least 80 units
+    solver = DistributionSolver(profile="cost_first", min_fulfillment_rate=0.80)
+    result = solver.solve_distribution_plan(
+        warehouses, destinations, products, available_supply, demand_targets, routes=routes
+    )
+
+    assert result["solver_status"] in ("OPTIMAL", "FEASIBLE")
+    assert result["total_units"] >= 80  # 80% floor enforced!
+    assert result["min_fulfillment_target_met"] is True
+
+
+def test_26_cost_first_infeasible_fulfillment_target():
+    """When network supply is strictly less than requested target, solver reports TARGET_UNACHIEVABLE."""
+    warehouses = [{"code": "WH-A", "daily_dispatch_capacity_units": 100}]
+    destinations = [{"code": "DST-1", "daily_receiving_capacity_units": 100}]
+    products = [{"sku": "SKU-1", "lost_sales_penalty": 5.0}]
+    available_supply = {"WH-A": {"SKU-1": 50}}  # Only 50 units in entire network
+    demand_targets = [{"destination_code": "DST-1", "sku": "SKU-1", "forecasted_units": 100}]
+    routes = [{"origin_warehouse_code": "WH-A", "destination_code": "DST-1", "unit_transport_cost": 1.0, "lead_time_days": 1.0, "is_active": True}]
+
+    # Target: 85% of 100 = 85 units, but network only has 50
+    solver = DistributionSolver(profile="cost_first", min_fulfillment_rate=0.85)
+    result = solver.solve_distribution_plan(
+        warehouses, destinations, products, available_supply, demand_targets, routes=routes
+    )
+
+    assert result["solver_status"] in ("TARGET_UNACHIEVABLE", "INFEASIBLE")
+    assert result["min_fulfillment_target_met"] is False
+    assert "cannot be met" in result["status_message"]
+
+
+def test_27_cost_first_explicit_unconstrained_opt_in():
+    """Allowing unconstrained cost-first permits skipping expensive freight with explicit warning."""
+    warehouses = [
+        {"code": "WH-LowCost", "daily_dispatch_capacity_units": 500},
+        {"code": "WH-HighCost", "daily_dispatch_capacity_units": 500},
+    ]
+    destinations = [
+        {"code": "DST-1", "daily_receiving_capacity_units": 500},
+    ]
+    products = [{"sku": "SKU-1", "lost_sales_penalty": 2.0}]
+    routes = [
+        {"origin_warehouse_code": "WH-LowCost", "destination_code": "DST-1", "unit_transport_cost": 1.0, "lead_time_days": 1.0, "is_active": True},
+        {"origin_warehouse_code": "WH-HighCost", "destination_code": "DST-1", "unit_transport_cost": 15.0, "lead_time_days": 1.0, "is_active": True},
+    ]
+    available_supply = {
+        "WH-LowCost": {"SKU-1": 25},
+        "WH-HighCost": {"SKU-1": 100},
+    }
+    demand_targets = [{"destination_code": "DST-1", "sku": "SKU-1", "forecasted_units": 100}]
+
+    # Explicit opt-in to unconstrained
+    solver = DistributionSolver(
+        profile="cost_first",
+        min_fulfillment_rate=0.0,
+        allow_unconstrained_cost_first=True,
+    )
+    result = solver.solve_distribution_plan(
+        warehouses, destinations, products, available_supply, demand_targets, routes=routes
+    )
+
+    # In unconstrained mode, only cheap units are shipped because high freight ($15) > penalty ($4)
+    assert result["total_units"] == 25
+    assert any("Unconstrained cost-first" in w for w in result["warnings"])
+
+
+def test_28_balanced_profile_parameter_validation():
+    """Validates that negative weights and invalid profile names are rejected."""
+    with pytest.raises(ValueError):
+        DistributionSolver(transport_weight=-1.0)
+
+    with pytest.raises(ValueError):
+        DistributionSolver(lead_time_penalty_weight=-0.1)
+
+    with pytest.raises(ValueError):
+        DistributionSolver(stockout_penalty_weight=-5.0)
+
+    with pytest.raises(ValueError):
+        DistributionSolver(min_fulfillment_rate=1.5)
+
+
+def test_29_lead_time_penalty_weight_alters_objective_decision():
+    """Changing lead_time_penalty_weight alters the mathematical choice between fast vs cheap routes."""
+    warehouses = [
+        {"code": "WH-Fast", "daily_dispatch_capacity_units": 500},
+        {"code": "WH-Slow", "daily_dispatch_capacity_units": 500},
+    ]
+    destinations = [
+        {"code": "DST-1", "daily_receiving_capacity_units": 500},
+    ]
+    products = [{"sku": "SKU-1", "lost_sales_penalty": 10.0}]
+    routes = [
+        # Fast: 1.0 day, freight $4.00
+        {"origin_warehouse_code": "WH-Fast", "destination_code": "DST-1", "unit_transport_cost": 4.0, "lead_time_days": 1.0, "is_active": True},
+        # Slow: 5.0 days, freight $3.20 (cheaper freight)
+        {"origin_warehouse_code": "WH-Slow", "destination_code": "DST-1", "unit_transport_cost": 3.2, "lead_time_days": 5.0, "is_active": True},
+    ]
+    available_supply = {
+        "WH-Fast": {"SKU-1": 100},
+        "WH-Slow": {"SKU-1": 100},
+    }
+    demand_targets = [{"destination_code": "DST-1", "sku": "SKU-1", "forecasted_units": 50}]
+
+    # Case A: Low lead-time penalty weight = $0.05/day/unit
+    # Fast: $4.00 + 1 * 0.05 = $4.05. Slow: $3.20 + 5 * 0.05 = $3.45. Slow wins!
+    solver_a = DistributionSolver(profile="balanced", lead_time_penalty_weight=0.05)
+    res_a = solver_a.solve_distribution_plan(
+        warehouses, destinations, products, available_supply, demand_targets, routes=routes
+    )
+    assert res_a["shipments"][0]["source_warehouse_code"] == "WH-Slow"
+
+    # Case B: High lead-time penalty weight = $0.50/day/unit
+    # Fast: $4.00 + 1 * 0.50 = $4.50. Slow: $3.20 + 5 * 0.50 = $5.70. Fast wins!
+    solver_b = DistributionSolver(profile="balanced", lead_time_penalty_weight=0.50)
+    res_b = solver_b.solve_distribution_plan(
+        warehouses, destinations, products, available_supply, demand_targets, routes=routes
+    )
+    assert res_b["shipments"][0]["source_warehouse_code"] == "WH-Fast"
+
+
+def test_30_batch_expiry_route_eligibility():
+    """Batches expiring before delivery arrives cannot be allocated to that route."""
+    from datetime import date, timedelta
+    today = date(2026, 1, 1)
+
+    warehouses = [{"code": "WH-1", "daily_dispatch_capacity_units": 500}]
+    destinations = [{"code": "DST-Far", "daily_receiving_capacity_units": 500}]
+    products = [{"sku": "SKU-Dairy", "lost_sales_penalty": 10.0}]
+
+    # Route lead time is 4 days -> Arrival is 2026-01-05
+    routes = [{"origin_warehouse_code": "WH-1", "destination_code": "DST-Far", "unit_transport_cost": 2.0, "lead_time_days": 4.0, "is_active": True}]
+
+    # Inventory:
+    # Batch 1 (30 units): expires 2026-01-03 (expires BEFORE arrival -> ineligible!)
+    # Batch 2 (50 units): expires 2026-01-20 (expires AFTER arrival -> eligible!)
+    inventory_items = [
+        {"warehouse_code": "WH-1", "product_sku": "SKU-Dairy", "batch_lot": "LOT-EXP-EARLY", "on_hand_units": 30, "reserved_units": 0, "expiry_date": today + timedelta(days=2), "batch_status": "AVAILABLE"},
+        {"warehouse_code": "WH-1", "product_sku": "SKU-Dairy", "batch_lot": "LOT-EXP-LATE", "on_hand_units": 50, "reserved_units": 0, "expiry_date": today + timedelta(days=20), "batch_status": "AVAILABLE"},
+    ]
+    available_supply = {"WH-1": {"SKU-Dairy": 80}}
+    demand_targets = [{"destination_code": "DST-Far", "sku": "SKU-Dairy", "forecasted_units": 70}]
+
+    solver = DistributionSolver()
+    result = solver.solve_distribution_plan(
+        warehouses, destinations, products, available_supply, demand_targets,
+        routes=routes, inventory_items=inventory_items, as_of_date=today
+    )
+
+    # Only 50 units (Batch 2) are eligible; Batch 1 cannot be shipped!
+    assert result["total_units"] == 50
+    assert result["total_unmet_units"] == 20
+
+
+def test_31_verifier_detects_expiry_before_arrival_violation():
+    """SolutionVerifier flags plans where shipments rely on batches expiring before arrival."""
+    from datetime import date, timedelta
+    today = date(2026, 1, 1)
+
+    # Lead time = 5 days -> min arrival expiry = today + 5 days
+    routes = [{"origin_warehouse_code": "WH-1", "destination_code": "DST-1", "unit_transport_cost": 2.0, "lead_time_days": 5.0, "is_active": True}]
+    # Batch expires in 2 days
+    inventory_items = [
+        {"warehouse_code": "WH-1", "product_sku": "SKU-1", "batch_lot": "LOT-SHORT", "on_hand_units": 40, "reserved_units": 0, "expiry_date": today + timedelta(days=2), "batch_status": "AVAILABLE"},
+    ]
+    available_supply = {"WH-1": {"SKU-1": 40}}
+    demand_targets = [{"destination_code": "DST-1", "sku": "SKU-1", "forecasted_units": 40}]
+
+    corrupted_shipment = [{
+        "source_warehouse_code": "WH-1",
+        "destination_code": "DST-1",
+        "product_sku": "SKU-1",
+        "recommended_units": 40,
+        "unit_transport_cost": 2.0,
+        "total_transport_cost": 80.0,
+    }]
+
+    report = SolutionVerifier.verify_comprehensive(
+        shipments=corrupted_shipment,
+        available_supply=available_supply,
+        demand_targets=demand_targets,
+        routes=routes,
+        inventory_items=inventory_items,
+        as_of_date=today,
+    )
+
+    assert report.is_feasible is False
+    assert any("Expiry eligibility violation" in v for v in report.violations)
+
+
+def test_32_baseline_fairness_with_batch_expiry():
+    """Greedy baseline also enforces batch expiry and rejects allocations from expired batches."""
+    from datetime import date, timedelta
+    today = date(2026, 1, 1)
+
+    warehouses = [{"code": "WH-1", "daily_dispatch_capacity_units": 500}]
+    destinations = [{"code": "DST-1", "daily_receiving_capacity_units": 500}]
+    products = [{"sku": "SKU-1", "lost_sales_penalty": 10.0}]
+    routes = [{"origin_warehouse_code": "WH-1", "destination_code": "DST-1", "unit_transport_cost": 1.0, "lead_time_days": 3.0, "is_active": True}]
+
+    # 40 units expire in 1 day (before 3d arrival), 20 units expire in 10 days
+    inventory_items = [
+        {"warehouse_code": "WH-1", "product_sku": "SKU-1", "batch_lot": "LOT-1", "on_hand_units": 40, "reserved_units": 0, "expiry_date": today + timedelta(days=1), "batch_status": "AVAILABLE"},
+        {"warehouse_code": "WH-1", "product_sku": "SKU-1", "batch_lot": "LOT-2", "on_hand_units": 20, "reserved_units": 0, "expiry_date": today + timedelta(days=10), "batch_status": "AVAILABLE"},
+    ]
+    available_supply = {"WH-1": {"SKU-1": 60}}
+    demand_targets = [{"destination_code": "DST-1", "sku": "SKU-1", "units": 50}]
+
+    baseline = solve_greedy_baseline(
+        warehouses, destinations, products, available_supply, demand_targets,
+        routes=routes, inventory_items=inventory_items, as_of_date=today
+    )
+
+    # Baseline can only allocate the 20 fresh units from LOT-2
+    assert baseline["total_units"] == 20
+    assert baseline["total_unmet_units"] == 30
+
+
+def test_33_unmodeled_expiry_waste_reported_honestly():
+    """When store-level consumption data is unavailable, expiry waste is reported as unmodeled/None."""
+    warehouses = [{"code": "WH-1", "daily_dispatch_capacity_units": 500}]
+    destinations = [{"code": "DST-1", "daily_receiving_capacity_units": 500}]
+    products = [{"sku": "SKU-1", "lost_sales_penalty": 5.0}]
+    routes = [{"origin_warehouse_code": "WH-1", "destination_code": "DST-1", "unit_transport_cost": 1.0, "lead_time_days": 1.0, "is_active": True}]
+    available_supply = {"WH-1": {"SKU-1": 50}}
+    demand_targets = [{"destination_code": "DST-1", "sku": "SKU-1", "forecasted_units": 30}]
+
+    solver = DistributionSolver()
+    result = solver.solve_distribution_plan(
+        warehouses, destinations, products, available_supply, demand_targets, routes=routes
+    )
+
+    assert result["expiry_waste_modeled"] is False
+    assert result["shipments"][0]["estimated_expiry_risk_pct"] is None
+
+
