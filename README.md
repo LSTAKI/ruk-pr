@@ -172,9 +172,16 @@ docker compose exec backend python /app/../../scripts/seed_demo_data.py
 
 ### Frontend Unit & Component Tests (Vitest)
 ```bash
-# Run all 18 frontend tests covering navigation, overview, inventory explorer, forecasting, replenishment, optimizer, scenarios, and CSV export
+# Run all 19 frontend unit tests covering navigation, overview, inventory explorer, forecasting, replenishment, optimizer, scenarios, formula injection, and CSV export
 cd apps/web
 npm test
+```
+
+### End-to-End Browser Tests (Playwright)
+```bash
+# Ensure local backend is running (uvicorn app.main:app --app-dir services/api --port 8000)
+cd apps/web
+npx playwright test
 ```
 
 ### TypeScript Compile & Production Build

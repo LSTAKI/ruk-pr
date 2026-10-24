@@ -1,13 +1,26 @@
 /**
  * StockWise AI - CSV Export Utilities
  * Generates safely escaped, audit-ready CSV exports for planning runs.
+ * Protects against CSV / Spreadsheet Formula Injection (OWASP mitigation).
  */
 
 import { PlanResponse, Shipment } from "./api";
 
-function escapeCSV(val: unknown): string {
+/**
+ * Sanitizes and escapes values for RFC 4180 CSV compliance and formula injection prevention.
+ * If a cell begins with '=', '+', '-', '@', '\t', or '\r', it is prepended with a single quote (')
+ * to prevent spreadsheet applications (Excel, LibreOffice, Sheets) from executing formulas.
+ */
+export function sanitizeForCSV(val: unknown): string {
   if (val === null || val === undefined) return "";
-  const str = String(val);
+  let str = String(val);
+
+  // Formula injection defense: prefix with single quote if first character is dangerous
+  if (/^[=+\-@\t\r]/.test(str)) {
+    str = "'" + str;
+  }
+
+  // RFC 4180 quoting and quote-doubling
   if (str.includes(",") || str.includes('"') || str.includes("\n") || str.includes("\r")) {
     return `"${str.replace(/"/g, '""')}"`;
   }
@@ -43,7 +56,7 @@ export function generateShipmentsCSV(plan: PlanResponse): string {
     "Lead Time (Days)",
     "Planner Rationale",
   ];
-  lines.push(headers.map(escapeCSV).join(","));
+  lines.push(headers.map(sanitizeForCSV).join(","));
 
   // Rows
   for (const s of plan.shipments) {
@@ -60,7 +73,7 @@ export function generateShipmentsCSV(plan: PlanResponse): string {
       s.lead_time_days !== undefined ? s.lead_time_days : 1.0,
       s.reasoning || "Optimized allocation based on minimum freight cost and available batch stock",
     ];
-    lines.push(row.map(escapeCSV).join(","));
+    lines.push(row.map(sanitizeForCSV).join(","));
   }
 
   return lines.join("\r\n");

@@ -10,7 +10,7 @@ describe("Navbar Component", () => {
     vi.restoreAllMocks();
   });
 
-  it("renders StockWise AI branding and navigation tabs", () => {
+  it("renders StockWise AI branding and navigation tabs", async () => {
     vi.spyOn(api, "fetchHealth").mockResolvedValue({
       status: "healthy",
       environment: "development",
@@ -24,6 +24,10 @@ describe("Navbar Component", () => {
       <Navbar activeTab="overview" onSelectTab={onSelectTab} activeDatasetVersion="v1.0-seed-42" />
     );
 
+    await waitFor(() => {
+      expect(screen.getByText("Engine Online")).toBeInTheDocument();
+    });
+
     expect(screen.getByText("StockWise AI")).toBeInTheDocument();
     expect(screen.getByText("LOCAL-FIRST")).toBeInTheDocument();
     expect(screen.getByTestId("nav-tab-overview")).toBeInTheDocument();
@@ -35,7 +39,7 @@ describe("Navbar Component", () => {
     expect(screen.getByTestId("nav-tab-history")).toBeInTheDocument();
   });
 
-  it("calls onSelectTab when a tab is clicked", () => {
+  it("calls onSelectTab when a tab is clicked", async () => {
     vi.spyOn(api, "fetchHealth").mockResolvedValue({
       status: "healthy",
       environment: "development",
@@ -47,6 +51,10 @@ describe("Navbar Component", () => {
     renderWithClient(
       <Navbar activeTab="overview" onSelectTab={onSelectTab} />
     );
+
+    await waitFor(() => {
+      expect(screen.getByText("Engine Online")).toBeInTheDocument();
+    });
 
     fireEvent.click(screen.getByTestId("nav-tab-inventory"));
     expect(onSelectTab).toHaveBeenCalledWith("inventory");

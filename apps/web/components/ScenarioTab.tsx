@@ -12,6 +12,7 @@ import {
   XCircle,
   TrendingDown,
   TrendingUp,
+  AlertTriangle,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -31,12 +32,17 @@ export function ScenarioTab() {
     costFirst?: PlanResponse;
     serviceFirst?: PlanResponse;
     balanced?: PlanResponse;
+    errors?: {
+      costFirst?: string;
+      serviceFirst?: string;
+      balanced?: string;
+    };
   }>({});
 
   const comparisonMutation = useMutation({
     mutationFn: async () => {
-      // Execute all 3 profiles on identical inputs
-      const [costRes, servRes, balRes] = await Promise.all([
+      // Execute all 3 profiles on identical inputs with Promise.allSettled for partial resilience
+      const settled = await Promise.allSettled([
         executePlanRun({
           forecast_horizon_days: horizonDays,
           optimization_profile: "cost_first",
@@ -69,10 +75,21 @@ export function ScenarioTab() {
         }),
       ]);
 
+      const costRes = settled[0].status === "fulfilled" ? settled[0].value : undefined;
+      const servRes = settled[1].status === "fulfilled" ? settled[1].value : undefined;
+      const balRes = settled[2].status === "fulfilled" ? settled[2].value : undefined;
+
+      const errors = {
+        costFirst: settled[0].status === "rejected" ? (settled[0].reason?.message || "Execution failed") : undefined,
+        serviceFirst: settled[1].status === "rejected" ? (settled[1].reason?.message || "Execution failed") : undefined,
+        balanced: settled[2].status === "rejected" ? (settled[2].reason?.message || "Execution failed") : undefined,
+      };
+
       return {
         costFirst: costRes,
         serviceFirst: servRes,
         balanced: balRes,
+        errors,
       };
     },
     onSuccess: (data) => {
@@ -80,31 +97,36 @@ export function ScenarioTab() {
     },
   });
 
-  const { costFirst, serviceFirst, balanced } = results;
-  const hasResults = !!(costFirst && serviceFirst && balanced);
+  const { costFirst, serviceFirst, balanced, errors } = results;
+  const hasAnyResults = !!(costFirst || serviceFirst || balanced);
+  const hasAllResults = !!(costFirst && serviceFirst && balanced);
+  const hasErrors = !!(errors?.costFirst || errors?.serviceFirst || errors?.balanced);
 
-  const chartData = hasResults
-    ? [
-        {
-          name: "Cost-First",
-          fulfillmentRate: Number(((costFirst.metrics.fulfillment_rate ?? 0) * 100).toFixed(1)),
-          cost: Number(costFirst.metrics.total_transport_cost.toFixed(2)),
-          units: costFirst.metrics.total_shipped_units,
-        },
-        {
-          name: "Balanced",
-          fulfillmentRate: Number(((balanced.metrics.fulfillment_rate ?? 0) * 100).toFixed(1)),
-          cost: Number(balanced.metrics.total_transport_cost.toFixed(2)),
-          units: balanced.metrics.total_shipped_units,
-        },
-        {
-          name: "Service-First",
-          fulfillmentRate: Number(((serviceFirst.metrics.fulfillment_rate ?? 0) * 100).toFixed(1)),
-          cost: Number(serviceFirst.metrics.total_transport_cost.toFixed(2)),
-          units: serviceFirst.metrics.total_shipped_units,
-        },
-      ]
-    : [];
+  const chartData: Array<{ name: string; cost: number; units: number; fulfillmentRate: number }> = [];
+  if (costFirst) {
+    chartData.push({
+      name: "Cost-First",
+      fulfillmentRate: Number(((costFirst.metrics.fulfillment_rate ?? 0) * 100).toFixed(1)),
+      cost: Number(costFirst.metrics.total_transport_cost.toFixed(2)),
+      units: costFirst.metrics.total_shipped_units,
+    });
+  }
+  if (balanced) {
+    chartData.push({
+      name: "Balanced",
+      fulfillmentRate: Number(((balanced.metrics.fulfillment_rate ?? 0) * 100).toFixed(1)),
+      cost: Number(balanced.metrics.total_transport_cost.toFixed(2)),
+      units: balanced.metrics.total_shipped_units,
+    });
+  }
+  if (serviceFirst) {
+    chartData.push({
+      name: "Service-First",
+      fulfillmentRate: Number(((serviceFirst.metrics.fulfillment_rate ?? 0) * 100).toFixed(1)),
+      cost: Number(serviceFirst.metrics.total_transport_cost.toFixed(2)),
+      units: serviceFirst.metrics.total_shipped_units,
+    });
+  }
 
   return (
     <div className="space-y-6" data-testid="scenario-comparison-tab">
@@ -195,8 +217,23 @@ export function ScenarioTab() {
         </button>
       </div>
 
+      {/* Partial Errors Banner */}
+      {hasErrors && (
+        <div className="rounded-xl border border-amber-800/60 bg-amber-950/20 p-4 text-xs text-amber-300 space-y-1">
+          <div className="flex items-center space-x-2 font-semibold">
+            <AlertTriangle className="h-4 w-4" />
+            <span>Partial Comparison Warning: One or more profiles encountered solver constraints</span>
+          </div>
+          <div className="text-[11px] text-slate-400">
+            {errors?.costFirst && <div>&bull; Cost-First: {errors.costFirst}</div>}
+            {errors?.serviceFirst && <div>&bull; Service-First: {errors.serviceFirst}</div>}
+            {errors?.balanced && <div>&bull; Balanced: {errors.balanced}</div>}
+          </div>
+        </div>
+      )}
+
       {/* Comparison Matrix Table */}
-      {hasResults && (
+      {hasAnyResults && (
         <div className="space-y-6" data-testid="scenario-results">
           <div className="rounded-xl border border-slate-800 bg-slate-900/60 overflow-hidden shadow-sm">
             <div className="p-4 border-b border-slate-800">
@@ -215,68 +252,68 @@ export function ScenarioTab() {
                 <tbody className="divide-y divide-slate-800/60 font-mono">
                   <tr>
                     <td className="py-2.5 px-3 font-sans font-medium text-slate-300">Solver Status</td>
-                    <td className="py-2.5 px-3 text-right text-emerald-400">{costFirst.solver_status}</td>
-                    <td className="py-2.5 px-3 text-right text-indigo-400">{balanced.solver_status}</td>
-                    <td className="py-2.5 px-3 text-right text-sky-400">{serviceFirst.solver_status}</td>
+                    <td className="py-2.5 px-3 text-right text-emerald-400">{costFirst?.solver_status || (errors?.costFirst ? "Failed" : "Unavailable")}</td>
+                    <td className="py-2.5 px-3 text-right text-indigo-400">{balanced?.solver_status || (errors?.balanced ? "Failed" : "Unavailable")}</td>
+                    <td className="py-2.5 px-3 text-right text-sky-400">{serviceFirst?.solver_status || (errors?.serviceFirst ? "Failed" : "Unavailable")}</td>
                   </tr>
                   <tr>
                     <td className="py-2.5 px-3 font-sans font-medium text-slate-300">Total Shipped Units</td>
                     <td className="py-2.5 px-3 text-right text-white font-bold">
-                      {costFirst.metrics.total_shipped_units.toLocaleString()}
+                      {costFirst ? costFirst.metrics.total_shipped_units.toLocaleString() : "—"}
                     </td>
                     <td className="py-2.5 px-3 text-right text-white font-bold">
-                      {balanced.metrics.total_shipped_units.toLocaleString()}
+                      {balanced ? balanced.metrics.total_shipped_units.toLocaleString() : "—"}
                     </td>
                     <td className="py-2.5 px-3 text-right text-white font-bold">
-                      {serviceFirst.metrics.total_shipped_units.toLocaleString()}
+                      {serviceFirst ? serviceFirst.metrics.total_shipped_units.toLocaleString() : "—"}
                     </td>
                   </tr>
                   <tr>
                     <td className="py-2.5 px-3 font-sans font-medium text-slate-300">Unmet Demand Units</td>
                     <td className="py-2.5 px-3 text-right text-rose-400">
-                      {(costFirst.metrics.total_unmet_units ?? 0).toLocaleString()}
+                      {costFirst ? (costFirst.metrics.total_unmet_units ?? 0).toLocaleString() : "—"}
                     </td>
                     <td className="py-2.5 px-3 text-right text-slate-300">
-                      {(balanced.metrics.total_unmet_units ?? 0).toLocaleString()}
+                      {balanced ? (balanced.metrics.total_unmet_units ?? 0).toLocaleString() : "—"}
                     </td>
                     <td className="py-2.5 px-3 text-right text-sky-400">
-                      {(serviceFirst.metrics.total_unmet_units ?? 0).toLocaleString()}
+                      {serviceFirst ? (serviceFirst.metrics.total_unmet_units ?? 0).toLocaleString() : "—"}
                     </td>
                   </tr>
                   <tr>
                     <td className="py-2.5 px-3 font-sans font-medium text-slate-300">Network Fulfillment Rate</td>
                     <td className="py-2.5 px-3 text-right text-white">
-                      {((costFirst.metrics.fulfillment_rate ?? 0) * 100).toFixed(1)}%
+                      {costFirst ? `${((costFirst.metrics.fulfillment_rate ?? 0) * 100).toFixed(1)}%` : "—"}
                     </td>
                     <td className="py-2.5 px-3 text-right text-white">
-                      {((balanced.metrics.fulfillment_rate ?? 0) * 100).toFixed(1)}%
+                      {balanced ? `${((balanced.metrics.fulfillment_rate ?? 0) * 100).toFixed(1)}%` : "—"}
                     </td>
                     <td className="py-2.5 px-3 text-right text-white">
-                      {((serviceFirst.metrics.fulfillment_rate ?? 0) * 100).toFixed(1)}%
+                      {serviceFirst ? `${((serviceFirst.metrics.fulfillment_rate ?? 0) * 100).toFixed(1)}%` : "—"}
                     </td>
                   </tr>
                   <tr>
                     <td className="py-2.5 px-3 font-sans font-medium text-slate-300">Total Freight Cost</td>
                     <td className="py-2.5 px-3 text-right text-emerald-400 font-bold">
-                      ${costFirst.metrics.total_transport_cost.toFixed(2)}
+                      {costFirst ? `$${costFirst.metrics.total_transport_cost.toFixed(2)}` : "—"}
                     </td>
                     <td className="py-2.5 px-3 text-right text-indigo-400 font-bold">
-                      ${balanced.metrics.total_transport_cost.toFixed(2)}
+                      {balanced ? `$${balanced.metrics.total_transport_cost.toFixed(2)}` : "—"}
                     </td>
                     <td className="py-2.5 px-3 text-right text-sky-400 font-bold">
-                      ${serviceFirst.metrics.total_transport_cost.toFixed(2)}
+                      {serviceFirst ? `$${serviceFirst.metrics.total_transport_cost.toFixed(2)}` : "—"}
                     </td>
                   </tr>
                   <tr>
                     <td className="py-2.5 px-3 font-sans font-medium text-slate-300">Average Freight / Unit</td>
                     <td className="py-2.5 px-3 text-right text-slate-300">
-                      ${(costFirst.metrics.total_transport_cost / Math.max(1, costFirst.metrics.total_shipped_units)).toFixed(3)}
+                      {costFirst ? `$${(costFirst.metrics.total_transport_cost / Math.max(1, costFirst.metrics.total_shipped_units)).toFixed(3)}` : "—"}
                     </td>
                     <td className="py-2.5 px-3 text-right text-slate-300">
-                      ${(balanced.metrics.total_transport_cost / Math.max(1, balanced.metrics.total_shipped_units)).toFixed(3)}
+                      {balanced ? `$${(balanced.metrics.total_transport_cost / Math.max(1, balanced.metrics.total_shipped_units)).toFixed(3)}` : "—"}
                     </td>
                     <td className="py-2.5 px-3 text-right text-slate-300">
-                      ${(serviceFirst.metrics.total_transport_cost / Math.max(1, serviceFirst.metrics.total_shipped_units)).toFixed(3)}
+                      {serviceFirst ? `$${(serviceFirst.metrics.total_transport_cost / Math.max(1, serviceFirst.metrics.total_shipped_units)).toFixed(3)}` : "—"}
                     </td>
                   </tr>
                   <tr>
@@ -288,13 +325,13 @@ export function ScenarioTab() {
                   <tr>
                     <td className="py-2.5 px-3 font-sans font-medium text-slate-300">12-Invariant Verification</td>
                     <td className="py-2.5 px-3 text-right text-emerald-400 font-sans">
-                      {costFirst.verification?.is_feasible ? "FEASIBLE" : "VIOLATIONS"}
+                      {costFirst ? (costFirst.verification?.is_feasible ? "FEASIBLE" : "VIOLATIONS") : "—"}
                     </td>
                     <td className="py-2.5 px-3 text-right text-emerald-400 font-sans">
-                      {balanced.verification?.is_feasible ? "FEASIBLE" : "VIOLATIONS"}
+                      {balanced ? (balanced.verification?.is_feasible ? "FEASIBLE" : "VIOLATIONS") : "—"}
                     </td>
                     <td className="py-2.5 px-3 text-right text-emerald-400 font-sans">
-                      {serviceFirst.verification?.is_feasible ? "FEASIBLE" : "VIOLATIONS"}
+                      {serviceFirst ? (serviceFirst.verification?.is_feasible ? "FEASIBLE" : "VIOLATIONS") : "—"}
                     </td>
                   </tr>
                 </tbody>
@@ -302,60 +339,64 @@ export function ScenarioTab() {
             </div>
           </div>
 
-          {/* Trade-off Analysis Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="p-4 rounded-xl border border-slate-800 bg-slate-900/60 space-y-2 text-xs">
-              <div className="flex items-center space-x-2 text-sky-400 font-semibold">
-                <TrendingUp className="h-4 w-4" />
-                <span>Service Premium (Service-First vs Cost-First)</span>
+          {/* Trade-off Analysis Cards (Rendered when both Cost-First and Service-First exist) */}
+          {costFirst && serviceFirst && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="p-4 rounded-xl border border-slate-800 bg-slate-900/60 space-y-2 text-xs">
+                <div className="flex items-center space-x-2 text-sky-400 font-semibold">
+                  <TrendingUp className="h-4 w-4" />
+                  <span>Service Premium (Service-First vs Cost-First)</span>
+                </div>
+                <p className="text-slate-300 text-[11px] leading-relaxed">
+                  Service-First fulfills{" "}
+                  <strong className="text-white">
+                    {(serviceFirst.metrics.total_shipped_units - costFirst.metrics.total_shipped_units).toLocaleString()} additional units
+                  </strong>{" "}
+                  at an incremental freight investment of{" "}
+                  <strong className="text-emerald-400">
+                    +${Math.max(0, serviceFirst.metrics.total_transport_cost - costFirst.metrics.total_transport_cost).toFixed(2)}
+                  </strong>.
+                </p>
               </div>
-              <p className="text-slate-300 text-[11px] leading-relaxed">
-                Service-First fulfills{" "}
-                <strong className="text-white">
-                  {(serviceFirst.metrics.total_shipped_units - costFirst.metrics.total_shipped_units).toLocaleString()} additional units
-                </strong>{" "}
-                at an incremental freight investment of{" "}
-                <strong className="text-emerald-400">
-                  +${Math.max(0, serviceFirst.metrics.total_transport_cost - costFirst.metrics.total_transport_cost).toFixed(2)}
-                </strong>.
-              </p>
-            </div>
 
-            <div className="p-4 rounded-xl border border-slate-800 bg-slate-900/60 space-y-2 text-xs">
-              <div className="flex items-center space-x-2 text-indigo-400 font-semibold">
-                <TrendingDown className="h-4 w-4" />
-                <span>Balanced Profile Trade-off</span>
+              <div className="p-4 rounded-xl border border-slate-800 bg-slate-900/60 space-y-2 text-xs">
+                <div className="flex items-center space-x-2 text-indigo-400 font-semibold">
+                  <TrendingDown className="h-4 w-4" />
+                  <span>Balanced Profile Trade-off</span>
+                </div>
+                <p className="text-slate-300 text-[11px] leading-relaxed">
+                  Balanced profile incorporates the transit penalty ($0.20/day/unit), favoring faster delivery routes to preserve product shelf life.
+                </p>
               </div>
-              <p className="text-slate-300 text-[11px] leading-relaxed">
-                Balanced profile incorporates the transit penalty ($0.20/day/unit), favoring faster delivery routes to preserve product shelf life.
-              </p>
             </div>
-          </div>
+          )}
 
           {/* Visual Chart */}
-          <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-5">
-            <h3 className="text-sm font-semibold text-white mb-4">Total Freight Cost Across Profiles ($)</h3>
-            <div className="h-64 w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={chartData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" opacity={0.6} />
-                  <XAxis dataKey="name" stroke="#64748b" fontSize={11} tickLine={false} />
-                  <YAxis stroke="#64748b" fontSize={11} tickLine={false} />
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: "#020617",
-                      borderColor: "#1e293b",
-                      borderRadius: "8px",
-                      fontSize: "12px",
-                      color: "#f8fafc",
-                    }}
-                  />
-                  <Legend wrapperStyle={{ fontSize: "11px", paddingTop: "8px" }} />
-                  <Bar dataKey="cost" name="Freight Cost ($)" fill="#10b981" radius={[4, 4, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
+          {chartData.length > 0 && (
+            <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-5">
+              <h3 className="text-sm font-semibold text-white mb-4">Total Freight Cost Across Profiles ($)</h3>
+              <div className="h-64 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={chartData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" opacity={0.6} />
+                    <XAxis dataKey="name" stroke="#64748b" fontSize={11} tickLine={false} />
+                    <YAxis stroke="#64748b" fontSize={11} tickLine={false} />
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: "#020617",
+                        borderColor: "#1e293b",
+                        borderRadius: "8px",
+                        fontSize: "12px",
+                        color: "#f8fafc",
+                      }}
+                    />
+                    <Legend wrapperStyle={{ fontSize: "11px", paddingTop: "8px" }} />
+                    <Bar dataKey="cost" name="Freight Cost ($)" fill="#10b981" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       )}
     </div>

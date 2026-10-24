@@ -4,11 +4,20 @@ import React from "react";
 import { HistoryTab } from "../components/HistoryTab";
 import { renderWithClient } from "./test-utils";
 import * as api from "../lib/api";
-import { generateShipmentsCSV } from "../lib/export";
+import { generateShipmentsCSV, sanitizeForCSV } from "../lib/export";
 
 describe("Export and History Functions", () => {
   beforeEach(() => {
     vi.restoreAllMocks();
+  });
+
+  it("neutralizes spreadsheet formula injection risks", () => {
+    // Formula characters: =, +, -, @, \t, \r
+    expect(sanitizeForCSV("=cmd|' /C calc'!A0")).toBe("'=cmd|' /C calc'!A0");
+    expect(sanitizeForCSV("@SUM(1,2)")).toBe('"\'@SUM(1,2)"');
+    expect(sanitizeForCSV("+12345")).toBe("'+12345");
+    expect(sanitizeForCSV("-danger")).toBe("'-danger");
+    expect(sanitizeForCSV("Normal Text")).toBe("Normal Text");
   });
 
   it("generates correctly formatted and escaped CSV with headers and disclaimers", () => {

@@ -1,20 +1,50 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("StockWise AI End-to-End Workflow", () => {
-  test("loads the dashboard and displays core sections", async ({ page }) => {
+test.describe("StockWise AI End-to-End Workflow & Module Navigation", () => {
+  test("loads the application shell, validates local branding, and navigates all 7 operational modules", async ({ page }) => {
+    // Navigate to root
     await page.goto("/");
 
-    // Verify main header
-    await expect(
-      page.getByRole("heading", { name: "Distribution Intelligence & Inventory Engine" })
-    ).toBeVisible();
+    // 1. Verify Top-Level Branding & Status Indicators
+    await expect(page.getByText("StockWise AI", { exact: true })).toBeVisible();
+    await expect(page.getByText("LOCAL-FIRST", { exact: true })).toBeVisible();
 
-    // Verify presence of optimizer run button
-    const runBtn = page.getByTestId("run-optimizer-btn");
-    await expect(runBtn).toBeVisible();
+    // 2. Verify Overview Dashboard
+    await expect(page.getByRole("heading", { name: "Distribution Intelligence Overview" })).toBeVisible();
+    await expect(page.getByText("Network Infrastructure")).toBeVisible();
+    await expect(page.getByText("Regional Warehouses")).toBeVisible();
+    await expect(page.getByText("Retail Destinations")).toBeVisible();
+    await expect(page.getByText("Catalog SKUs")).toBeVisible();
 
-    // Verify KPI sections
-    await expect(page.getByTestId("kpi-shipments")).toBeVisible();
-    await expect(page.getByTestId("kpi-cost")).toBeVisible();
+    // 3. Navigate to Inventory Explorer
+    await page.getByTestId("nav-tab-inventory").click();
+    await expect(page.getByRole("heading", { name: "Multi-Echelon Inventory Explorer" })).toBeVisible();
+    await expect(page.getByText("Inventory Accounting Policy:")).toBeVisible();
+
+    // 4. Navigate to Demand Forecasting
+    await page.getByTestId("nav-tab-forecasting").click();
+    await expect(page.getByRole("heading", { name: "Demand Forecasting & Backtesting Engine" })).toBeVisible();
+    await expect(page.getByText("Simulated Demand Disclosure:")).toBeVisible();
+    await expect(page.getByTestId("generate-forecast-btn")).toBeVisible();
+
+    // 5. Navigate to Replenishment Planner
+    await page.getByTestId("nav-tab-replenishment").click();
+    await expect(page.getByRole("heading", { name: "Inventory Position & Replenishment Engine" })).toBeVisible();
+    await expect(page.getByText("Operational Model Notice: Known Data Gaps (GAP-1 & GAP-2)")).toBeVisible();
+
+    // 6. Navigate to Optimizer Planner
+    await page.getByTestId("nav-tab-optimization").click();
+    await expect(page.getByRole("heading", { name: "OR-Tools Distribution Optimizer" })).toBeVisible();
+    await expect(page.getByText("Solver Formulation & Profile Controls")).toBeVisible();
+    await expect(page.getByTestId("run-optimization-submit-btn")).toBeVisible();
+
+    // 7. Navigate to Scenario Compare
+    await page.getByTestId("nav-tab-scenarios").click();
+    await expect(page.getByRole("heading", { name: "Multi-Profile Scenario Comparison" })).toBeVisible();
+    await expect(page.getByTestId("run-scenario-comparison-btn")).toBeVisible();
+
+    // 8. Navigate to Planning History
+    await page.getByTestId("nav-tab-history").click();
+    await expect(page.getByRole("heading", { name: "Planning Runs History & Audit Log" })).toBeVisible();
   });
 });
